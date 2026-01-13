@@ -1,0 +1,7 @@
+openapi: 3.0.0
+info:
+  title: USPTO packaged fallback
+  version: 0.0.0
+servers: []
+paths: {}
+components: {}

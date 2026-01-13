@@ -1,0 +1,10 @@
+[
+  {
+    "path": "/",
+    "method": "GET",
+    "tags": [],
+    "summary": "packaged placeholder",
+    "operation_id": null,
+    "host": ""
+  }
+]
