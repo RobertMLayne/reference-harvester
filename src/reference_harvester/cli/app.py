@@ -143,6 +143,10 @@ def fetch(
         help="Bulk download URLs (multi)",
     ),
     max_bulk: int = typer.Option(50, help="Max bulk downloads"),
+    max_bulk_bytes: int = typer.Option(
+        10_000_000_000,
+        help="Total bulk bytes cap per run",
+    ),
     api_sample_limit: int = typer.Option(25, help="Max API samples"),
     throttle_seconds: float = typer.Option(
         0.0,
@@ -183,6 +187,7 @@ def fetch(
             deny_bulk=deny_bulk or None,
             bulk_urls=bulk_url or None,
             max_bulk=max_bulk,
+            max_bulk_bytes=max_bulk_bytes,
             api_sample_limit=api_sample_limit,
             throttle_seconds=throttle_seconds,
             swagger_urls=swagger_url or None,

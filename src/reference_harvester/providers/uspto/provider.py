@@ -36,6 +36,7 @@ from reference_harvester.providers.uspto.local_storage import (
 from reference_harvester.registry import load_registry
 
 _DEFAULT_SEEDS = {
+    "https://data.uspto.gov/",
     "https://data.uspto.gov/apis/api-rate-limits",
     "https://data.uspto.gov/apis/api-syntax-examples",
     "https://data.uspto.gov/apis/bulk-data/download",
@@ -79,11 +80,16 @@ _DEFAULT_SEEDS = {
     "https://data.uspto.gov/apis/transition-guide/peds",
     "https://data.uspto.gov/apis/transition-guide/petitions",
     "https://data.uspto.gov/apis/transition-guide/ptab",
+    "https://bulkdata.uspto.gov/",
+    "https://bulkdata.uspto.gov/data2/",
+    "https://developer.data.uspto.gov/",
     # Additional high-signal subdomains that regularly host USPTO docs.
     "https://developer.uspto.gov/",
     "https://developer.uspto.gov/data",
     "https://developer.uspto.gov/ibd-api/swagger.json",
+    "https://api.data.uspto.gov/",
     "https://api.uspto.gov/",
+    "https://www.uspto.gov/",
 }
 
 _DEFAULT_SWAGGER_URLS = (
@@ -100,11 +106,13 @@ _ROBOTS_HOSTS = (
     "bulkdata.uspto.gov",
     "developer.uspto.gov",
     "api.uspto.gov",
+    "www.uspto.gov",
 )
 
 _DEFAULT_BULK_LISTING_URLS = (
     "https://bulkdata.uspto.gov/",
     "https://bulkdata.uspto.gov/data2/",
+    "https://bulkdata.uspto.gov/opendata/",
 )
 
 _DEFAULT_XHR_PAGES = (
@@ -371,6 +379,7 @@ class USPTOProvider(ProviderPlugin):
         allow_bulk = {h.lower() for h in opts.get("allow_bulk", []) or []}
         deny_bulk = {h.lower() for h in opts.get("deny_bulk", []) or []}
         max_bulk = int(opts.get("max_bulk", 50))
+        max_bulk_bytes = int(opts.get("max_bulk_bytes", 10_000_000_000))
         api_sample_limit = int(opts.get("api_sample_limit", 25))
         throttle_seconds = float(
             opts.get("throttle_seconds", settings.throttle_seconds)
@@ -498,6 +507,7 @@ class USPTOProvider(ProviderPlugin):
             allow_hosts=allow_bulk or allow_hosts,
             deny_hosts=deny_bulk or deny_hosts,
             max_bulk=max_bulk,
+            max_bulk_bytes=max_bulk_bytes,
             throttle_seconds=throttle_seconds,
             since=since_dt,
         )
@@ -1405,6 +1415,7 @@ class USPTOProvider(ProviderPlugin):
         allow_hosts: set[str],
         deny_hosts: set[str],
         max_bulk: int,
+        max_bulk_bytes: int,
         throttle_seconds: float,
         since: datetime | None,
     ) -> None:
@@ -1487,6 +1498,17 @@ class USPTOProvider(ProviderPlugin):
                 return resp
 
             return last_resp
+
+        def _content_length(resp: requests.Response | None) -> int | None:
+            if resp is None:
+                return None
+            try:
+                raw_len = resp.headers.get("Content-Length")
+                if raw_len is None:
+                    return None
+                return int(raw_len)
+            except (TypeError, ValueError):
+                return None
 
         def _get_with_backoff(
             url: str, prev_entry: dict[str, Any] | None = None
@@ -1591,11 +1613,23 @@ class USPTOProvider(ProviderPlugin):
             if isinstance(sha_val, str):
                 existing_shas.add(sha_val)
 
+        total_bytes = 0
+        for rec in manifest_records:
+            try:
+                total_bytes += int(rec.get("size_bytes") or 0)
+            except (TypeError, ValueError):
+                continue
+
         downloaded = 0
         failure_records: list[dict[str, Any]] = []
         for raw_url in bulk_urls:
             if downloaded >= max_bulk:
                 break
+            if max_bulk_bytes > 0 and total_bytes >= max_bulk_bytes:
+                break
+            remaining_bytes = (
+                max_bulk_bytes - total_bytes if max_bulk_bytes > 0 else None
+            )
             url = str(raw_url).strip()
             if not url or not _host_in_scope(url):
                 continue
@@ -1603,16 +1637,35 @@ class USPTOProvider(ProviderPlugin):
             if url in recorded_urls and url not in stale_urls:
                 continue
 
-            if prev_entry and url in stale_urls:
-                head_resp = _head_with_backoff(url, prev_entry)
-                if head_resp is not None and (
-                    head_resp.status_code == 304
-                    or head_resp.headers.get("ETag") == prev_entry.get("etag")
-                    or head_resp.headers.get("Last-Modified")
-                    == prev_entry.get("last_modified")
-                ):
+            head_resp = _head_with_backoff(url, prev_entry)
+            if head_resp is not None:
+                if head_resp.status_code == 304:
                     recorded_urls.add(url)
                     continue
+                if prev_entry and url in stale_urls:
+                    if head_resp.headers.get("ETag") == prev_entry.get("etag") or (
+                        head_resp.headers.get("Last-Modified")
+                        == prev_entry.get("last_modified")
+                    ):
+                        recorded_urls.add(url)
+                        continue
+
+            declared_size = _content_length(head_resp)
+            if (
+                declared_size is not None
+                and remaining_bytes is not None
+                and declared_size > remaining_bytes
+            ):
+                failure_records.append(
+                    {
+                        "url": url,
+                        "reason": "size_limit",
+                        "declared_size": declared_size,
+                        "remaining_bytes": remaining_bytes,
+                        "fetched_at": datetime.now(timezone.utc).isoformat(),
+                    }
+                )
+                continue
 
             resp = _get_with_backoff(url, prev_entry)
             if resp is None:
@@ -1631,6 +1684,17 @@ class USPTOProvider(ProviderPlugin):
             sha = hashlib.sha256(body).hexdigest()
             if sha in existing_shas:
                 continue
+            if max_bulk_bytes > 0 and total_bytes + len(body) > max_bulk_bytes:
+                failure_records.append(
+                    {
+                        "url": url,
+                        "reason": "size_limit",
+                        "size_bytes": len(body),
+                        "remaining_bytes": remaining_bytes,
+                        "fetched_at": datetime.now(timezone.utc).isoformat(),
+                    }
+                )
+                break
             dest = _path_for_url(bulk_root, url)
             if dest.suffix == "":
                 guessed = resp.headers.get("Content-Type", "").lower()
@@ -1671,6 +1735,7 @@ class USPTOProvider(ProviderPlugin):
             manifest_records.append(record)
             existing_shas.add(sha)
             recorded_urls.add(url)
+            total_bytes += len(body)
             downloaded += 1
 
         manifest_path.write_text(
