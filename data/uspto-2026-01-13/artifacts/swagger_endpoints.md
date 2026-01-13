@@ -1,0 +1,2 @@
+| path | method | tags | summary |
+| --- | --- | --- | --- |

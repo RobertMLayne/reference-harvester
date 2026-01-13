@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+<!--
+Id = $Id:  $
+URL = $URL: $
+-->
+<head>
+    <meta charset="utf-8">
+    <meta uspto.pageowner="OCCO">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>Search USPTO.gov</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://components.uspto.gov/universalheader/uhf/images/icons/favicon.ico">
+    <link rel="icon" type="image/png" href="https://components.uspto.gov/universalheader/uhf/images/icons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://components.uspto.gov/universalheader/uhf/images/icons/favicon-16x16.png" sizes="16x16">
+    <script src="https://components.uspto.gov/js/jquery/3.7.1/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="./uspto-ds/assets/css/usptostrap.min.css">
+    <link rel="stylesheet" href="./css/search-v2.css">
+    <link rel="stylesheet" href="./css/share-print.css">
+	
+    <script>window.dataLayer = window.dataLayer || [];</script>
+    <script>
+      (function () {
+
+        if ( typeof window.CustomEvent === "function" ) return false;
+
+        function CustomEvent ( event, params ) {
+          params = params || { bubbles: false, cancelable: false, detail: undefined };
+          var evt = document.createEvent( 'CustomEvent' );
+          evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+          return evt;
+        }
+
+      CustomEvent.prototype = window.Event.prototype;
+
+      window.CustomEvent = CustomEvent;
+      })();
+    </script>
+
+    <script>
+      initParams = new URLSearchParams(window.location.search);
+      if (initParams.get("source")) {
+        sessionStorage.removeItem('ranQuery');
+        sessionStorage.pageNum = 0;
+      }
+    </script>
+
+    <script src="https://components.uspto.gov/js/jquery/jquery-ui/1.14.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="//components.uspto.gov/js/ais/12-www.js"></script>
+
+    <script>
+	  window.onpopstate = function(e){
+      if (! e.state ) {
+         return;
+      }
+      freezeUI(true);
+      wwwData= e.state.wwwData;
+      pageNum = e.state.pageNum;
+      eventTargetID = e.state.eventTargetID;
+      filterVals = JSON.parse(e.state.filterVals);
+      processResults(wwwData, document.querySelector(("#" + eventTargetID)));
+      }
+    </script>
+    <script>
+      (function (w) {
+
+        w.URLSearchParams = w.URLSearchParams || function (searchString) {
+          var self = this;
+          self.searchString = searchString;
+          self.get = function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(self.searchString);
+            if (results == null) {
+                return null;
+            }
+            else {
+                return decodeURI(results[1]) || 0;
+            }
+        };
+      }
+      })(window)
+    </script>
+    <script>
+        window.Promise || document.write('<script src="//www.uspto.gov/dashboard/js/polyfill.min.js"><\/script>');
+        window.fetch || document.write('<script src="//www.uspto.gov/dashboard/js/fetch.js"><\/script>');
+        Object.entries || document.write('<script src="//www.uspto.gov/dashboard/js/object.entries.js"><\/script>');
+    </script>
+    <script>
+		(function (window) {
+		  try {
+			new MouseEvent('test');
+			return false; // No need to polyfill
+		  } catch (e) {
+				// Need to polyfill - fall through
+		  }
+
+			// Polyfills DOM4 MouseEvent
+			var MouseEventPolyfill = function (eventType, params) {
+				params = params || { bubbles: false, cancelable: false };
+				var mouseEvent = document.createEvent('MouseEvent');
+				mouseEvent.initMouseEvent(eventType,
+					params.bubbles,
+					params.cancelable,
+					window,
+					0,
+					params.screenX || 0,
+					params.screenY || 0,
+					params.clientX || 0,
+					params.clientY || 0,
+					params.ctrlKey || false,
+					params.altKey || false,
+					params.shiftKey || false,
+					params.metaKey || false,
+					params.button || 0,
+					params.relatedTarget || null
+				);
+
+				return mouseEvent;
+			}
+
+			MouseEventPolyfill.prototype = Event.prototype;
+
+			window.MouseEvent = MouseEventPolyfill;
+		})(window);
+
+    </script>
+
+    <script>
+    function fixPage() {
+      freezeUI(true);
+      wwwData = (sessionStorage.getItem("wwwData")? JSON.parse(sessionStorage.getItem("wwwData")) : "");
+      eventTargetID = sessionStorage.getItem("eventTargetID") ? sessionStorage.getItem("eventTargetID") : "searchForm";
+      searchTerm = (sessionStorage.getItem("q")? sessionStorage.getItem("q") : "");
+      filterVals = (sessionStorage.getItem("filterVals")? sessionStorage.getItem("filterVals") : [true,false,false,false,false,false]);
+      filterChange =  (filter != "") & (filter != "undefined");
+      cursorMark = (sessionStorage.getItem("cursorMark")? sessionStorage.getItem("cursorMark").valueOf() :"*");
+      searchDomain = (sessionStorage.getItem("searchDomain")? sessionStorage.getItem("searchDomain").valueOf() : 0);
+      //cursorsArray = ["",cursorMark];
+      cursorsArray = (sessionStorage.getItem('cursorsArray') ? (sessionStorage.getItem('cursorsArray')).split(',') : ["",cursorMark]);
+      pageNum = (sessionStorage.getItem("pageNum") ? sessionStorage.getItem("pageNum") : (sessionStorage.getItem('cursorsArray') ? cursorsArray.indexOf(cursorMark.valueOf())  : 0));
+      if (searchTerm != "" & ! (searchTerm === undefined)) {
+        //theForm = document.querySelector("#searchForm");
+        document.getElementById("searchInput").val=searchTerm;
+        document.getElementById("searchInput").value=searchTerm;
+        document.getElementById("filter").val = filter;
+        if (typeof $("#searchOptions option")[searchDomain] !== 'undefined') {
+          $("#searchOptions option")[searchDomain].selected=true;
+        }
+      }
+      processResults(wwwData, document.querySelector(("#" + eventTargetID)));
+    }
+    </script>
+
+    <script>if (typeof $ == 'undefined') {var $ = jQuery;}</script>
+
+
+</head>
+<body onpageshow="fixPage()">
+
+	<a class="skipnav" href="#resultsSection">
+		Skip to main content
+	</a>
+	<section class="banner" aria-label="Official government website">
+		<div class="accordion">
+			<div class="d-md-none">
+				<button id="how-you-know" class="btn accordion-btn" type="button" data-toggle="collapse" data-target="#gov-banner-demo" aria-expanded="false" aria-controls="gov-banner-demo">
+					<div class="banner-inner">
+						<img class="banner-header-flag mr-2" src="../uspto-ds/assets/img/us_flag_small.png" alt="U.S. flag" />
+						<div class="flex-fill">
+							<p class="banner-header-text">An official website of the United States government
+								<span class="expand-btn">Here’s how you know
+									<i class="material-icons">keyboard_arrow_down</i>
+								</span>
+							</p>
+						</div>
+						<span class="close-btn">
+							<i class="material-icons ">close</i>
+						</span>
+					</div>
+				</button>
+			</div>
+			<div class="d-none d-md-block">
+				<div class="banner-inner align-itens-center">
+					<img class="banner-header-flag mr-2" src="/uspto-ds/assets/img/us_flag_small.png" alt="U.S. flag" />
+					<p class="banner-header-text">An official website of the United States government</p>
+					<button class="btn banner-btn ml-2" type="button" data-toggle="collapse" data-target="#gov-banner-demo" aria-expanded="false" aria-controls="gov-banner-demo">
+						Here’s how you know
+						<i class="material-icons">keyboard_arrow_down</i>
+					</button>
+				</div>
+			</div>
+			<div class="banner-content collapse" id="gov-banner-demo">
+				<div class="row no-gutters-sm">
+					<div class="col-md-6 media">
+						<img class="banner-icon align-self-start" src="/uspto-ds/assets/img/icon-dot-gov.svg" role="img" alt="Dot gov" />
+						<div class="media-body">
+							<p>
+								<strong>The .gov means it’s official.</strong>
+								<br>
+								Federal government websites often end in .gov or .mil. Before sharing sensitive information, make sure
+								you’re on a federal government site.
+							</p>
+						</div>
+					</div>
+					<div class="col-md-6  media">
+						<img class="banner-icon align-self-start" src="/uspto-ds/assets/img/icon-https.svg" role="img" alt="Https" />
+						<div class="media-body">
+							<p>
+								<strong>The site is secure.</strong>
+								<br>
+								The <strong>https://</strong> ensures that you are connecting to the official website and that any
+								information you provide is encrypted and transmitted securely.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<header id="global-header">
+		<div class="uspto-header-top">
+			<nav class="navbar navbar-expand-lg navbar-dark">
+				<a href="https://www.uspto.gov" target="_blank" class="uspto-logo" title="United States Patent and Trademark Office - An Agency of the Department of Commerce">
+					<span class="sr-only"> United States Patent and Trademark Office </span>
+				</a>
+				<div class="ml-auto d-flex">
+					<!-- Dynamic menu zone -->
+					<!-- Do not customize this area -->
+					<div class="display-inline dyn-menuarea">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle ex-btn-inverse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="btn-text">Patents&nbsp;<span class="caret"/>
+								</span>
+								<span class="btn-icon">
+									<span class="icon uspto-icon-lightbulb"/>
+								</span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right patent-menu">
+								<li>
+									<a href="https://patentcenter.uspto.gov" target="_blank">Patent Center</a>
+								</li>
+								<li>
+									<a href="http://patft.uspto.gov/netahtml/PTO/search-bool.html" target="_blank">Search patents</a>
+								</li>
+								<li>
+									<a href="http://appft.uspto.gov/netahtml/PTO/search-bool.html" target="_blank">Patent applications search</a>
+								</li>
+								<li>
+									<a href="https://ppair-my.uspto.gov/pair/PrivatePair" target="_blank">Check private filing status</a>
+								</li>
+								<li>
+									<a href="http://portal.uspto.gov/pair/PublicPair" target="_blank">Check public filing status</a>
+								</li>
+								<li>
+									<a href="https://efs-my.uspto.gov/EFSWebUIRegistered/EFSWebRegistered" target="_blank">File patents</a>
+								</li>
+								<li>
+									<a href="https://ptab.uspto.gov/#/login" target="_blank">Patent and Trial Appeal Board</a>
+								</li>
+								<li>
+									<a href="https://assignment.uspto.gov/patent/index.html#/patent/search" target="_blank">Search assignment</a>
+								</li>
+								<li>
+									<a href="https://certifiedcopycenter.uspto.gov/app/" target="_blank">Order certified patent documents</a>
+								</li>
+								<li>
+									<a href="http://www.uspto.gov/web/offices/pac/mpep/index.html" target="_blank">Manual of Patent Examining Procedure</a>
+								</li>
+							</ul>
+						</div>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle ex-btn-inverse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="btn-text">Trademarks&nbsp;<span class="caret"/>
+								</span>
+								<span class="btn-icon">
+									<span class="icon uspto-icon-trademark"/>
+								</span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right trademark-menu">
+								<li>
+									<a href="http://tess2.uspto.gov/" target="_blank">Search trademarks</a>
+								</li>
+								<li>
+									<a href="https://www.uspto.gov/trademarks-application-process/filing-online" target="_blank">File trademark forms</a>
+								</li>
+								<li>
+									<a href="http://tsdr.uspto.gov/" target="_blank">View status, documents, and registration certificates</a>
+								</li>
+								<li>
+									<a href="http://estta.uspto.gov/" target="_blank">File Trademark Trial and Appeal Board forms</a>
+								</li>
+								<li>
+									<a href="http://ttabvue.uspto.gov/ttabvue/v" target="_blank">View Trademark Trial and Appeal Board proceedings</a>
+								</li>
+								<li>
+									<a href="https://tmog.uspto.gov/#" target="_blank">Search Trademark Official Gazette</a>
+								</li>
+								<li>
+									<a href="https://assignment.uspto.gov/trademark/index.html#/trademark/search" target="_blank">Search assignment</a>
+								</li>
+								<li>
+									<a href="https://certifiedcopycenter.uspto.gov/app/" target="_blank">Order certified trademark documents</a>
+								</li>
+								<li>
+									<a href="https://tmep.uspto.gov/RDMS/TMEP/current#/current/d1e2.html" target="_blank">View Trademark Manual of Examining Procedure</a>
+								</li>
+								<li>
+									<a href="https://idm-tmng.uspto.gov/id-master-list-public.html" target="_blank">Search the ID Manual</a>
+								</li>
+							</ul>
+						</div>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle ex-btn-inverse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="btn-text">Fees and payment&nbsp;<span class="caret"/>
+								</span>
+								<span class="btn-icon">
+									<span class="icon uspto-icon-dollar"/>
+								</span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right fees-menu">
+								<li>
+									<a href="https://fees.uspto.gov/" target="_blank">Fees Self-Service</a>
+								</li>
+								<li>
+									<a href="https://fees.uspto.gov/FinancialManager" target="_blank">Financial Manager</a>
+								</li>
+								<li>
+									<a href="https://fees.uspto.gov/MaintenanceFees" target="_blank">Patent Maintenance Fees Storefront</a>
+								</li>
+							</ul>
+						</div>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle ex-btn-inverse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="btn-text">Help&nbsp;<span class="caret"/>
+								</span>
+								<span class="btn-icon">
+									<span class="icon uspto-icon-question-circle"/>
+								</span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right fees-menu">
+								<li>
+									<a href="http://www.uspto.gov/learning-resources" target="_blank">FAQs</a>
+								</li>
+								<li>
+									<a href="http://www.uspto.gov/about-us/contact-us" target="_blank">Contact us</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- /End dynamic menu zone -->
+					<!-- Sign-in/user menu -->
+					<!-- MyUSPTO Link -->
+					<div class="btn-group">
+						<a class="btn btn-default ex-btn-inverse my-link" href="https://my.uspto.gov">
+							<span class="btn-text">MyUSPTO</span>
+							<span class="btn-icon">
+								<span class="uspto-icon-myuspto"/>
+							</span>
+						</a>
+					</div>
+				</div>
+				<!-- /.pull-right -->
+			</nav>
+		</div>
+		<div class="uspto-header-middle">
+			<div class="flex-fill">
+				<span class="navbar-brand"> Search www.uspto.gov </span>
+			</div>
+		</div>
+		<div class="uspto-header-bottom">
+			<nav class="navbar navbar-expand-md navbar-dark" aria-label="header sub navigation">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"/>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav mr-auto" id="homeLink">
+						<li class="nav-item active">
+							<a class="nav-link" href="https://www.uspto.gov">Home <span class="sr-only">(current)</span></a>
+						</li>
+					</ul>
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link" data-event-category="WWW Search Navigation" data-event-action="Blue Bar Click" data-event-label="https://www.uspto.gov/about-us/website-improvements/general-search" href="https://www.uspto.gov/about-us/website-improvements/general-search" target="_blank">Help</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+	<main class="container-fluid" id="main-content">
+		<div class="search-box">
+			<div class="card">
+				<div class="card-body">
+					<form id="searchForm" action="#" method="get" cursorMark="*">
+						<div class="input-group">
+							<div class="btn-group" id="btnGroupSearchOptions">
+								<button id="btnSearchOptions" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"> www.uspto.gov </button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" href="#" data-value="WWW" aria-description="Search facet: www.uspto.gov">www.uspto.gov</a>
+									<a class="dropdown-item" href="#" data-value="Classification" aria-description="Search facet: Patent Classification">Patent Classification</a>
+									<a class="dropdown-item" href="#" data-value="MPEP" aria-description="Search facet: Manual of Patent Examining Procedure (MPEP)">Manual of Patent Examining Procedure (MPEP)</a>
+								</div>
+							</div>
+						
+							<!--	
+							<div class="input-group-prepend">
+								<label for="searchOptions" class="sr-only">Search options</label>
+								<select class="form-control" id="searchOptions">
+									<option value="WWW">www.uspto.gov</option>
+									<option value="Classification">Patent Classification</option>
+									<option value="MPEP">Patent examining procedure (MPEP)</option>
+								</select>
+								
+							</div>
+							-->
+							<input id="searchOptions" type="hidden" value="WWW" />
+							<label class="sr-only" for="searchInput">Search text</label>
+							<input id="searchInput" type="text" name="q" maxlength="128" size="30" class="form-control ui-autocomplete-input" autocomplete="off">
+							<div class="input-group-append">
+								<button class="btn btn-primary" id="magnifyingGlass" type="submit"><span class="btn-text">Search</span></button>
+							</div>
+						</div>
+					</div>
+					<input type="hidden" id="filter" name="filter" value="">
+					<input type="hidden" id="pageNum" name="pageNum" value="">
+				</form>
+			</div>
+		</div>
+		
+		<div id="redirect-prompt" class="mt-3">
+			
+		</div>
+		
+		<div class="search-main">
+			<div class="card">
+				<div class="card-body row">
+					<div class="search-sidebar col-md-3 border-right">
+						<h3>
+							Narrow your search results
+							<button class="btn btn-search-filter-collapse show-mobile float-right" data-toggle="collapse" data-target="#search-filters" aria-expanded="true" aria-controls="search-filters">
+								<span class="material-icons">expand_more</span>
+							</button>
+						</h3>
+						<hr />
+						<div id="search-filters" class="collapse">
+							<button class="btn btn-link btn-sm mb-3" id="clearFilters" aria-label="Reset all search filters">
+								Reset all
+							</button>
+							<div id="filterByType" class="filter-section">
+								<p>
+									Include results from:
+								</p>
+								<div id="contentFilterResults" class="form-group">
+									<div class="custom-control custom-checkbox">
+										<input type="checkbox" class="custom-control-input" type-filter="0" id="type-filter0" checked />
+										<label class="custom-control-label" for="type-filter0">Web pages <span class="badge badge-light" id="type-filter0Count"></span></label>
+									</div>
+									<div class="custom-control custom-checkbox">
+										<input type="checkbox" class="custom-control-input" type-filter="1" id="type-filter1" checked />
+										<label class="custom-control-label" for="type-filter1">Documents <span class="badge badge-light" id="type-filter1Count"></span></label>
+									</div>
+								</div>
+								<button type="button" class="btn btn-outline-secondary" id="btnRefineTypeResults"><span class="btn-text">Apply</span></button> 
+							</div>
+							<div id="filterByTopic" class="filter-section">
+								<p>
+									Show only content from these topics:
+								</p>
+								<div id="filterResults" class="form-group">
+									<div class="custom-control custom-checkbox">
+										<input type="checkbox" class="custom-control-input" filter="1" id="filter1" />
+										<label class="custom-control-label" for="filter1">Patents guidance <span class="badge badge-light" id="filter1Count"></span></label>
+									</div>
+									<div class="custom-control custom-checkbox">
+										<input type="checkbox" class="custom-control-input" filter="2" id="filter2" />
+										<label class="custom-control-label" for="filter2">Trademarks guidance <span class="badge badge-light" id="filter2Count"></span></label>
+									</div>
+									<div class="collapse" id="filterCategoryCollapse">
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" filter="3" id="filter3" />
+											<label class="custom-control-label" for="filter3">News <span class="badge badge-light" id="filter3Count"></span></label>
+										</div>
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" filter="4" id="filter4" />
+											<label class="custom-control-label" for="filter4">Events <span class="badge badge-light" id="filter4Count"></span></label>
+										</div>
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" filter="5" id="filter5" />
+											<label class="custom-control-label" for="filter5">Director's Blogs <span class="badge badge-light" id="filter5Count"></span></label>
+										</div>
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" filter="6" id="filter6" />
+											<label class="custom-control-label" for="filter6">System status <span class="badge badge-light" id="filter6Count"></span></label>
+										</div>
+									</div>
+									<div class="view-more mt-3 mb-2">
+										<a id="filter_collapsed" data-toggle="collapse" href="#filterCategoryCollapse" role="button" aria-expanded="false">
+											View more <span class="material-icons">expand_more</span>
+										</a>
+										<a id="filter_expanded" data-toggle="collapse" href="#filterCategoryCollapse" role="button" aria-expanded="false">
+											View less <span class="material-icons">expand_less</span>
+										</a>
+									</div>
+								</div>
+								<button type="submit" class="btn btn-outline-secondary" id="btnRefineResults"><span class="btn-text">Apply</span></button> 
+							</div>
+						
+						</div>
+						
+					</div>
+					
+					<div class="search-results col-md-9">
+						<div class="row row-reverse">
+							<div id="other-searches" class="col-xl-3">
+								<div class="alert alert-summary no-op" role="complementary">
+								  <div class="alert-content">
+									<h4 class="alert-heading">Look up specific intellectual property information:</h4>
+									<a class="btn btn-outline-primary btn-block no-op" onclick="ipdbSearch(event);" href="https://ppubs.uspto.gov/pubwebapp/static/pages/ppubsbasic.html" target="_blank">Search for a patent</a>
+									<a class="btn btn-outline-primary btn-block no-op" onclick="ipdbSearch(event);" href="https://tmsearch.uspto.gov/" target="_blank">Search for a trademark</a>
+									<hr />
+									<a class="btn btn-outline-primary btn-block no-op" onclick="ipdbSearch(event);" href="https://www.copyright.gov/public-records/" target="_blank">Search the Copyright Office’s public catalog</a>
+								  </div>
+								</div>
+
+							</div>
+							<div id="results" class="col-xl-9 col-12">
+								<!-- results -->
+								<div id="resultsSection" aria-live="polite">
+									<h4 id="resultsCount" tabindex="-1"></h4>
+									<div id="bestBetsDeck" style="display:none" aria-description="Recommended search results">
+										<ul id="bestBetsList">
+										
+										</ul>
+									</div>
+									<div id="patentNumsDeck" style="display:none" aria-description="Search results">
+										<ul id="patentNumsList">
+										
+										</ul>
+									</div>
+									<ul id="resultsList">
+																
+									</ul>
+								</div>
+								
+								<div id="resultsPager" class="pager" style="display:none;">
+									<nav class="pagination-bar" aria-label="Search paging navigation">
+										<ul class="pagination">
+											<li class="page-item">
+												<a class="page-link md-icon" href="#" id="firstLink">
+													<i class="material-icons">first_page</i><span class="sr-only">First page</span>
+												</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link md-icon" href="#" id="prevLink">
+													<i class="material-icons">navigate_before</i><span class="sr-only">Previous page</span>
+												</a>
+											</li>
+											<li class="page-item">
+												<span class="page-link" href="#!">Page <span id="currentPageNum"></span> of <span id="pageCount"></span></span>
+											</li>
+											<li class="page-item">
+												<a class="page-link md-icon" href="#" id="nextLink">
+													<i class="material-icons">navigate_next</i><span class="sr-only">Next page</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</main>
+
+ 
+	
+	<!--Modern Page Control :: Start -->
+	<div class="bg-white" id="modern-page-control">
+		<div class="container py-4">
+		  <div class="row">
+			<!-- Helpful Not-Helpful Voting -->
+			<div id="qualhnhfeedback" class="col-md-6 col-sm-12 mb-2 helpful-page"></div>
+			<div class="col-md-6 col-sm-12  mb-2 text-left text-md-right">
+				<div class="mb-2">
+				  <a href="#" class="addthis_button" role="button"> 
+					<i class="material-icons text-primary" role="img" title="Share">share</i> <span class="align-bottom"> Share this page</span></a> &nbsp;  &nbsp; 
+				  <a href="" onclick="window.print();">
+					 <i class="material-icons text-primary" role="img" title="print">print</i> <span class="align-bottom"> Print this page</span></a>
+				</div>
+				<div> 
+					<a href="" class="text-underline" data-toggle="modal" data-target="#additionalInformationModal">Additional information</a> about this page
+				</div>
+			</div>
+		  </div>
+		</div>
+	</div>
+	<!--Additional information modal :: Start-->
+	<div class="modal" tabindex="-1" role="dialog" id="additionalInformationModal"  aria-hidden="true">
+		<div class="modal-dialog  modal-dialog-centered">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title">Additional information about this page</h5>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+			</div>
+			<div class="modal-body">
+			  <div><strong>Owned by: </strong> <span id="qualPageOwner">Office of the Chief Communications Officer</span></div>
+			  <div id="qualTestFeedback"></div>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <!--Additional information modal :: End -->
+	<!--Modern Page Control :: End  --> 
+
+	<!-- Modern Footer :: Start -->
+	<footer id="modern-footer">
+	  <div class="bg-light" id="modern-footer-top">
+		<div class="container py-4">
+		  <div class="row">
+			<div class="col-sm-12 col-lg-5 offset-0 offset-lg-1 order-0 order-lg-1 mt-lg-2">
+			  <h3>Receive updates from the USPTO</h3>
+			  <div class="form-group mt-3">
+				 <!-- GD :: Start -->
+				  <form target="_blank" action="https://public.govdelivery.com/accounts/USPTO/subscribers/qualify" accept-charset="UTF-8" method="post">
+					<input name="utf8" type="hidden" value="✓">
+					<input type="hidden" name="authenticity_token" value="zbgeT0qCygfdgg2U90dmXm8AZHXnxMw9SnQzWA9460JNoIDuSfiIvMkaTLjJV85qCsCkL+9kMYg0HkB78Dq/pg==">
+					<label for="email">Enter your email to subscribe or update your preferences</label>
+					<div class="input-group">
+						<input type="text" class="form-control col-sm-9 col-md-7 col-lg-12" id="email" name="email" placeholder="your@email.com">
+						<div class="input-group-append">
+							<button class="btn btn-primary" name="commit" type="submit" value="Subscribe"> Subscribe </button>
+						</div>
+				</div>
+				  </form>
+				  <!-- GD :: End -->
+			  </div>
+			</div>
+			<div class="col-sm-12 col-lg-6 order-1 order-lg-0 mt-2">
+				<div class="bottomBorder pb-3 mb-3">
+					<span><a href="https://www.uspto.gov/about-us">About the USPTO</a></span>
+					<span><a href="https://www.uspto.gov/patents/search">Search for patents</a></span>
+					<span><a href="https://www.uspto.gov/trademarks/search">Search for trademarks</a></span>
+				</div>
+			  <div class="row">
+				<div class="col-lg-6 col-md-12">
+				  <div class="mb-1"><a href="https://www.commerce.gov" target="_blank">US Department of Commerce</a></div>
+				  <div class="mb-1"><a href="https://www.uspto.gov/using-usptogov/accessibility-uspto-website">Accessibility</a></div>
+				  <div class="mb-1"><a href="https://www.uspto.gov/privacy-policy">Privacy Policy</a></div>
+				  <div class="mb-1"><a href="https://www.uspto.gov/about-us/financial-and-performance">Financial and Performance Data</a></div>
+				</div>
+				<div class="col-lg-6 col-md-12">
+				  <div class="mb-1"><a href="https://www.uspto.gov/learning-and-resources/ip-policy/electronic-freedom-information-act-e-foia">Freedom of Information Act</a></div>
+				  <div class="mb-1"><a href="https://www.oig.doc.gov/Pages/U.S.-Patent-and-Trademark-Office.aspx" target="_blank">Inspector General</a></div>
+				  <div class="mb-1"><a href="https://www.uspto.gov/about-us/organizational-offices/office-equal-employment-opportunity-and-diversity/nofear-act">NoFEAR Act</a></div>
+				  <div class="mb-1"><a href="https://www.usa.gov" target="_blank">USA.gov</a></div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="bg-dark" id="modern-footer-bottom">
+		<div class="container">
+		  <div class="row py-4">
+			<div class="col-md-6 col-sm-12 text-md-left text-center mt-2"><a href="https://www.uspto.gov" class="uspto-footer-log" role="img" title="United States Patent and Trademark Office - An Agency of the Department of Commerce"></a></div>
+			<div class="col-md-6 col-sm-12 text-md-right  text-center mt-2"> 
+				<span class="d-md-inline-block d-block mt-3 mt-md-0 pt-0 pr-2 mb-2 mb-md-0 text-white">Follow us</span> 
+				<span class="d-inline-block align-middle">
+					<a href="https://www.facebook.com/uspto.gov" target="_blank" class="icon icon-facebook" role="img" title="Facebook"></a>
+					<a href="https://www.instagram.com/uspto" target="_blank" class="icon icon-instagram" role="img" title="Instagram"></a>
+					<a href="https://www.linkedin.com/company/uspto"  target="_blank" class="icon icon-linkedin" role="img" title="Linkedin"></a>
+					<a href="https://twitter.com/uspto" target="_blank" class="icon icon-twitter" role="img" title="Twitter"></a>
+					<a href="https://www.youtube.com/user/USPTOvideo" target="_blank" class="icon icon-youtube" role="img" title="Youtube"></a>
+				  </span>
+			 </div>
+		  </div>
+		</div>
+	  </div> 
+	</footer>
+	<!--Modern Footer :: End -->
+
+
+    <script src="./uspto-ds/assets/js/fetchHeaderMenu.js"></script>
+	<script src="https://components.uspto.gov/json/dynamic-trans-menu-2.0.0.js"></script>
+	<script src="./js/bootstrap.bundle.min.js"></script>
+	<script src="./uspto-ds/assets/js/all.min.js"></script>
+    <script src="./js/search.js"></script>
+
+	<script src="./js/search-setup.js"></script>
+
+    <script src="./js/search-filter.js"></script>
+
+    <script src="./js/sharethis.js"></script>
+
+    <script src="./js/search-autocomplete.js" defer></script>
+</body>
+</html>

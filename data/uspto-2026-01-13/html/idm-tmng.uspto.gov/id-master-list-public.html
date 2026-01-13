@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Changes IE 8 document mode to "standards," but browser mode still defaults to
+        "compatibility" because of default "display intranet sites in compatibility mode" -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>TMNG | IDML</title>
+    <script>
+        window.less = { relativeUrls : true };
+    </script>
+    <style class="pn-theme">
+        body {
+            /* Should eventually have a better way, but until then, just hide the body until less
+                finishes compiling */
+            visibility: hidden;
+        }
+    </style>
+    <style>
+        .pane-content, .pane-snippet-url {
+            visibility: hidden;
+            display: none;
+        }
+        .button {
+            background-color: #d3d3d3;
+            cursor: pointer;
+            border-radius: 7px;
+        }
+        .button:hover {
+            border: #696969;
+            background-color: #747474;
+        }
+        .button:active {
+            border: #87ceeb;
+            background-color: #00008b;
+            color: white;
+        }
+        .results-table .docket tbody tr td {
+           word-break: break-word;
+            white-space:normal;
+        } 
+    </style>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" type="text/css" href="libs/ui-toolkit/css/lteie8.css">
+    <![endif]-->
+	 <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/simplePagination.css">
+    <link rel="stylesheet" href="libs/font-awesome-4.3.0/css/font-awesome.min.css">
+</head>
+<body class="no-bg public">
+<label style="display: none">Theme
+    <select name="pn-theme">
+        <option value="css/theme/vanilla.less">Default</option>
+    </select>
+</label>
+
+<!-- Pneumatic dependencies -->
+<script src="libs/ui-toolkit/js/lib/shims.js"></script>
+<!--[if gte IE 9]><!-->
+<script src="libs/ui-toolkit/js/lib/jquery-3.5.0.js"></script>
+<!--<![endif]-->
+<script src="libs/ui-toolkit/js/lib/jquery.datetimepicker.js"></script>
+<script>
+    jQuery.migrateTrace = false;
+</script>
+<script src="libs/ui-toolkit/js/lib/less-1.7.5.min.js" type="text/javascript"></script>
+<script src="libs/ui-toolkit/js/lib/xdate.js"></script>
+<script src="libs/ui-toolkit/js/lib/md5.js"></script>
+<!--[if gte IE 10]><!-->
+<script src="libs/ui-toolkit/js/lib/FileSaver.js"></script>
+<script src="libs/ui-toolkit/js/lib/zip/zip.js"></script>
+<script>
+    zip.workerScriptsPath = 'libs/ui-toolkit/js/lib/zip/';
+</script>
+<!--<![endif]-->
+<!-- tmng libraries -->
+<script src="libs/tmngui-toolkit.js"></script>
+<script src="libs/jquery.truncator.js"></script>
+<script src="libs/typo-lint.js"></script>
+<!-- tmng -->
+<script src="js/idm.js"></script>
+<script src="js/patsy-extensions.js"></script>
+<script src="js/patsies.js"></script> <!-- must go before anything that calls a patsy -->
+<script src="js/patsies-synthesized.js"></script>
+<script src="js/user-prefs.js"></script>
+<script src="js/alerts.js"></script>
+<!-- idm libraries -->
+<script src="libs/purl.js"></script>
+<script src="libs/date.js"></script>
+<script src="libs/jquery.placeholder.js"></script>
+<script src="libs/jquery.simplePagination.js"></script>
+<!-- idm scripts -->
+<script src="js/idml.js"></script>
+<script src="libs/jstorage/jstorage.js"></script>
+<script src="js/nonauthorization.js"></script>
+<script src="js/NonIDMAuth.js"></script>
+<!--ckeditor-->
+<script src="libs/ckeditor/ckeditor.js"></script>
+<!--jstorage-->
+
+<script src='libs/require.js'></script>
+
+<a class="snippet" href="modules/public/public-header.html">USPTO Public Header</a>
+<a class="snippet" href="modules/public/public-navbar.html">USPTO Public Navigation Bar</a>
+<script>
+    if (window.opener) {
+            $(document.body).addClass('child-window');
+    }
+</script>
+<script>
+
+    checkForXssInjection(window.location.href)
+
+	var resize = function () {
+        $('.view').height(window.innerHeight - $('.page-header').outerHeight() - $('.navbar-default').outerHeight());
+
+        var height = $('.view').innerHeight() - $('.banner').outerHeight();
+        $('.view > .body').height(height);
+        $('.main-container').height(height);
+        $('#wrapper .sidebar').innerHeight(height);
+    };
+    resize();
+
+    // start workaround for scrollbars not appearing sometimes
+    setTimeout(resize, 3000);
+    $(window).on('load', function () {
+        resize();
+        setTimeout(resize, 3000);
+    });
+    // end workaround for scrollbars not appearing sometimes
+
+    $(window).on('resize', function () {
+        resize();
+    });
+
+    var load = function () {
+        var $body = $('body');
+        var url = '';
+        if (location.search !== '' && location.search !== undefined && location.search !== null) {
+            url = location.search + '&referrer=public&prevSearch=true';
+        } else {
+            url = '?referrer=public';
+        }
+        pn.snip.load('modules/search/search-results.html' + url, function (snippet) {
+            snippet.find('.public-broadcast-msg-dropdown, .basic-search, .tab-actions-menu, .search-criteria-popup').hide();
+			snippet.find('.public-broadcast-msg-dropdown').hide();
+			snippet.find('.search-results-wrapper').hide();
+			snippet.find('.public-print-btn').hide();
+			snippet.find('.tab-download-menu').hide(); 
+			snippet.find('.banner').removeClass('display-criteria');
+			snippet.find('.banner').css({'height' : '57px'});
+			snippet.find('.banner').css('background-color', '#FFFFFF');
+			$body.append(snippet);
+            resize();
+        });
+    };
+    $.jStorage.deleteKey('access_token')
+    window.idm.authorization.promise.done(function () {
+        load();
+    });
+</script>
+<script>
+    if (!window.location.hostname.match(/localhost/g)) { // don't initialize the google analytics   on localhost
+      let environment = (window.location.hostname.indexOf('etc') > -1) ? 'PVT' : 'PROD';
+      if(environment==='PVT'){
+          document.write('<script async src="https://pvt-components.etc.uspto.gov/js/ais/32-tmng-idm.js"><\/script>');
+      }
+      else if(environment==='PROD'){
+          document.write('<script async src="https://components.uspto.gov/js/ais/32-tmng-idm.js"><\/script>');
+      }
+}
+</script>
+</body>
+</html>

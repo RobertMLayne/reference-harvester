@@ -1,0 +1,593 @@
+
+	
+
+<html>
+<!-- Head -->
+<head>
+	<script language="javascript" src="js/menufunctions.js"></script>
+	<script type="text/javascript" src="js/google-analytics.js"></script>
+	<script language="javascript" src="js/swapimage.js"></script>
+	<script type="text/javascript" src="js/jquery-1.5.min.js"></script>
+	<link href="css/index.css" rel="stylesheet" type="text/css" media="all"></link>
+	<title>United States Patent &amp; Trademark Office</title>
+
+	<script>
+	//reloads the window if Nav4 resized
+	MM_reloadPage(true);
+
+	/** MIN/MAX/RESTORE BUTTONS
+	*Handle events after the document was initialized
+	*/
+	$(document).ready(function(){
+		$("#rest1").hide();
+		$("#rest2").hide();
+		var usptoInfoWidth = $("#usptoInfo").width();
+		var emSearchPanelWidth = $("#emSearchPanel").width();
+		var maxWidth = usptoInfoWidth + emSearchPanelWidth;
+		var windowWidth = $(window).width();
+		var margin = windowWidth - maxWidth;
+		var TO = false;
+
+		/**
+		*Handle window resizing event
+		*/
+		$(window).resize(function()
+		{  if(TO !== false)
+			clearTimeout(TO);  TO = setTimeout(updateWidth, 200);
+			//200 is time in miliseconds
+			//While the window is resizing, the updateWidth function will be called after each 200ms
+		});
+
+		/**
+		*Update the new maximum size of the display content
+		*Update the new size of a left panel and a right panel when they are in maximized status
+		*/
+		function updateWidth(){
+			maxWidth = Math.abs($(window).width() - margin);
+			emSearchPanelWidth = maxWidth - usptoInfoWidth;
+			$("#emSearchPanel").width(emSearchPanelWidth);
+			if(!$("#emSearchPanel").is(":visible")){
+				$("#usptoInfo").width(maxWidth);
+			}
+			else if(!$("#usptoInfo").is(":visible")){
+				$("#emSearchPanel").width(maxWidth);
+			}
+		}
+
+		/**
+		*@param event -> mouse click
+		*Handle event when minimize button of a left panel was clicked
+		*/
+		$("#min1").click(function (event){
+			$("#usptoInfoBody").hide();
+			$(this).hide();
+			$("#rest1").show();
+			$("#max1").show();
+			$("#emSearchPanel").show();
+			$("#usptoInfo").width(usptoInfoWidth);
+		});
+
+		/**
+		*@param event -> mouse click
+		*Handle event when restore button of a left panel was clicked
+		*/
+		$("#rest1").click(function (event){
+			$("#usptoInfoBody").show();
+			$(this).hide();
+			$("#min1").show();
+			$("#max1").show();
+			$("#emSearchPanel").show();
+			$("#usptoInfo").width(usptoInfoWidth);
+			$("#emSearchPanel").width(emSearchPanelWidth);
+		});
+
+		/**
+		*@param event -> mouse click
+		*Handle event when maximize button of a left panel was clicked
+		*/
+		$("#max1").click(function (event){
+			$("#usptoInfoBody").show();
+			$(this).hide();
+			$("#min1").show();
+			$("#rest1").show();
+			$("#emSearchPanel").hide();
+			$("#usptoInfo").width(maxWidth);
+		});
+
+		/**
+		*@param event -> mouse click
+		*Handle event when minimize button of a right panel was clicked
+		*/
+		$("#min2").click(function (event){
+			$("#emSearchPanelBody").hide();
+			$(this).hide();
+			$("#rest2").show();
+			$("#max2").show();
+			$("#usptoInfo").show();
+			$("#emSearchPanel").width(emSearchPanelWidth);
+		});
+
+		/**
+		*@param event -> mouse click
+		*Handle event when restore button of a right panel was clicked
+		*/
+		$("#rest2").click(function (event){
+			$("#emSearchPanelBody").show();
+			$(this).hide();
+			$("#min2").show();
+			$("#max2").show();
+			$("#usptoInfo").show();
+			$("#emSearchPanel").width(emSearchPanelWidth);
+		});
+
+		/**
+		*@param event -> mouse click
+		*Handle event when maximize button of a rigth panel was clicked
+		*/
+		$("#max2").click(function (event){
+			$("#emSearchPanelBody").show();
+			$(this).hide();
+			$("#min2").show();
+			$("#rest2").show();
+			$("#usptoInfo").hide();
+			$("#emSearchPanel").width(maxWidth);
+		});
+	});
+
+
+    </script>
+
+
+</head><!-- Head -->
+
+
+<!--  Body -->
+<body leftmargin="0" topmargin="0" marginheight="0" marginwidth="0">
+
+<script language="JavaScript" type="text/JavaScript">
+
+
+
+</script>
+
+    <div id="main">
+        <div id="header">
+        		<p><strong>Employee Search</strong></p>
+            	
+                
+                <a href="http://www.uspto.gov"><img src="images/headerbkgrd.jpg" alt="%{usptoURL}" usemap="#logo"/>
+                <map name="logo" id="logo">
+                <area shape="rect" coords="8,13,422,104" href="%{usptoURL}" alt="%{docURL}" />
+                <area shape="rect" coords="86,105,354,120" href="%{docURL}" alt="%{docURL}" />
+                </map></a>
+        </div><!-- Header -->
+             <div id="breadcrumb">
+             	<script language="JavaScript" type="text/JavaScript">
+             		var ez_Menu = new Array();
+
+                    ez_Menu[0]= new Array("Portal Home"+"^"+"http://portal.uspto.gov/external/portal/home", "!|", "Patents"+"^"+"http://portal.uspto.gov/external/portal/home"+"^1", "!|", "Trademarks"+"^"+"http://tmportal.uspto.gov/external/portal/home"+"^2", "!|", "Other"+"^"+"http://portal.uspto.gov/external/portal/home"+"^3");
+             	    ez_Menu[1]= new Array("eFile (Unregistered)"+"^"+"https://efs.uspto.gov/efile/portal/efs-unregistered", "eFile (Registered)"+"^"+"https://efs.uspto.gov/efile/myportal/efs-registered", "Public Pair"+"^"+"http://portal.uspto.gov/external/portal/pair", "Private Pair"+"^"+"https://ppair.uspto.gov/epatent/myportal/privatepair", "Other"+"^"+"http://www.uspto.gov/ebc/index.html");
+             		ez_Menu[2]= new Array("Document Retrieval"+"^"+"http://tmportal.uspto.gov/external/portal/tow", "US Registration Certificates"+"^"+"http://tmportal.uspto.gov/external/portal/registrationcert", "Other"+"^"+"http://www.uspto.gov/ebc/indexebc.html");
+             		ez_Menu[3]= new Array("Employee Locator"+"^"+"http://portal.uspto.gov/external/portal/emlocator", "Digital Certificate Management"+"^"+"https://sas.uspto.gov/ptosas/index.html");
+
+             	</script>
+                <script language="JavaScript" src="js/ezdata.js"></script>
+        		<script language="JavaScript"> ez_codePath = "js/"; </script>
+        		<script language="JavaScript">
+        		document.write("<SCR" + "IPT SRC='" + ez_codePath + "ezloader.js'><\/SCR" + "IPT>"); </script>
+               	<script language="javascript">menusGo();</script>
+               	<script> showPermPanel('Main', 0, 140);</script>
+        	<noscript>
+        	   <table border="0" cellpadding="0" cellspacing="0">
+        		<tr>
+        		  <td valign="top"><a href="http://portal.uspto.gov/external/portal/home">Portal Home</a></td>
+        		  <td valign="top">
+        		      <ul>
+        		          <li><a href="http://portal.uspto.gov/external/portal/home">Patents</a></li>
+        		          <li><a href="https://efs.uspto.gov/efile/portal/efs-unregistered">eFile (Unregistered)</a></li>
+        		          <li><a href="https://efs.uspto.gov/efile/myportal/efs-registered">eFile (Registered)</a></li>
+        		          <li><a href="http://portal.uspto.gov/external/portal/pair">Public Pair</a></li>
+        		          <li><a href="https://ppair.uspto.gov/epatent/myportal/privatepair">Private Pair</a></li>
+                  		  <li>Other</li>
+        		      </ul>
+        		  </td>
+        		  <td valign="top">
+        		      <ul>
+        		         <li><a href="http://tmportal.uspto.gov/external/portal/home">Trademarks</a></li>
+        		         <li><a href="http://tmportal.uspto.gov/external/portal/tow">Document Retrieval</a></li>
+        		         <li><a href="http://tmportal.uspto.gov/external/portal/registrationcert">US Registration Certificates</a></li>
+         			   	 <li><a href="http://www.uspto.gov/ebc/indexebc.html">Other</a></li>
+        		      </ul>
+        		  </td>
+        		  <td valign="top">
+        		      <ul>
+        		          <li><a href="http://portal.uspto.gov/external/portal/home">Other</a></li>
+        		         <li><a href="http://portal.uspto.gov/external/portal/emlocator" target="_blank">Employee Locator</a></li>
+        		         <li><a href="https://sas.uspto.gov/ptosas/index.html">Digital Certificate Management</a></li>
+        		      </ul>
+        		  </td>
+
+        		</tr>
+        	 </table>
+               </noscript>
+        	   <br>
+            </div><!-- Breadcrumb -->
+            <div id="content">
+
+
+            <table width="100%">
+            	<tr>
+            		<td>
+
+            		  
+
+            		   <div class="divErrMsg" align="center">
+
+            				
+            							<html:errors/>
+            							
+
+            							
+            			</div>
+            			<div class="divInfoMsg" align="center">
+            							
+
+            			</div>
+            		</td>
+            	</tr>
+            </table>
+
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center"><tr height="100%">
+<td valign="top" width="200">
+
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr><td width="100%" valign="top">
+
+<table id="usptoInfo" border="0" width="100%" cellpadding="0" cellspacing="5">
+    <tr>
+	   <td>
+		  <table class="emSearchBody" border="0" width="100%" height="100%" cellpadding="0" cellspacing="0">
+			 <tr id="usptoInfoHead" height="1" >
+				<td colspan="3">
+				    <table border="0" height="22" width="100%" cellpadding="0" cellspacing="0">
+					   <tr>
+						  <td class="blueShadow" valign="top" align="right"><img alt="" border="0" src='images/corner_rtl.gif'></td>
+						  <td class="blueShadow" width="1" ><img alt="" border="0" width="1" height="1" src='images/dot.gif'/></td>
+						  <td class="blueShadow" width="100%" nowrap align="left" valign="middle">&nbsp;&nbsp;
+							 USPTO Information
+						  </td>
+						  <td class="blueShadow"><a id="min1" href="#"><img valign="middle" src="images/title_minimize.gif" alt="Minimize" title="Minimize" align="right" border="0"></a></td>
+						  <td class="blueShadow"><a id="rest1" href="#"><img valign="middle" src="images/title_restore.gif" alt="Restore" title="Restore" align="right" border="0"></a></td>
+						  <td class="blueShadow"><a id="max1" href="#"><img valign="middle" src="images/title_maximize.gif" alt="Maximize" title="Maximize" align="right" border="0"></a></td>
+
+
+						  <td class="blueShadow" width="1" ><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+						  <td class="blueShadow" valign="top" align="right"><img alt="" border="0" src='images/corner.gif'></td>
+					   </tr>
+				    </table>
+				</td>
+			 </tr>
+
+				<tr id="usptoInfoBody" height="100%" >
+				    <td bgcolor="#000000" width="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+				    <td width="100%" height="100%" valign="top">
+					   <table border="0" width="100%" cellpadding="0" cellspacing="0">
+						   <tr height="1">
+							  <td width="1" height="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+						   </tr>
+				    	   </table>
+					   <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+						  <tr>
+							 <td dir="ltr" height="100%" valign="top">
+								<!-- This JSP is for PROD -->
+
+								<script language="javascript">
+
+								  menu['employeeofficedirectories']      = new Object;
+								  menu['employeeofficedirectories'].div  = "USPTOInformation0";
+								  menu['employeeofficedirectories'].show = "<div id=\"USPTOInformation0\"><a href=\"javascript:hideMenu('employeeofficedirectories')\" ><img src=\'images/navigationexpanded.gif\' alt=\"Click here to collapse this section\" title=\"Click here to collapse this section\" /><strong>"+"Employee &amp; Office Directories"+"</strong></a><br /><div style='padding-left:10px;background-color:#D9D9D9;'>"+"<a href=http://portal.uspto.gov/external/portal/emlocator target=_blank>Employee Locator</a>"+"<br />"+"<a href=http://www.uspto.gov/about/contacts/organizationalcodes.jsp target=_blank>Valid Location Codes</a>"+"<br/>"+"<a href=http://www.uspto.gov/about/contacts/phone_directory/index.jsp target=_blank>Telephone Directory</a>"+"</div></div>";
+								  menu['employeeofficedirectories'].hide = "<div id=\"USPTOInformation0\"><a href=\"javascript:showMenu('employeeofficedirectories')\" ><img src=\'images/navigationcollapsed.gif\' alt=\"Click here to expand this section\" title=\"Click here to expand this section\" />"+"Employee &amp; Office Directories"+"</a></div>";
+
+								  menu['resourcespublicnotices']      = new Object;
+								  menu['resourcespublicnotices'].div  = "USPTOInformation1";
+								  menu['resourcespublicnotices'].show = "<div id=\"USPTOInformation1\"><a href=\"javascript:hideMenu('resourcespublicnotices')\" ><img src=\'images/navigationexpanded.gif\' alt=\"Click here to collapse this section\" title=\"Click here to collapse this section\" /><strong>"+"Resources &amp; Public Notices"+"</strong></a><br /><div style='padding-left:10px;background-color:#D9D9D9;'>"+"<a href=http://www.uspto.gov/news/index.jsp target=_blank>News, Federal Register &amp; OG Notices</a>"+"<br/>"+"<a href=http://www.uspto.gov/products/library/ptdl/index.jsp target=_blank>PTDL Program</a>"+"</div></div>";
+								  menu['resourcespublicnotices'].hide = "<div id=\"USPTOInformation1\"><a href=\"javascript:showMenu('resourcespublicnotices')\" ><img src=\'images/navigationcollapsed.gif\' alt=\"Click here to expand this section\" title=\"Click here to expand this section\" />"+"Resources &amp; Public Notices"+"</a></div>";
+
+								  menu['copiesproductsservices']      = new Object;
+								  menu['copiesproductsservices'].div  = "USPTOInformation2";
+								  menu['copiesproductsservices'].show = "<div id=\"USPTOInformation2\"><a href=\"javascript:hideMenu('copiesproductsservices')\" ><img src=\'images/navigationexpanded.gif\' alt=\"Click here to collapse this section\" title=\"Click here to collapse this section\" /><strong>"+"Copies, Products &amp; Services"+"</strong></a><br/><div style='padding-left:10px;background-color:#D9D9D9;'>"+"<a href=http://ebiz1.uspto.gov/oems25p/index.html target=_blank>Order Copies &amp; Publications Online</a>"+"<br />"+"<a href=http://www.uspto.gov/products/index.jsp target=_blank>Other Products &amp; Services</a>"+"</div></div>";
+								  menu['copiesproductsservices'].hide = "<div id=\"USPTOInformation2\"><a href=\"javascript:showMenu('copiesproductsservices')\" ><img src=\'images/navigationcollapsed.gif\' alt=\"Click here to expand this section\" title=\"Click here to expand this section\" />"+"Copies, Products &amp; Services"+"</a></div>";
+
+								</script>
+									<div id="USPTOInformation" class="leftNav">
+									       <script language="javascript">
+									          document.write("<div id=\"USPTOInformation0\"><a href=\"javascript:showMenu('employeeofficedirectories')\"><img src=\'images/navigationcollapsed.gif\' alt=\"Click here to expand this section\" title=\"Click here to expand this section\" />"+"Employee &amp; Office Directories"+"</a></div>");
+									          document.write("<div id=\"USPTOInformation1\"><a href=\"javascript:showMenu('resourcespublicnotices')\"><img src=\'images/navigationcollapsed.gif\' alt=\"Click here to expand this section\" title=\"Click here to expand this section\" />"+"Resources &amp; Public Notices"+"</a></div>");
+									          document.write("<div id=\"USPTOInformation2\"><a href=\"javascript:showMenu('copiesproductsservices')\"><img src=\'images/navigationcollapsed.gif\' alt=\"Click here to expand this section\" title=\"Click here to expand this section\" />"+"Copies, Products &amp; Services"+"</a></div>");
+									       </script>
+									       <noscript>
+									        <div id="USPTOInformation0"><a><strong>Employee &amp; Office Directories</strong></a><br/>
+									            <div style='padding-left:10px;background-color:#D9D9D9;'><a href="http://portal.uspto.gov/external/portal/emlocator" target="_blank">Employee Locator</a><br /><a href=http://www.uspto.gov/about/contacts/organizationalcodes.jsp target=_blank>Valid Location Codes</a><br /><a href=http://www.uspto.gov/about/contacts/phone_directory/index.jsp target=_blank>Telephone Directory</a></div>
+									        </div>
+									        <div id="USPTOInformation1"><a><strong>Resources &amp; Public Notices</strong></a><br/>
+									           <div style='padding-left:10px;background-color:#D9D9D9;'>
+									           <p>
+									              <a href=http://www.uspto.gov/news/index.jsp target=_blank>News, Federal Register &amp; OG Notices</a><br/>
+									              <a href=http://www.uspto.gov/products/library/ptdl/index.jsp target=_blank>PTDL Program</a>
+									           </p>
+									          </div>
+									        </div>
+									        <div id="USPTOInformation2"><a><strong> Copies, Products &amp; Services</strong></a><br/>
+									          <div style='padding-left:10px;background-color:#D9D9D9;'>
+									               <a href=http://ebiz1.uspto.gov/oems25p/index.html target=_blank>Order Copies &amp; Publications Online</a><br/><a href=http://www.uspto.gov/products/index.jsp target=_blank>Other Products &amp; Services</a>
+									          </div>
+									        </div>
+									      </noscript>
+									</div><br />
+									<div class="blueShadow"> Other</div>
+									<div id="Other" class="leftNav">
+										<div><a href="http://www.uspto.gov/main/profiles/copyright.htm" target="_blank">Copyrights</a></div>
+										<div><a href="http://www.uspto.gov/trademarks/index.jsp" target="_blank">Trademarks</a></div>
+										<div><a href="http://www.uspto.gov/main/policy.htm" target="_blank">Policy &amp; Law</a></div>
+										<div><a href="http://www.uspto.gov/main/checkstatus.htm" target="_blank">Reports</a></div>
+									</div>
+							 </td>
+						  </tr>
+					  </table>
+					  <table border="0" width="100%" cellpadding="0" cellspacing="0">
+						  <tr height="1">
+						       <td width="100%" height="2"><img alt="" border="0" width="1" height="2" src='images/dot.gif'></td>
+					   	  </tr>
+					   </table>
+				    </td>
+				    <td bgcolor="#000000" width="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+				</tr>
+				<tr height="1">
+				    <td bgcolor="#000000" width="1" height="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+				    <td bgcolor="#000000" height="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+				    <td bgcolor="#000000" width="1" height="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+				</tr>
+		  </table>
+	   </td>
+    </tr>
+</table>
+</td></tr>
+</table>
+</td>
+
+<td valign="top" >
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr><td width="100%" valign="top">
+
+<table border="0" width="100%" cellpadding="0" cellspacing="5">
+    <tr>
+	   <td>
+		  <table id="emSearchPanel" border="0" width="100%" height="100%" cellpadding="0" cellspacing="0">
+			 <tr height="1">
+				<td colspan="3">
+				    <table border="0" height="22" width="100%" cellpadding="0" cellspacing="0">
+					   <tr>
+						  <td class="blueShadow" valign="top" align="right"><img alt="" border="0" src='images/corner_rtl.gif'></td>
+						  <td class="blueShadow" width="1" ><img alt="" border="0" width="1" height="1" src='images/dot.gif'/></td>
+						  <td class="blueShadow" width="100%" nowrap align="left" valign="middle">&nbsp;&nbsp;
+							 Employee Search
+						  </td>
+
+						  <td class="blueShadow"><a id="min2" href="#"><img valign="middle" src="images/title_minimize.gif" alt="Minimize" title="Minimize" align="right" border="0"></a></td>
+						  <td class="blueShadow"><a id="rest2" href="#"><img valign="middle" src="images/title_restore.gif" alt="Restore" title="Restore" align="right" border="0"></a></td>
+						  <td class="blueShadow"><a id="max2" href="#"><img valign="middle" src="images/title_maximize.gif" alt="Maximize" title="Maximize" align="right" border="0"></a></td>
+
+						  <td class="blueShadow" width="1" ><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+						  <td class="blueShadow" valign="top" align="right"><img alt="" border="0" src='images/corner.gif'></td>
+					   </tr>
+				    </table>
+				</td>
+			 </tr>
+			 <tr id="emSearchPanelBody" height="100%">
+			    <td bgcolor="#000000" width="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+			    <td width="100%" height="100%" valign="top">
+				   <table border="0" width="100%" cellpadding="0" cellspacing="0">
+					   <tr height="1">
+						  <td width="1" height="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+					   </tr>
+			    	   </table>
+				   <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+					  <tr>
+						 <td dir="ltr" height="100%" valign="top">
+
+							<!--BEGIN: EFS portlet code area -->
+
+
+                                <div id="fullinsert">
+									<div id="emsearch">
+										<div class="borderedGray">&nbsp;&nbsp;Conduct Employee Locator Search</div>
+										<div id="searchtabinclude" align="left">
+											<img src="images/imageemp_on.gif" alt="Employee Locator" border="0" height="36"	hspace="0" vspace="0" width="85">
+										</div>
+										<form id="uspto_EmployeeSearch_Result" name="uspto_EmployeeSearch_Result" action="/EmployeeSearch/uspto_EmployeeSearch_Result.action;jsessionid=pzAi-rAV_LKCLfw2dZYV7cAaSIbq-aHTfeSMM1EQ.cedrin-es-wld-2" method="post">
+											<div class="borderedGray" align="left">Search by Name</div>
+											<div>
+												<br> Enter either the<strong> first few letters</strong> of the <strong>Last Name</strong> or <br> Enter a <strong>complete </strong>Last Name followed by a<strong> SPACE</strong> and at least the <strong>first	initial</strong> of the First Name. <br> <br>
+												<table border="0" cellpadding="0" cellspacing="0" width="100%">
+													<tbody>
+														    <tr align="left" valign="middle">
+															<th style="font-weight: normal;" scope="row" height="30" width="150">&nbsp;
+																<label for="textfield1"> Enter Last Name:</label>
+															</th>
+															<td height="30"><input type="text" name="employeeForm.name" size="50" maxlength="50" value="" tabindex="1" id="textfield1" title="last name"/>
+																<input type="hidden" name="employeeForm.currentPage" size="100" maxlength="100" value="1" tabindex="1" id="uspto_EmployeeSearch_Result_employeeForm_currentPage" title="last name"/>
+															 <input type="submit" value="Search" id="submit1" name="submit1" title="Search" tabindex="2"/>
+
+														    </td>
+														    </tr>
+													</tbody>
+												</table>
+											</div>
+											<div align="left">
+												<em> </em>
+											</div>
+										</form>
+
+
+
+									</div>
+
+									<div>
+										<form id="uspto_EmployeeSearch_ResultPhone" name="uspto_EmployeeSearch_ResultPhone" action="/EmployeeSearch/uspto_EmployeeSearch_ResultPhone.action;jsessionid=pzAi-rAV_LKCLfw2dZYV7cAaSIbq-aHTfeSMM1EQ.cedrin-es-wld-2" method="post">
+											<div class="borderedGray" align="left">	&nbsp;&nbsp;Search by Phone Number</div>
+											<div>
+												<br> Enter the <strong>Phone Number including the area code</strong>, or <br> Enter <strong>at least one digit</strong> of the Phone Number <strong>and/or</strong> at least the first digit of the Extension. <br>
+												<br>
+												<table border="0" cellpadding="0"
+													cellspacing="0" width="100%">
+													<tbody>
+														<tr align="left" valign="middle">
+															<th style="font-weight: normal;" scope="row" height="30" width="150">&nbsp;
+																<label for="textfield2"> Enter Phone number:</label>
+															</th>
+															<td height="30">
+																<input name="employeeForm.phone"	id="textfield2" tabindex="3" title="phone number" value="" size="14" maxlength="14" type="text">
+																<label for="textfield21">Extension:</label>
+																<input name="employeeForm.phoneExtn" id="textfield21" tabindex="3" title="phone extn number"	value="" size="4" maxlength="4" type="text">
+																<input name="employeeForm.currentPage" value="1" tabindex="1" size="100"	maxlength="100" type="hidden">
+																<input name="submit2" id="submit2" value="Search" title="Search" tabindex="4" type="submit">
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</form>
+
+
+
+									</div>
+
+									<div>
+										<form id="uspto_EmployeeSearch_ResultOrg" name="uspto_EmployeeSearch_ResultOrg" action="/EmployeeSearch/uspto_EmployeeSearch_ResultOrg.action;jsessionid=pzAi-rAV_LKCLfw2dZYV7cAaSIbq-aHTfeSMM1EQ.cedrin-es-wld-2" method="post">
+											<div class="borderedGray" align="left">&nbsp;&nbsp;Search by Organization
+												<a	href="http://www.uspto.gov/main/contacts_elfslocationcodes.htm" title="opens new window" target="orgtable"	onmouseover="MM_swapImage('infod111','','images/button_info_off.gif',1)" onmouseout="MM_swapImgRestore()">	<img src="images/button_info_on.gif" align="absmiddle" alt="Valid USPTO Organizations" name="infod111" id="infod1" border="0" height="20" width="20">	</a>
+											</div>
+											<div>
+												<br>
+												Enter the <strong>complete Organization Code </strong>(such as HDSD, OTPP, 1634, 2746) or<strong><br> </strong>	Enter<strong> at least the first character</strong> of the Organization Code. <br> <br>
+												<table border="0" cellpadding="0"
+													cellspacing="0" width="100%">
+													<tbody>
+														<tr align="left" valign="middle">
+															<th style="font-weight: normal;" scope="row" height="30" width="150">&nbsp;
+																<label for="textfield3"> Enter Organization:</label>
+															</th>
+															<td height="30"><input value=""	name="employeeForm.orgShortNm" id="textfield3" tabindex="5" title="organization" size="7" maxlength="7" type="text">
+																<input name="employeeForm.currentPage" value="1" tabindex="1" size="100"	maxlength="100" type="hidden">
+																<input name="submit3" id="submit3" value="Search" title="Search" tabindex="6" type="submit">
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div align="left">
+												<em> </em>
+											</div>
+										</form>
+
+
+
+									</div>
+
+									<div>
+										<hr noshade="noshade" size="1">
+										<p><em>Context-sensitive help (information graphic  <img src="images/button_info_on.gif" alt="information" width="20" height="20" align="absmiddle"> links) will appear in a new window. </em></p>
+									</div>
+								</div>
+								<!-- End of div fullinsert -->
+
+
+								<div><table width="100%" cellpadding="3" cellspacing="1" id="footerfile" >
+								<tr>
+								<td bgcolor="#eeeeee"><div> <em> If you need help:</em>
+								<ul>
+								<!--<li><em> Call the Patent Electronic Business Center at (866) 217-9197 (toll free) or e-mail <a href="mailto:EBC@uspto.gov">EBC@uspto.gov</a> for specific questions about Patent e-Filing. </em></li>-->
+									<li><em>Send general questions about USPTO programs to the <a href="http://www.uspto.gov/web/menu/feedback.html" target="ucc"> USPTO Contact Center (UCC) </a> .</em></li>
+									<li><em>If you experience technical difficulties or problems with this application, please report them via e-mail to <a href="mailto:usptoinfo@uspto.gov?subject=Electronic%20Business%20Support">Electronic Business Support</a> or call 1 800-786-9199. </em></li>
+								</ul>
+								</div></td>
+								</tr>
+								</table>
+								</div>
+								<!-- End of Footer-->
+								<!-- END: EFS portlet code area -->
+							 </td>
+						  </tr>
+					  </table>
+					  <table border="0" width="100%" cellpadding="0" cellspacing="0">
+						  <tr height="1">
+						       <td width="100%" height="2"><img alt="" border="0" width="1" height="2" src='images/dot.gif'></td>
+					   	  </tr>
+					   </table>
+				    </td>
+				    <td bgcolor="#000000" width="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+				</tr>
+				<tr height="1">
+				    <td bgcolor="#000000" width="1" height="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+				    <td bgcolor="#000000" height="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+				    <td bgcolor="#000000" width="1" height="1"><img alt="" border="0" width="1" height="1" src='images/dot.gif'></td>
+				</tr>
+		  </table>
+	   </td>
+    </tr>
+</table>
+</td></tr>
+</table>
+</td>
+</tr></table>
+    </div>
+    <div id="footer" align="center">
+	  <div id="ft" class="clear-fix">
+	    <!--sites/uspto.gov/includes/general/footer.inc-->
+	    <!-- Footer content in all the pages -->
+	    <div class="colLogos"> <a href="http://www.uspto.gov" title="United States Patent and Trademark Office"><img src="images/footer_uspto.png" alt="United States Patent and Trademark Office" border=0 /></a><br/>
+	    </div>
+	    <div class="col">
+	      <ul>
+	        <li><a href="http://www.uspto.gov/accessibility.jsp">Accessibility</a></li>
+	        <li><a href="http://www.uspto.gov/privact.jsp">Privacy Policy</a></li>
+	        <li><a href="http://www.uspto.gov/termsofuse.jsp">Terms of Use</a></li>
+	        <li><a href="http://www.uspto.gov/faq/security.jsp">Security</a></li>
+	        <li><a href="http://www.uspto.gov/news/index_emergency.jsp">Emergencies/Security Alerts</a></li>
+	        <li><a href="http://www.uspto.gov/products/catalog/infoqualityguide.jsp">Information Quality Guidelines</a></li>
+	      </ul>
+	    </div>
+	    <div class="col">
+	      <ul>
+	        <li><a href="http://www.uspto.gov/about/stratplan/fair/index.jsp">Federal Activities Inventory Reform (FAIR) Act</a></li>
+	        <li><a href="http://www.uspto.gov/about/offices/cao/ocr/nofear/index.jsp">Notification and Federal Employee Antidiscrimination and Retaliation (NoFEAR) Act</a></li>
+	        <li><a href="http://www.uspto.gov/about/stratplan/index.jsp">Budget &amp; Performance</a></li>
+	        <li><a href="http://www.uspto.gov/ip/boards/foia_rr/index.jsp">Freedom of Information Act (FOIA)</a></li>
+	      </ul>
+	    </div>
+	    <div class="col">
+	      <ul>
+	        <li><a href="http://www.uspto.gov/cgi-bin/exitconf/internet_exitconf.pl?target=www.osec.doc.gov/ocr/nofear/nofear.htm">Department of Commerce NoFEAR Act Report</a></li>
+	        <li><a href="http://www.uspto.gov/cgi-bin/exitconf/internet_exitconf.pl?target=www.regulations.gov">Regulations.gov</a></li>
+	        <li><a href="http://www.uspto.gov/cgi-bin/exitconf/internet_exitconf.pl?target=www.stopfakes.gov">STOP!Fakes.gov</a></li>
+	        <li><a href="http://www.uspto.gov/cgi-bin/exitconf/internet_exitconf.pl?target=www.doc.gov">Department of Commerce</a></li>
+	        <li><a href="http://www.uspto.gov/cgi-bin/exitconf/internet_exitconf.pl?target=www.usa.gov">USA.gov</a></li>
+	      </ul>
+	    </div>
+	    <div class="col">
+	      <ul>
+	        <li><a href="http://www.uspto.gov/ip/global/stopfakes.jsp">Strategy Targeting Organized Piracy (STOP!)</a></li>
+	        <li><a href="http://www.usptocareers.gov">Careers</a></li>
+	        <li><a href="http://www.uspto.gov/siteindex.jsp">Site Index</a></li>
+	        <li><a href="http://www.uspto.gov/about/contacts/index.jsp">Contact Us</a></li>
+	        <li><a href="mailto:webmaster@uspto.gov">USPTO Webmaster</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+	<!-- Footer -->
+  </div>
+</body><!-- Body -->
+</html>
