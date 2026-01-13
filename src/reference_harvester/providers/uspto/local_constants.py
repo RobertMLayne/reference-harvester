@@ -1,0 +1,1 @@
+USPTO_PROVIDER_ID = "uspto"

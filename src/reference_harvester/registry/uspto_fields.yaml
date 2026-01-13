@@ -1,0 +1,171 @@
+canonical_provider: uspto
+fields:
+  url:
+    raw_keys:
+      - url
+    type: string
+    description: Source URL for the fetched resource
+  local_path:
+    raw_keys:
+      - local_path
+    type: string
+    description: Relative path under out/ where the payload was stored
+  status_code:
+    raw_keys:
+      - status_code
+      - status_code_duplicate
+    type: integer
+  fetched_at:
+    raw_keys:
+      - fetched_at
+    type: string
+  sha256:
+    raw_keys:
+      - sha256
+    type: string
+  content_type:
+    raw_keys:
+      - content_type
+    type: string
+  etag:
+    raw_keys:
+      - etag
+    type: string
+  last_modified:
+    raw_keys:
+      - last_modified
+    type: string
+  size_bytes:
+    raw_keys:
+      - size_bytes
+    type: integer
+  redirect_url:
+    raw_keys:
+      - redirect_url
+    type: string
+  body_snippet_sha256:
+    raw_keys:
+      - body_snippet_sha256
+    type: string
+  error:
+    raw_keys:
+      - error
+    type: string
+  harvester_manifest:
+    raw_keys:
+      - _manifest
+    type: string
+    description: Relative manifest path indicating origin of the entry
+  application_number:
+    raw_keys:
+      - applicationNumber
+    type: string
+    description: USPTO application number
+  document_id:
+    raw_keys:
+      - documentId
+    type: string
+    description: USPTO document identifier
+  document_type:
+    raw_keys:
+      - documentTypeCategory
+    type: string
+  filing_date:
+    raw_keys:
+      - applicationFilingDate
+    type: date
+  document_url:
+    raw_keys:
+      - documentURL
+    type: string
+  download_option_code:
+    raw_keys:
+      - downloadOptionCode
+    type: string
+  download_url:
+    raw_keys:
+      - downloadURL
+    type: string
+  trial_number:
+    raw_keys:
+      - trialNumber
+    type: string
+    description: PTAB trial proceeding identifier
+  petition_filed_at:
+    raw_keys:
+      - trialMetaData.petitionFilingDate
+    type: date
+    description: Petition filing date
+  accorded_filing_date:
+    raw_keys:
+      - trialMetaData.accordedFilingDate
+    type: date
+    description: Accession filing date when present
+  status:
+    raw_keys:
+      - trialMetaData.trialStatusCategory
+    type: string
+    description: PTAB trial status
+  type:
+    raw_keys:
+      - trialMetaData.trialTypeCode
+    type: string
+    description: PTAB trial type (IPR/PGR/etc.)
+  file_url:
+    raw_keys:
+      - trialMetaData.fileDownloadURI
+    type: string
+    description: Zip download for the proceeding
+  last_modified_at:
+    raw_keys:
+      - lastModifiedDateTime
+      - trialMetaData.trialLastModifiedDateTime
+    type: string
+    description: Last modified timestamp for the proceeding
+  last_modified_date:
+    raw_keys:
+      - trialMetaData.trialLastModifiedDate
+    type: date
+  owner_patent_number:
+    raw_keys:
+      - patentOwnerData.patentNumber
+    type: string
+  owner_application_number:
+    raw_keys:
+      - patentOwnerData.applicationNumberText
+    type: string
+  owner_inventor:
+    raw_keys:
+      - patentOwnerData.inventorName
+    type: string
+  owner_rpi:
+    raw_keys:
+      - patentOwnerData.realPartyInInterestName
+    type: string
+  owner_counsel:
+    raw_keys:
+      - patentOwnerData.counselName
+    type: string
+  tc:
+    raw_keys:
+      - patentOwnerData.technologyCenterNumber
+    type: string
+  art_unit:
+    raw_keys:
+      - patentOwnerData.groupArtUnitNumber
+    type: string
+  grant_date:
+    raw_keys:
+      - patentOwnerData.grantDate
+    type: date
+  petitioner_rpi:
+    raw_keys:
+      - regularPetitionerData.realPartyInInterestName
+    type: string
+  petitioner_counsel:
+    raw_keys:
+      - regularPetitionerData.counselName
+    type: string
+  extras:
+    passthrough: true
+    description: Unmapped provider-specific fields

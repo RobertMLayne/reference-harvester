@@ -1,0 +1,82 @@
+{
+    "count": 19110,
+    "requestIdentifier": "6c1deefc-85cc-4e1e-9905-42efdece5843",
+    "patentTrialProceedingDataBag": [
+        {
+            "lastModifiedDateTime": "2026-01-13T00:58:22",
+            "patentOwnerData": {
+                "patentNumber": "10250877",
+                "grantDate": "2019-04-02",
+                "technologyCenterNumber": "2400",
+                "groupArtUnitNumber": "2486",
+                "applicationNumberText": "14372021",
+                "inventorName": "Philippe Bordes et al"
+            },
+            "trialMetaData": {
+                "trialTypeCode": "IPR",
+                "fileDownloadURI": "https://api.uspto.gov/api/v1/patent/ptab-files/IPR/2026/00195/IPR2026-00195.zip",
+                "trialStatusCategory": "Pending",
+                "trialLastModifiedDate": "2026-01-09",
+                "petitionFilingDate": "2026-01-09",
+                "trialLastModifiedDateTime": "2026-01-09T19:09:41"
+            },
+            "trialNumber": "IPR2026-00195",
+            "regularPetitionerData": {
+                "realPartyInInterestName": "Amazon.com, Inc. et al.",
+                "counselName": "Kaiser, Jessicaet al"
+            }
+        },
+        {
+            "lastModifiedDateTime": "2026-01-13T00:58:22",
+            "patentOwnerData": {
+                "patentNumber": "12143606",
+                "grantDate": "2024-11-12",
+                "technologyCenterNumber": "2400",
+                "groupArtUnitNumber": "2483",
+                "applicationNumberText": "16903819",
+                "inventorName": "Qian XU et al"
+            },
+            "trialMetaData": {
+                "accordedFilingDate": "2026-01-05",
+                "trialTypeCode": "IPR",
+                "fileDownloadURI": "https://api.uspto.gov/api/v1/patent/ptab-files/IPR/2026/00192/IPR2026-00192.zip",
+                "trialStatusCategory": "Pending",
+                "trialLastModifiedDate": "2026-01-08",
+                "petitionFilingDate": "2026-01-05",
+                "trialLastModifiedDateTime": "2026-01-08T15:21:02"
+            },
+            "trialNumber": "IPR2026-00192",
+            "regularPetitionerData": {
+                "realPartyInInterestName": "Amazon.com Services LLC et al.",
+                "counselName": "Kaiser, Jessicaet al"
+            }
+        },
+        {
+            "lastModifiedDateTime": "2026-01-13T00:58:22",
+            "patentOwnerData": {
+                "patentNumber": "9456053",
+                "grantDate": "2016-09-27",
+                "realPartyInInterestName": "Sandpiper CDN, LLC",
+                "technologyCenterNumber": "2400",
+                "groupArtUnitNumber": "2454",
+                "applicationNumberText": "13714410",
+                "inventorName": "Christopher Newton et al",
+                "counselName": "Eisenberg, Jasonet al"
+            },
+            "trialMetaData": {
+                "accordedFilingDate": "2025-12-29",
+                "trialTypeCode": "IPR",
+                "fileDownloadURI": "https://api.uspto.gov/api/v1/patent/ptab-files/IPR/2026/00190/IPR2026-00190.zip",
+                "trialStatusCategory": "Pending",
+                "trialLastModifiedDate": "2026-01-08",
+                "petitionFilingDate": "2025-12-29",
+                "trialLastModifiedDateTime": "2026-01-08T22:15:35"
+            },
+            "trialNumber": "IPR2026-00190",
+            "regularPetitionerData": {
+                "realPartyInInterestName": "Microsoft Corporation",
+                "counselName": "Kaiser, Jessicaet al"
+            }
+        }
+    ]
+}
