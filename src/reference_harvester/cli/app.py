@@ -195,6 +195,45 @@ def fetch(
     )
 
 
+@app.command("curl-templates")
+def curl_templates(
+    provider: str = typer.Argument(..., help="Provider slug"),
+    out_root: Path = typer.Option(
+        Path("out"),
+        "--out-root",
+        "--out",
+        help="Root output directory",
+    ),
+    host: list[str] = typer.Option(None, help="Filter to specific hosts"),
+    auth_header: str = typer.Option(
+        "X-API-KEY",
+        help="Auth header placeholder to inject when auth is required",
+    ),
+    include_patent_center: bool = typer.Option(
+        False,
+        help="Include Patent Center placeholder templates",
+    ),
+) -> None:
+    """Emit curl templates derived from coverage and API samples."""
+
+    register_default_providers()
+    plugin = registry.get(provider)
+    emit = getattr(plugin, "emit_curl_templates", None)
+    if not callable(emit):  # pragma: no cover - optional provider support
+        typer.echo("Provider does not support curl template emission")
+        raise SystemExit(1)
+
+    emit(
+        _ctx(
+            provider,
+            out_root,
+            host_filter=host or None,
+            auth_header=auth_header,
+            include_patent_center=include_patent_center,
+        )
+    )
+
+
 @app.command()
 def endnote(
     provider: str = typer.Argument(..., help="Provider slug"),
@@ -231,6 +270,7 @@ __all__ = [
     "app",
     "endnote",
     "fetch",
+    "curl_templates",
     "gui",
     "harvest",
     "inventory",

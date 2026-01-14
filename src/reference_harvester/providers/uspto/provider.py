@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, cast
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlencode, urlparse
 
 import reference_harvester.endnote_xml as endnote_xml
 from reference_harvester.canonicalizer import canonicalize_batch
@@ -35,7 +35,20 @@ from reference_harvester.providers.uspto.local_storage import (
 )
 from reference_harvester.registry import load_registry
 
-_DEFAULT_SEEDS = {
+_DEFAULT_SEEDS = (
+    "https://developer.uspto.gov/api-catalog/",
+    "https://developer.uspto.gov/ds-api-docs/",
+    (
+        "https://developer.uspto.gov/product/"
+        "patent-application-office-actions-research-dataset"
+    ),
+    "https://developer.uspto.gov/product/cancer-moonshot-patent-data",
+    "https://developer.uspto.gov/ibd-api/swagger.json",
+    "https://developer.uspto.gov/data",
+    "https://developer.uspto.gov/",
+    "https://developer.data.uspto.gov/",
+    "https://api.data.uspto.gov/",
+    "https://api.uspto.gov/",
     "https://data.uspto.gov/",
     "https://data.uspto.gov/apis/api-rate-limits",
     "https://data.uspto.gov/apis/api-syntax-examples",
@@ -82,21 +95,50 @@ _DEFAULT_SEEDS = {
     "https://data.uspto.gov/apis/transition-guide/ptab",
     "https://bulkdata.uspto.gov/",
     "https://bulkdata.uspto.gov/data2/",
-    "https://developer.data.uspto.gov/",
     # Additional high-signal subdomains that regularly host USPTO docs.
-    "https://developer.uspto.gov/",
-    "https://developer.uspto.gov/data",
-    "https://developer.uspto.gov/ibd-api/swagger.json",
-    "https://api.data.uspto.gov/",
-    "https://api.uspto.gov/",
     "https://www.uspto.gov/",
-}
+    "https://patentcenter.uspto.gov/",
+    "https://account.uspto.gov/",
+    "https://my.uspto.gov/",
+    "https://portal.uspto.gov/",
+    "https://assignment.uspto.gov/",
+    "https://ptacts.uspto.gov/",
+    "https://trademarkcenter.uspto.gov/",
+    "https://tsdr.uspto.gov/",
+    "https://seqdata.uspto.gov/",
+)
 
 _DEFAULT_SWAGGER_URLS = (
     "https://data.uspto.gov/swagger/v1/swagger.json",
     "https://developer.data.uspto.gov/swagger.json",
     "https://api.data.uspto.gov/swagger.json",
     "https://developer.uspto.gov/ibd-api/swagger.json",
+    "https://developer.uspto.gov/ds-api/swagger/docs/cancer_moonshot.json",
+    (
+        "https://developer.uspto.gov/ds-api/swagger/docs/"
+        "enriched_cited_reference_metadata.json"
+    ),
+    (
+        "https://developer.uspto.gov/ds-api/swagger/docs/"
+        "enriched_cited_reference_metadata.json/v2"
+    ),
+    "https://developer.uspto.gov/ds-api/swagger/docs/oa_actions.json",
+    "https://developer.uspto.gov/ds-api/swagger/docs/oa_citations.json",
+    "https://developer.uspto.gov/ds-api/swagger/docs/oa_citations.json/v2",
+    "https://developer.uspto.gov/ds-api/swagger/docs/oa_rejections.json",
+    "https://developer.uspto.gov/ds-api/swagger/docs/oa_rejections.json/v2",
+    (
+        "https://developer.uspto.gov/ds-api/swagger/docs/"
+        "oce_patent_examination_event_codes.json"
+    ),
+    (
+        "https://developer.uspto.gov/ds-api/swagger/docs/"
+        "oce_patent_examination_status_codes.json"
+    ),
+    (
+        "https://developer.uspto.gov/ds-api/swagger/docs/"
+        "oce_patent_litigation_cases.json"
+    ),
 )
 
 _ROBOTS_HOSTS = (
@@ -107,6 +149,15 @@ _ROBOTS_HOSTS = (
     "developer.uspto.gov",
     "api.uspto.gov",
     "www.uspto.gov",
+    "patentcenter.uspto.gov",
+    "account.uspto.gov",
+    "my.uspto.gov",
+    "portal.uspto.gov",
+    "assignment.uspto.gov",
+    "ptacts.uspto.gov",
+    "trademarkcenter.uspto.gov",
+    "tsdr.uspto.gov",
+    "seqdata.uspto.gov",
 )
 
 _DEFAULT_BULK_LISTING_URLS = (
@@ -116,9 +167,12 @@ _DEFAULT_BULK_LISTING_URLS = (
 )
 
 _DEFAULT_XHR_PAGES = (
+    "https://developer.uspto.gov/api-catalog/",
+    "https://developer.uspto.gov/ds-api-docs/",
     "https://developer.uspto.gov/",
     "https://developer.uspto.gov/data",
     "https://data.uspto.gov/apis/",
+    "https://data.uspto.gov/ptab",
 )
 
 _ALLOWED_HOSTS = {
@@ -129,6 +183,23 @@ _ALLOWED_HOSTS = {
     "developer.data.uspto.gov",
     "uspto.gov",
 }
+
+_DOC_HOSTS = {
+    "mpep.uspto.gov",
+    "tmep.uspto.gov",
+    "tbmp.uspto.gov",
+}
+
+_AUTH_PLACEHOLDER_HOSTS = (
+    "patentcenter.uspto.gov",
+    "account.uspto.gov",
+    "my.uspto.gov",
+    "ptacts.uspto.gov",
+    "trademarkcenter.uspto.gov",
+    "tsdr.uspto.gov",
+    "seqdata.uspto.gov",
+    "portal.uspto.gov",
+)
 
 _ALLOWED_SUFFIXES = {
     "uspto.gov",
@@ -257,6 +328,12 @@ class USPTOProvider(ProviderPlugin):
             throttle_seconds=throttle_seconds,
         )
 
+        swagger_urls = ctx.options.get("swagger_urls") or list(_DEFAULT_SWAGGER_URLS)
+        swagger_urls = self._merge_unique_urls(
+            swagger_urls,
+            self._discover_swagger_urls_from_xhr(artifacts),
+        )
+
         self._catalog_bulk_assets(
             assets=discovered_assets,
             artifacts=artifacts,
@@ -297,8 +374,6 @@ class USPTOProvider(ProviderPlugin):
             write_inventory_md,
         )
         load_spec_fn = getattr(inventory_mod, "load_openapi", load_openapi)
-
-        swagger_urls = ctx.options.get("swagger_urls") or list(_DEFAULT_SWAGGER_URLS)
         endpoints_md_columns = ctx.options.get("endpoints_md_columns")
         coverage_md_columns = ctx.options.get("coverage_md_columns")
 
@@ -458,7 +533,20 @@ class USPTOProvider(ProviderPlugin):
         provider_home.mkdir(parents=True, exist_ok=True)
         store = StorePaths(out_root=provider_root)
         artifacts = store.artifacts_root(USPTO_PROVIDER_ID)
+        xhr_pages = opts.get("xhr_pages") or list(_DEFAULT_XHR_PAGES)
+        self._inventory_xhr_endpoints(
+            pages=xhr_pages,
+            artifacts=artifacts,
+            settings=settings,
+            throttle_seconds=throttle_seconds,
+            use_playwright=browser_fallback,
+        )
+
         swagger_urls = opts.get("swagger_urls") or list(_DEFAULT_SWAGGER_URLS)
+        swagger_urls = self._merge_unique_urls(
+            swagger_urls,
+            self._discover_swagger_urls_from_xhr(artifacts),
+        )
         endpoints_md_columns = opts.get("endpoints_md_columns")
         coverage_md_columns = opts.get("coverage_md_columns")
 
@@ -983,9 +1071,11 @@ class USPTOProvider(ProviderPlugin):
                 continue
 
             existing_shas.add(sha)
+            host_val = urlparse(url).hostname or ""
+
             entry = {
                 "url": url,
-                "host": (urlparse(url).hostname or ""),
+                "host": host_val,
                 "local_path": local_path,
                 "status_code": int(resp.status_code),
                 "content_type": content_type or None,
@@ -1001,6 +1091,8 @@ class USPTOProvider(ProviderPlugin):
                 "deduped_by_hash": deduped_by_hash,
                 "depth": depth,
             }
+            if host_val.lower() in _DOC_HOSTS:
+                entry["is_documentation"] = True
             if url not in recorded_urls:
                 manifest_records.append(entry)
                 recorded_urls.add(url)
@@ -1065,7 +1157,6 @@ class USPTOProvider(ProviderPlugin):
     ) -> None:
         import re
         import time
-        from urllib.parse import urlencode
 
         import requests
 
@@ -1643,10 +1734,13 @@ class USPTOProvider(ProviderPlugin):
                     recorded_urls.add(url)
                     continue
                 if prev_entry and url in stale_urls:
-                    if head_resp.headers.get("ETag") == prev_entry.get("etag") or (
-                        head_resp.headers.get("Last-Modified")
-                        == prev_entry.get("last_modified")
-                    ):
+                    etag_matches = head_resp.headers.get("ETag") == prev_entry.get(
+                        "etag"
+                    )
+                    last_modified_matches = head_resp.headers.get(
+                        "Last-Modified"
+                    ) == prev_entry.get("last_modified")
+                    if etag_matches or last_modified_matches:
                         recorded_urls.add(url)
                         continue
 
@@ -2063,6 +2157,77 @@ class USPTOProvider(ProviderPlugin):
 
         return hosts
 
+    def _merge_unique_urls(self, *iterables: Iterable[str]) -> list[str]:
+        merged: list[str] = []
+        seen: set[str] = set()
+        for iterable in iterables:
+            for raw in iterable:
+                cleaned = str(raw).strip()
+                if not cleaned or cleaned in seen:
+                    continue
+                seen.add(cleaned)
+                merged.append(cleaned)
+        return merged
+
+    def _discover_swagger_urls_from_xhr(self, artifacts: Path) -> list[str]:
+        xhr_path = artifacts / "xhr_inventory.json"
+        if not xhr_path.exists():
+            return []
+
+        try:
+            payload = json.loads(xhr_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            return []
+
+        if not isinstance(payload, list):
+            return []
+
+        discovered: set[str] = set()
+
+        def _maybe_add(url: str) -> None:
+            parsed = urlparse(str(url))
+            scheme = (parsed.scheme or "").lower()
+            host = (parsed.hostname or parsed.netloc or "").lower()
+            if scheme not in {"http", "https"}:
+                return
+            if not host or not _host_allowed(host):
+                return
+            for nested_url in parse_qs(parsed.query).get("url", []):
+                nested = nested_url.strip()
+                if nested and nested != url:
+                    _maybe_add(nested)
+            lower_url = str(url).lower()
+            lower_path = (parsed.path or "").lower()
+            if "swagger" in lower_url or "openapi" in lower_url:
+                discovered.add(str(url))
+                return
+            if lower_path.endswith(".json") and any(
+                marker in lower_path
+                for marker in (
+                    "api-doc",
+                    "api_docs",
+                    "api-docs",
+                    "apidoc",
+                    "swagger",
+                )
+            ):
+                discovered.add(str(url))
+
+        for entry in payload:
+            if not isinstance(entry, dict):
+                continue
+            for candidate in entry.get("discovered_urls") or []:
+                if isinstance(candidate, str):
+                    _maybe_add(candidate)
+            for call in entry.get("network_calls") or []:
+                if not isinstance(call, dict):
+                    continue
+                url_val = call.get("url")
+                if isinstance(url_val, str):
+                    _maybe_add(url_val)
+
+        return sorted(discovered)
+
     def _write_endpoints_md(
         self,
         *,
@@ -2200,6 +2365,14 @@ class USPTOProvider(ProviderPlugin):
             if isinstance(url, str):
                 host = url.replace("https://", "").replace("http://", "")
                 return host.strip("/")
+        host_val = spec.get("host")
+        if isinstance(host_val, str) and host_val.strip():
+            return host_val.strip()
+        source_url = spec.get("_source_url")
+        if isinstance(source_url, str):
+            parsed = urlparse(source_url)
+            host = (parsed.hostname or parsed.netloc or "").strip("/")
+            return host
         return ""
 
     def _write_coverage_matrix(
@@ -2391,6 +2564,238 @@ class USPTOProvider(ProviderPlugin):
         )
         write_jsonl(coverage_summary.with_suffix(".jsonl"), output)
 
+    def emit_curl_templates(self, ctx: ProviderContext) -> None:
+        """Generate curl templates from coverage and API samples.
+
+        The output lives under `<out>/uspto/api_samples/curl_templates.*` and
+        gives users prefilled URLs, headers, and placeholder payloads they can
+        edit for live calls (including Patent Center scaffolding when enabled).
+        """
+
+        import re
+
+        opts = ctx.options
+        settings = self._settings_from_ctx(opts)
+        provider_root = ctx.out_dir
+        if provider_root.name.lower() != USPTO_PROVIDER_ID.lower():
+            provider_root = ctx.out_dir / "raw" / "harvester" / USPTO_PROVIDER_ID
+        provider_root.mkdir(parents=True, exist_ok=True)
+
+        data_root = provider_root
+        raw_root = ctx.out_dir / "raw" / "harvester" / USPTO_PROVIDER_ID
+        if raw_root.exists():
+            data_root = raw_root
+
+        artifacts_root = data_root / "artifacts"
+
+        samples_root = provider_root / "api_samples"
+        samples_root.mkdir(parents=True, exist_ok=True)
+
+        host_filters = {h.lower() for h in opts.get("host_filter", []) or []}
+        auth_header = str(opts.get("auth_header", "X-API-KEY") or "").strip()
+        include_patent_center = bool(opts.get("include_patent_center", False))
+
+        def _load_entries() -> list[dict[str, Any]]:
+            coverage_files = sorted(artifacts_root.glob("coverage*.json"))
+            sample_cov = data_root / "api_samples" / "coverage.json"
+            if sample_cov.exists():
+                coverage_files.append(sample_cov)
+
+            entries: list[dict[str, Any]] = []
+            for cov_path in coverage_files:
+                try:
+                    payload = json.loads(cov_path.read_text(encoding="utf-8"))
+                except json.JSONDecodeError:
+                    continue
+                if isinstance(payload, list):
+                    entries.extend([row for row in payload if isinstance(row, dict)])
+            seen_hosts = {str(row.get("host") or "").lower() for row in entries}
+            for auth_host in _AUTH_PLACEHOLDER_HOSTS:
+                if auth_host.lower() in seen_hosts:
+                    continue
+                entries.append(
+                    {
+                        "host": auth_host,
+                        "path": "/<fill-path>",
+                        "method": "GET",
+                        "source": "auth_placeholder",
+                        "summary": "Auth-required placeholder; fill path",
+                        "auth_required": True,
+                        "auth_headers": [],
+                    }
+                )
+            seen_hosts.update(host.lower() for host in _AUTH_PLACEHOLDER_HOSTS)
+            if include_patent_center and "patentcenter.uspto.gov" not in seen_hosts:
+                entries.append(
+                    {
+                        "host": "patentcenter.uspto.gov",
+                        "path": "/<fill-path>",
+                        "method": "GET",
+                        "source": "patent_center_placeholder",
+                        "summary": ("Patent Center placeholder path; fill manually"),
+                        "auth_required": True,
+                        "auth_headers": [],
+                    }
+                )
+            return entries
+
+        def _path_template(path_val: str) -> str:
+            return re.sub(r"{([^}]+)}", lambda m: f"<{m.group(1)}>", path_val)
+
+        def _build_query_params(path_val: str) -> dict[str, str]:
+            params: dict[str, str] = {}
+            today = datetime.now(timezone.utc).date()
+            start_date = (today - timedelta(days=30)).isoformat()
+            end_date = today.isoformat()
+            lowered = path_val.lower()
+            if "search" in lowered:
+                params.setdefault("searchText", "test")
+                params.setdefault("rows", "5")
+                params.setdefault("start", "0")
+                params.setdefault("q", "test")
+            if "startdate" in lowered or "from" in lowered:
+                params.setdefault("startDate", start_date)
+            if "enddate" in lowered or "to" in lowered:
+                params.setdefault("endDate", end_date)
+            if (
+                "date" in lowered
+                and "startdate" not in lowered
+                and "enddate" not in lowered
+            ):
+                params.setdefault("date", end_date)
+            if "rows" in lowered and "rows" not in params:
+                params["rows"] = "5"
+            if "offset" in lowered and "offset" not in params:
+                params["offset"] = "0"
+            if "page" in lowered and "page" not in params:
+                params["page"] = "1"
+            if "pagesize" in lowered and "pageSize" not in params:
+                params["pageSize"] = "5"
+            if "size" in lowered and "size" not in params:
+                params["size"] = "5"
+            if "limit" in lowered and "limit" not in params:
+                params["limit"] = "5"
+            if "perpage" in lowered and "perPage" not in params:
+                params["perPage"] = "5"
+
+            id_value = "sample"
+            if "application" in lowered or "appl" in lowered:
+                for key in (
+                    "applicationNumber",
+                    "application",
+                    "applId",
+                    "applNumber",
+                ):
+                    params.setdefault(key, id_value)
+            if "serial" in lowered:
+                params.setdefault("serialNumber", id_value)
+            if "patent" in lowered:
+                params.setdefault("patentNumber", "0000000")
+            if "document" in lowered or "doc" in lowered:
+                for key in ("docId", "documentId"):
+                    params.setdefault(key, "1234567890")
+            if "proceeding" in lowered or "trial" in lowered:
+                params.setdefault("proceedingNumber", "000000")
+
+            return params
+
+        entries = _load_entries()
+        templates: list[dict[str, Any]] = []
+
+        for entry in entries:
+            host = str(entry.get("host") or "").strip()
+            path_val = str(entry.get("path") or "").strip()
+            if not host or not path_val:
+                continue
+            if host_filters and host.lower() not in host_filters:
+                continue
+
+            method = str(entry.get("method") or "GET").upper()
+            path_tmpl = _path_template(path_val)
+            query_params = _build_query_params(path_tmpl)
+            query_tmpl = query_params or None
+            url_template = f"https://{host}{path_tmpl}"
+            if query_tmpl:
+                url_template = f"{url_template}?{urlencode(query_tmpl)}"
+
+            auth_headers = entry.get("auth_headers") or []
+            needs_auth = bool(entry.get("auth_required")) or bool(auth_headers)
+            header_parts = [
+                f'-H "User-Agent: {settings.user_agent}"',
+                '-H "Accept: application/json"',
+            ]
+            seen_auth_headers = set()
+            for hdr in auth_headers:
+                cleaned = str(hdr).strip()
+                if not cleaned:
+                    continue
+                if cleaned.lower() in seen_auth_headers:
+                    continue
+                seen_auth_headers.add(cleaned.lower())
+                header_parts.append(f'-H "{cleaned}: <{cleaned.lower()}>"')
+            if auth_header and needs_auth:
+                header_parts.append(f'-H "{auth_header}: <your_api_key>"')
+
+            data_hint = ""
+            if method in {"POST", "PUT", "PATCH"}:
+                data_hint = ' -d \'{"TODO": "payload"}\''
+
+            curl_cmd = (
+                f'curl -X {method} "{url_template}" '
+                f"{' '.join(header_parts)}{data_hint}"
+            ).strip()
+
+            templates.append(
+                {
+                    "method": method,
+                    "host": host,
+                    "path_template": path_tmpl,
+                    "query_template": query_tmpl,
+                    "url_template": url_template,
+                    "curl": curl_cmd,
+                    "auth_required": needs_auth,
+                    "source": entry.get("source") or "coverage",
+                    "summary": entry.get("summary") or "",
+                }
+            )
+
+        json_path = samples_root / "curl_templates.json"
+        json_path.write_text(
+            json.dumps(templates, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+
+        lines = [
+            "| Method | Host | Path | Query | Auth | Curl | Source |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
+        ]
+        for tmpl in templates:
+            formatted_query = (
+                json.dumps(tmpl.get("query_template"))
+                if tmpl.get("query_template")
+                else ""
+            )
+            row_template = (
+                "| {method} | {host} | {path} | {query} | "
+                "{auth} | {curl} | {source} |"
+            )
+            lines.append(
+                row_template.format(
+                    method=tmpl.get("method", ""),
+                    host=tmpl.get("host", ""),
+                    path=tmpl.get("path_template", ""),
+                    query=formatted_query,
+                    auth="yes" if tmpl.get("auth_required") else "no",
+                    curl=tmpl.get("curl", ""),
+                    source=tmpl.get("source", ""),
+                )
+            )
+
+        (samples_root / "curl_templates.md").write_text(
+            "\n".join(lines) + "\n",
+            encoding="utf-8",
+        )
+
     def _fetch_swagger_specs(
         self,
         *,
@@ -2437,6 +2842,9 @@ class USPTOProvider(ProviderPlugin):
                 spec = resp.json()
             except ValueError:
                 continue
+
+            if isinstance(spec, dict):
+                spec["_source_url"] = url
 
             out_path = artifacts_dir / f"swagger_{name}.json"
             out_path.write_bytes(content)

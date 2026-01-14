@@ -1,0 +1,62 @@
+﻿** Data used to construct the annualized datasets was from the 12/31/2024 PV data release,,,,
+Variable name,Variable type,Variable description,Originating bulk dataset,Notes
+application_number,str8,application number,g_application,
+application_year,float,year when application was submitted,g_application,disambiguated assignee name
+assignee,strL,assignee,g_assignee_disambiguated,
+assignee_ind,float,indicates assignee is an individual,g_assignee_disambiguated,some patents have multiple assignees
+assignee_sequence,byte,order in which assignee appears in patent file,g_assignee_disambiguated,
+city,str77,city of assignee,g_location_disambiguated,
+country,str2,country of assignee,g_location_disambiguated,applicable to only US assignees
+county,strL,county of assignee,g_location_disambiguated,cpc and ipcr sections are equivalent at the section-level. 
+cpc_sections,str30,"unique list of cpc sections listed on the patent. ipc/cpc section in order in which it appears in patent            ipc section (A = Human Necessitates, B = Performing Operations; Transporting, C = Chemistry; Metallurgy, D = Textiles; Paper, E = Fixed Constructions, F = Mechanical Engineering; Lighting; Heating; Weapons; Blasting, G = Physics, H = Electricity)",g_cpc_at_issue,some patents do not have complete information. This variable indicates that the application data is available for this patent
+d_application,float,indicates applicaion information is available,g_application,some patents do not have complete information. This variable indicates that the assignee data is available for this patent
+d_assignee,float,indicates assignee information is available,g_assignee_disambiguated,
+d_cpc,byte,inidcates cpc information is available ,g_cpc_at_issue,some patents do not have complete information. This variable indicates that the inventor data is available for this patent
+d_inventor,float,indicates inventor information is available,g_inventor_disambiguated,some patents do not have complete information. This variable indicates that the ipc data is available for this patent
+d_ipc,float,indicates ipc information is available,g_ipc_at_issue,some patents do not have complete information. This variable indicates that the location data is available for this patent
+d_location,float,indicates location information is availabe,g_location_disambiguated,
+d_wipo,byte,indicates wipo information is available,g_wipo_at_issue,
+first_wipo_field_title,strL,first wipo field title,g_wipo_at_issue,
+first_wipo_sector_title,str22,first wipo sector title,g_wipo_at_issue,
+grant_year,float,year when patent was granted,g_patent,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_id1,str72,disambiguated id of first inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_id10,str72,disambiguated id of tenth inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_id2,str72,disambiguated id of second inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_id3,str72,disambiguated id of third inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_id4,str72,disambiguated id of fourth inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_id5,str72,disambiguated id of fifth inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_id6,str72,disambiguated id of sixth inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_id7,str72,disambiguated id of seventh inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_id8,str72,disambiguated id of eigth inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_id9,str72,disambiguated id of ninth inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_name1,str92,first inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_name10,str92,tenth inventor in order as listed on the patent,,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_name2,str92,second inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_name3,str92,third inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_name4,str92,fourth inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_name5,str92,fifth inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_name6,str92,sixth inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_name7,str92,seventh inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_name8,str92,eigth inventor in order as listed on the patent,g_inventor_disambiguated,includes only the first 10 inventors of each patent. 99% of patents have 10 inventors or less. 
+inventor_name9,str92,ninth inventor in order as listed on the patent,g_inventor_disambiguated,includes all inventors with gender information. This number can be larger than 10.
+inventors,float,number of inventors where gender attribution is known,g_inventor_disambiguated,cpc and ipcr sections are equivalent at the section-level. 
+ipc_sections,str22,"unique list of cpc sections listed on the patent. ipc/cpc section in order in which it appears in patent            cpc section (A = Human Necessitates, B = Performing Operations; Transporting, C = Chemistry; Metallurgy, D = Textiles; Paper, E = Fixed Constructions, F = Mechanical Engineering; Lighting; Heating; Weapons; Blasting, G = Physics, H = Electricity)",g_ipc_at_issue,gender flag for first inventor as listed on the patent
+male_flag1,float," 1= male, 0= female, "" ""= gender not attributed",g_inventor_disambiguated,gender flat for tenth inventor as listed on the patent
+male_flag10,float," 1= male, 0= female, "" ""= gender not attributed",g_inventor_disambiguated,gender flag for second inventor as listed on the patent
+male_flag2,float," 1= male, 0= female, "" ""= gender not attributed",g_inventor_disambiguated,gender flag for third inventor as listed on the patent
+male_flag3,float," 1= male, 0= female, "" ""= gender not attributed",g_inventor_disambiguated,gender flag for fourth inventor as listed on the patent
+male_flag4,float," 1= male, 0= female, "" ""= gender not attributed",g_inventor_disambiguated,gender flag for fifth inventor as listed on the patent
+male_flag5,float," 1= male, 0= female, "" ""= gender not attributed",g_inventor_disambiguated,gender flag for sixth inventor as listed on the patent
+male_flag6,float," 1= male, 0= female, "" ""= gender not attributed",g_inventor_disambiguated,gender flag for seventh inventor as listed on the patent
+male_flag7,float," 1= male, 0= female, "" ""= gender not attributed",g_inventor_disambiguated,gender flag for eigth inventor as listed on the patent
+male_flag8,float," 1= male, 0= female, "" ""= gender not attributed",g_inventor_disambiguated,gender flag for ninth inventor as listed on the patent
+male_flag9,float," 1= male, 0= female, "" ""= gender not attributed",g_inventor_disambiguated,
+men_inventors,float,number of men inventors,g_inventor_disambiguated,
+n_cpc,float,number of unique cpc sections listed on the patent,g_cpc_at_issue,
+n_ipc,float,number of unique ipc sections listed on the patent,g_ipc_at_issue,
+n_wipo,float,number of unique wipo sectors listed on the patent,g_wipo_at_issue,some patent numbers occur more than once to reflect that some patents have more than one assignee
+patent_number,str8,patent number,g_patent,applicable to only US assignees
+state,str2,State of assignee,g_location_disambiguated,
+team_size,float,number of inventors listed on patent,g_inventor_disambiguated,
+wipo_field_ids,str32,two digit wipo field ids listed on patent,g_wipo_at_issue,
+women_inventors,float,number of women inventors,g_inventor_disambiguated,

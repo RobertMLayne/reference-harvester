@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/ds-api/enriched_cited_reference_metadata/v2/fields",
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "implemented": true,
+    "source": "live18",
+    "tags": [
+      "enriched_cited_reference_metadata"
+    ],
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset.",
+    "auth_required": false,
+    "auth": [],
+    "auth_headers": []
+  },
+  {
+    "path": "/ds-api/enriched_cited_reference_metadata/v2/records",
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "implemented": true,
+    "source": "live18",
+    "tags": [
+      "enriched_cited_reference_metadata"
+    ],
+    "summary": "Provides search capability for the data set with the given search criteria.",
+    "auth_required": false,
+    "auth": [],
+    "auth_headers": []
+  }
+]

@@ -61,5 +61,95 @@
     "implemented": false,
     "status_code": 404,
     "url": "https://developer.uspto.gov/ibd-api/swagger.json"
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path": "/ds-api/cancer_moonshot/v1/fields",
+    "source": "api_samples",
+    "implemented": true,
+    "status_code": 200,
+    "url": "https://developer.uspto.gov/ds-api/cancer_moonshot/v1/fields"
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path": "/ds-api/enriched_cited_reference_metadata/v3/fields",
+    "source": "api_samples",
+    "implemented": true,
+    "status_code": 200,
+    "url": "https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v3/fields"
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path": "/ds-api/enriched_cited_reference_metadata/v2/fields",
+    "source": "api_samples",
+    "implemented": true,
+    "status_code": 200,
+    "url": "https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/fields"
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path": "/ds-api/oa_actions/v1/fields",
+    "source": "api_samples",
+    "implemented": true,
+    "status_code": 200,
+    "url": "https://developer.uspto.gov/ds-api/oa_actions/v1/fields"
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path": "/ds-api/oa_citations/v2/fields",
+    "source": "api_samples",
+    "implemented": true,
+    "status_code": 200,
+    "url": "https://developer.uspto.gov/ds-api/oa_citations/v2/fields"
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path": "/ds-api/oa_rejections/v3/fields",
+    "source": "api_samples",
+    "implemented": true,
+    "status_code": 200,
+    "url": "https://developer.uspto.gov/ds-api/oa_rejections/v3/fields"
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path": "/ds-api/oa_rejections/v2/fields",
+    "source": "api_samples",
+    "implemented": true,
+    "status_code": 200,
+    "url": "https://developer.uspto.gov/ds-api/oa_rejections/v2/fields"
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path": "/ds-api/oce_patent_examination_event_codes/v1/fields",
+    "source": "api_samples",
+    "implemented": true,
+    "status_code": 200,
+    "url": "https://developer.uspto.gov/ds-api/oce_patent_examination_event_codes/v1/fields?patentNumber=0000000"
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path": "/ds-api/oce_patent_examination_status_codes/v1/fields",
+    "source": "api_samples",
+    "implemented": true,
+    "status_code": 200,
+    "url": "https://developer.uspto.gov/ds-api/oce_patent_examination_status_codes/v1/fields?patentNumber=0000000"
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path": "/ds-api/oce_patent_litigation_cases/v1/fields",
+    "source": "api_samples",
+    "implemented": true,
+    "status_code": 200,
+    "url": "https://developer.uspto.gov/ds-api/oce_patent_litigation_cases/v1/fields?patentNumber=0000000"
   }
 ]

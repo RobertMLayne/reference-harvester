@@ -4,6 +4,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, List
+from urllib.parse import urlparse
 
 import yaml
 
@@ -33,7 +34,23 @@ def extract_endpoints(spec: dict[str, Any]) -> list[Endpoint]:
     if servers and isinstance(servers[0], dict):
         raw = servers[0].get("url")
         if isinstance(raw, str):
-            host = raw.replace("https://", "").replace("http://", "").strip("/")
+            host = raw.replace("https://", "").replace("http://", "")
+            host = host.strip("/")
+
+    if not host:
+        raw_host = spec.get("host")
+        if isinstance(raw_host, str):
+            host = raw_host.strip()
+
+    if not host:
+        source_url = spec.get("_source_url")
+        if isinstance(source_url, str):
+            parsed = urlparse(source_url)
+            host = (parsed.hostname or parsed.netloc or "").strip()
+
+    base_path_val = spec.get("basePath")
+    base_path = base_path_val if isinstance(base_path_val, str) else ""
+    base_path = base_path.rstrip("/")
 
     paths = spec.get("paths") or {}
     for raw_path, methods in paths.items():
@@ -42,9 +59,13 @@ def extract_endpoints(spec: dict[str, Any]) -> list[Endpoint]:
         for method, meta in methods.items():
             if not isinstance(meta, dict):
                 continue
+            full_path = str(raw_path)
+            if base_path:
+                full_path = f"{base_path}/{str(raw_path).lstrip('/')}"
+
             endpoints.append(
                 Endpoint(
-                    path=str(raw_path),
+                    path=full_path,
                     method=str(method).upper(),
                     summary=meta.get("summary"),
                     tags=list(meta.get("tags", []) or []),

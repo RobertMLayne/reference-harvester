@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/ds-api/oa_rejections/v3/fields",
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "implemented": true,
+    "source": "live22",
+    "tags": [
+      "oa_rejections"
+    ],
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset.",
+    "auth_required": false,
+    "auth": [],
+    "auth_headers": []
+  },
+  {
+    "path": "/ds-api/oa_rejections/v3/records",
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "implemented": true,
+    "source": "live22",
+    "tags": [
+      "oa_rejections"
+    ],
+    "summary": "Provides search capability for the data set with the given search criteria.",
+    "auth_required": false,
+    "auth": [],
+    "auth_headers": []
+  }
+]

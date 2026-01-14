@@ -1,10 +1,21 @@
 [
   {
-    "host": "unknown",
-    "total": 1,
-    "implemented": 1,
+    "host": "developer.uspto.gov",
+    "total": 32,
+    "implemented": 32,
     "sources": [
-      "packaged"
+      "api_samples",
+      "live16",
+      "live17",
+      "live18",
+      "live19",
+      "live20",
+      "live21",
+      "live22",
+      "live23",
+      "live24",
+      "live25",
+      "live26"
     ]
   }
 ]

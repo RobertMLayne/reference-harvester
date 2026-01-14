@@ -1,12 +1,28 @@
 [
   {
-    "path": "/",
+    "path": "/ds-api/cancer_moonshot/v1/fields",
     "method": "GET",
-    "host": "",
+    "host": "developer.uspto.gov",
     "implemented": true,
-    "source": "packaged",
-    "tags": [],
-    "summary": "packaged placeholder",
+    "source": "live16",
+    "tags": [
+      "cancer_moonshot"
+    ],
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset.",
+    "auth_required": false,
+    "auth": [],
+    "auth_headers": []
+  },
+  {
+    "path": "/ds-api/cancer_moonshot/v1/records",
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "implemented": true,
+    "source": "live16",
+    "tags": [
+      "cancer_moonshot"
+    ],
+    "summary": "Provides search capability for the data set with the given search criteria.",
     "auth_required": false,
     "auth": [],
     "auth_headers": []

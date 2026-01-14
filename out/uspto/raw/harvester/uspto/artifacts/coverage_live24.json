@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/ds-api/oce_patent_examination_event_codes/v1/fields",
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "implemented": true,
+    "source": "live24",
+    "tags": [
+      "oce_patent_examination_event_codes"
+    ],
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset.",
+    "auth_required": false,
+    "auth": [],
+    "auth_headers": []
+  },
+  {
+    "path": "/ds-api/oce_patent_examination_event_codes/v1/records",
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "implemented": true,
+    "source": "live24",
+    "tags": [
+      "oce_patent_examination_event_codes"
+    ],
+    "summary": "Provides search capability for the data set with the given search criteria.",
+    "auth_required": false,
+    "auth": [],
+    "auth_headers": []
+  }
+]

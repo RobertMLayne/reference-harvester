@@ -1,0 +1,460 @@
+[
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/cancer_moonshot/v1/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/cancer_moonshot/v1/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/cancer_moonshot/v1/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live16",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/cancer_moonshot/v1/records",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/cancer_moonshot/v1/records",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/cancer_moonshot/v1/records\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live16",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/enriched_cited_reference_metadata/v3/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v3/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v3/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live17",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/enriched_cited_reference_metadata/v3/records",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v3/records",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v3/records\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live17",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/enriched_cited_reference_metadata/v2/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live18",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/enriched_cited_reference_metadata/v2/records",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/records",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/records\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live18",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_actions/v1/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_actions/v1/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oa_actions/v1/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live19",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_actions/v1/records",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_actions/v1/records",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/oa_actions/v1/records\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live19",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_citations/v2/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_citations/v2/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oa_citations/v2/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live20",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_citations/v2/records",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_citations/v2/records",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/oa_citations/v2/records\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live20",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_citations/v2/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_citations/v2/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oa_citations/v2/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live21",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_citations/v2/records",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_citations/v2/records",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/oa_citations/v2/records\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live21",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_rejections/v3/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_rejections/v3/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oa_rejections/v3/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live22",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_rejections/v3/records",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_rejections/v3/records",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/oa_rejections/v3/records\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live22",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_rejections/v2/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_rejections/v2/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oa_rejections/v2/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live23",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_rejections/v2/records",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_rejections/v2/records",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/oa_rejections/v2/records\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live23",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oce_patent_examination_event_codes/v1/fields",
+    "query_template": {
+      "patentNumber": "0000000"
+    },
+    "url_template": "https://developer.uspto.gov/ds-api/oce_patent_examination_event_codes/v1/fields?patentNumber=0000000",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oce_patent_examination_event_codes/v1/fields?patentNumber=0000000\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live24",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oce_patent_examination_event_codes/v1/records",
+    "query_template": {
+      "patentNumber": "0000000"
+    },
+    "url_template": "https://developer.uspto.gov/ds-api/oce_patent_examination_event_codes/v1/records?patentNumber=0000000",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/oce_patent_examination_event_codes/v1/records?patentNumber=0000000\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live24",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oce_patent_examination_status_codes/v1/fields",
+    "query_template": {
+      "patentNumber": "0000000"
+    },
+    "url_template": "https://developer.uspto.gov/ds-api/oce_patent_examination_status_codes/v1/fields?patentNumber=0000000",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oce_patent_examination_status_codes/v1/fields?patentNumber=0000000\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live25",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oce_patent_examination_status_codes/v1/records",
+    "query_template": {
+      "patentNumber": "0000000"
+    },
+    "url_template": "https://developer.uspto.gov/ds-api/oce_patent_examination_status_codes/v1/records?patentNumber=0000000",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/oce_patent_examination_status_codes/v1/records?patentNumber=0000000\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live25",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oce_patent_litigation_cases/v1/fields",
+    "query_template": {
+      "patentNumber": "0000000"
+    },
+    "url_template": "https://developer.uspto.gov/ds-api/oce_patent_litigation_cases/v1/fields?patentNumber=0000000",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oce_patent_litigation_cases/v1/fields?patentNumber=0000000\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "live26",
+    "summary": "Provides the general information about the API and the list of fields that can be used to query the dataset."
+  },
+  {
+    "method": "POST",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oce_patent_litigation_cases/v1/records",
+    "query_template": {
+      "patentNumber": "0000000"
+    },
+    "url_template": "https://developer.uspto.gov/ds-api/oce_patent_litigation_cases/v1/records?patentNumber=0000000",
+    "curl": "curl -X POST \"https://developer.uspto.gov/ds-api/oce_patent_litigation_cases/v1/records?patentNumber=0000000\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -d '{\"TODO\": \"payload\"}'",
+    "auth_required": false,
+    "source": "live26",
+    "summary": "Provides search capability for the data set with the given search criteria."
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/cancer_moonshot/v1/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/cancer_moonshot/v1/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/cancer_moonshot/v1/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "api_samples",
+    "summary": ""
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/enriched_cited_reference_metadata/v3/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v3/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v3/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "api_samples",
+    "summary": ""
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/enriched_cited_reference_metadata/v2/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "api_samples",
+    "summary": ""
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_actions/v1/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_actions/v1/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oa_actions/v1/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "api_samples",
+    "summary": ""
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_citations/v2/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_citations/v2/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oa_citations/v2/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "api_samples",
+    "summary": ""
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_rejections/v3/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_rejections/v3/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oa_rejections/v3/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "api_samples",
+    "summary": ""
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oa_rejections/v2/fields",
+    "query_template": null,
+    "url_template": "https://developer.uspto.gov/ds-api/oa_rejections/v2/fields",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oa_rejections/v2/fields\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "api_samples",
+    "summary": ""
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oce_patent_examination_event_codes/v1/fields",
+    "query_template": {
+      "patentNumber": "0000000"
+    },
+    "url_template": "https://developer.uspto.gov/ds-api/oce_patent_examination_event_codes/v1/fields?patentNumber=0000000",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oce_patent_examination_event_codes/v1/fields?patentNumber=0000000\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "api_samples",
+    "summary": ""
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oce_patent_examination_status_codes/v1/fields",
+    "query_template": {
+      "patentNumber": "0000000"
+    },
+    "url_template": "https://developer.uspto.gov/ds-api/oce_patent_examination_status_codes/v1/fields?patentNumber=0000000",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oce_patent_examination_status_codes/v1/fields?patentNumber=0000000\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "api_samples",
+    "summary": ""
+  },
+  {
+    "method": "GET",
+    "host": "developer.uspto.gov",
+    "path_template": "/ds-api/oce_patent_litigation_cases/v1/fields",
+    "query_template": {
+      "patentNumber": "0000000"
+    },
+    "url_template": "https://developer.uspto.gov/ds-api/oce_patent_litigation_cases/v1/fields?patentNumber=0000000",
+    "curl": "curl -X GET \"https://developer.uspto.gov/ds-api/oce_patent_litigation_cases/v1/fields?patentNumber=0000000\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\"",
+    "auth_required": false,
+    "source": "api_samples",
+    "summary": ""
+  },
+  {
+    "method": "GET",
+    "host": "patentcenter.uspto.gov",
+    "path_template": "/<fill-path>",
+    "query_template": null,
+    "url_template": "https://patentcenter.uspto.gov/<fill-path>",
+    "curl": "curl -X GET \"https://patentcenter.uspto.gov/<fill-path>\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -H \"X-API-KEY: <your_api_key>\"",
+    "auth_required": true,
+    "source": "auth_placeholder",
+    "summary": "Auth-required placeholder; fill path"
+  },
+  {
+    "method": "GET",
+    "host": "account.uspto.gov",
+    "path_template": "/<fill-path>",
+    "query_template": null,
+    "url_template": "https://account.uspto.gov/<fill-path>",
+    "curl": "curl -X GET \"https://account.uspto.gov/<fill-path>\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -H \"X-API-KEY: <your_api_key>\"",
+    "auth_required": true,
+    "source": "auth_placeholder",
+    "summary": "Auth-required placeholder; fill path"
+  },
+  {
+    "method": "GET",
+    "host": "my.uspto.gov",
+    "path_template": "/<fill-path>",
+    "query_template": null,
+    "url_template": "https://my.uspto.gov/<fill-path>",
+    "curl": "curl -X GET \"https://my.uspto.gov/<fill-path>\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -H \"X-API-KEY: <your_api_key>\"",
+    "auth_required": true,
+    "source": "auth_placeholder",
+    "summary": "Auth-required placeholder; fill path"
+  },
+  {
+    "method": "GET",
+    "host": "ptacts.uspto.gov",
+    "path_template": "/<fill-path>",
+    "query_template": null,
+    "url_template": "https://ptacts.uspto.gov/<fill-path>",
+    "curl": "curl -X GET \"https://ptacts.uspto.gov/<fill-path>\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -H \"X-API-KEY: <your_api_key>\"",
+    "auth_required": true,
+    "source": "auth_placeholder",
+    "summary": "Auth-required placeholder; fill path"
+  },
+  {
+    "method": "GET",
+    "host": "trademarkcenter.uspto.gov",
+    "path_template": "/<fill-path>",
+    "query_template": null,
+    "url_template": "https://trademarkcenter.uspto.gov/<fill-path>",
+    "curl": "curl -X GET \"https://trademarkcenter.uspto.gov/<fill-path>\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -H \"X-API-KEY: <your_api_key>\"",
+    "auth_required": true,
+    "source": "auth_placeholder",
+    "summary": "Auth-required placeholder; fill path"
+  },
+  {
+    "method": "GET",
+    "host": "tsdr.uspto.gov",
+    "path_template": "/<fill-path>",
+    "query_template": null,
+    "url_template": "https://tsdr.uspto.gov/<fill-path>",
+    "curl": "curl -X GET \"https://tsdr.uspto.gov/<fill-path>\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -H \"X-API-KEY: <your_api_key>\"",
+    "auth_required": true,
+    "source": "auth_placeholder",
+    "summary": "Auth-required placeholder; fill path"
+  },
+  {
+    "method": "GET",
+    "host": "seqdata.uspto.gov",
+    "path_template": "/<fill-path>",
+    "query_template": null,
+    "url_template": "https://seqdata.uspto.gov/<fill-path>",
+    "curl": "curl -X GET \"https://seqdata.uspto.gov/<fill-path>\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -H \"X-API-KEY: <your_api_key>\"",
+    "auth_required": true,
+    "source": "auth_placeholder",
+    "summary": "Auth-required placeholder; fill path"
+  },
+  {
+    "method": "GET",
+    "host": "portal.uspto.gov",
+    "path_template": "/<fill-path>",
+    "query_template": null,
+    "url_template": "https://portal.uspto.gov/<fill-path>",
+    "curl": "curl -X GET \"https://portal.uspto.gov/<fill-path>\" -H \"User-Agent: reference-harvester/0.1\" -H \"Accept: application/json\" -H \"X-API-KEY: <your_api_key>\"",
+    "auth_required": true,
+    "source": "auth_placeholder",
+    "summary": "Auth-required placeholder; fill path"
+  }
+]

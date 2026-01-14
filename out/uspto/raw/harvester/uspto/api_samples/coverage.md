@@ -1,2 +1,12 @@
 | Method | Path | Host | Implemented | Status | URL |
 | --- | --- | --- | --- | --- | --- |
+| GET | /ds-api/cancer_moonshot/v1/fields | developer.uspto.gov | yes | 200 | https://developer.uspto.gov/ds-api/cancer_moonshot/v1/fields |
+| GET | /ds-api/enriched_cited_reference_metadata/v3/fields | developer.uspto.gov | yes | 200 | https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v3/fields |
+| GET | /ds-api/enriched_cited_reference_metadata/v2/fields | developer.uspto.gov | yes | 200 | https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/fields |
+| GET | /ds-api/oa_actions/v1/fields | developer.uspto.gov | yes | 200 | https://developer.uspto.gov/ds-api/oa_actions/v1/fields |
+| GET | /ds-api/oa_citations/v2/fields | developer.uspto.gov | yes | 200 | https://developer.uspto.gov/ds-api/oa_citations/v2/fields |
+| GET | /ds-api/oa_rejections/v3/fields | developer.uspto.gov | yes | 200 | https://developer.uspto.gov/ds-api/oa_rejections/v3/fields |
+| GET | /ds-api/oa_rejections/v2/fields | developer.uspto.gov | yes | 200 | https://developer.uspto.gov/ds-api/oa_rejections/v2/fields |
+| GET | /ds-api/oce_patent_examination_event_codes/v1/fields | developer.uspto.gov | yes | 200 | https://developer.uspto.gov/ds-api/oce_patent_examination_event_codes/v1/fields?patentNumber=0000000 |
+| GET | /ds-api/oce_patent_examination_status_codes/v1/fields | developer.uspto.gov | yes | 200 | https://developer.uspto.gov/ds-api/oce_patent_examination_status_codes/v1/fields?patentNumber=0000000 |
+| GET | /ds-api/oce_patent_litigation_cases/v1/fields | developer.uspto.gov | yes | 200 | https://developer.uspto.gov/ds-api/oce_patent_litigation_cases/v1/fields?patentNumber=0000000 |
