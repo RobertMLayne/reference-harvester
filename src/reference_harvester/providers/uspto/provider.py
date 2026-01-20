@@ -34,8 +34,17 @@ from reference_harvester.providers.uspto.local_storage import (
     path_for_url as _path_for_url,
 )
 from reference_harvester.registry import load_registry
+from reference_harvester.schema_validation import (
+    load_json,
+    validate_json_file,
+    write_report,
+)
+from reference_harvester.sidecars import (
+    build_sidecar_envelope,
+    write_sidecar_json,
+)
 
-_DEFAULT_SEEDS = (
+_DEFAULT_SEEDS: tuple[str, ...] = (
     "https://developer.uspto.gov/api-catalog/",
     "https://developer.uspto.gov/ds-api-docs/",
     (
@@ -456,6 +465,16 @@ class USPTOProvider(ProviderPlugin):
         max_bulk = int(opts.get("max_bulk", 50))
         max_bulk_bytes = int(opts.get("max_bulk_bytes", 10_000_000_000))
         api_sample_limit = int(opts.get("api_sample_limit", 25))
+        validate_schema = bool(opts.get("validate_schema", False))
+        default_schema_path = (
+            Path("docs")
+            / "inputs"
+            / "odp"
+            / "2026-01-14"
+            / "pfw-schemas"
+            / "patent-data-schema.json"
+        )
+        schema_path = Path(str(opts.get("schema_path") or default_schema_path))
         throttle_seconds = float(
             opts.get("throttle_seconds", settings.throttle_seconds)
         )
@@ -588,6 +607,12 @@ class USPTOProvider(ProviderPlugin):
             since=since_dt,
         )
 
+        if validate_schema:
+            self._validate_api_samples_schema(
+                provider_home=provider_home,
+                schema_path=schema_path,
+            )
+
         self._download_bulk_artifacts(
             out_root=provider_home,
             settings=settings,
@@ -623,7 +648,269 @@ class USPTOProvider(ProviderPlugin):
             table_path,
             registry,
             type_name="USPTO",
+            base_type_name="Generic",
+            target_slot_name="Unused 1",
+            field_label_overrides={
+                # In the shipped template, Generic maps:
+                # Custom 1..8 -> field ids 25,26,27,28,33,34,42,52
+                "id:25": "USPTO Application Number",
+                "id:26": "USPTO Trial Number",
+                "id:27": "USPTO Document ID",
+                "id:28": "USPTO Document Type",
+                "id:33": "USPTO Status",
+                "id:34": "USPTO Filing Date",
+                "id:42": "USPTO Download URL",
+                "id:52": "SHA256",
+            },
         )
+
+        provider_home = ctx.out_dir / "raw" / "harvester" / USPTO_PROVIDER_ID
+        try:
+            if provider_home.exists():
+                raw_records = list(self._iter_harvester_manifest_entries(provider_home))
+                normalized, diags = canonicalize_batch(raw_records, registry)
+
+                # Sidecars + RIS are written under endnote/ so relative paths
+                # work.
+                endnote_dir.mkdir(parents=True, exist_ok=True)
+                sidecars_dir = endnote_dir / "sidecars"
+                sidecars_dir.mkdir(parents=True, exist_ok=True)
+                ris_path = endnote_dir / "uspto.ris"
+
+                exported_at = datetime.now(timezone.utc).isoformat()
+                ris_lines: list[str] = []
+
+                # (Req #5) Bulk manifest reference: model the snapshot as a
+                # Dataset-style RIS record with its own sidecar attachment.
+                manifest_entries = raw_records
+                manifest_paths = sorted(provider_home.glob("**/manifest.json"))
+                manifest_sources: list[dict[str, str]] = []
+                manifest_key_hasher = hashlib.sha256()
+                for mp in manifest_paths:
+                    try:
+                        data = mp.read_bytes()
+                    except OSError:
+                        continue
+                    rel = mp.relative_to(provider_home).as_posix()
+                    file_sha = hashlib.sha256(data).hexdigest()
+                    manifest_sources.append({"path": rel, "sha256": file_sha})
+                    manifest_key_hasher.update(rel.encode("utf-8"))
+                    manifest_key_hasher.update(b"\0")
+                    manifest_key_hasher.update(file_sha.encode("utf-8"))
+                    manifest_key_hasher.update(b"\0")
+
+                # Best-effort date range + endpoint counts for the bulk
+                # manifest record. Upstream harvesters vary in timestamp field
+                # naming, so we probe a small set of likely keys.
+                def _parse_iso_dt(value: Any) -> datetime | None:
+                    if not value:
+                        return None
+                    if isinstance(value, datetime):
+                        return value
+                    if not isinstance(value, str):
+                        return None
+                    try:
+                        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+                    except ValueError:
+                        return None
+
+                ts_fields = (
+                    "downloaded_at",
+                    "fetched_at",
+                    "created_at",
+                    "timestamp",
+                    "ts",
+                )
+                observed_times: list[datetime] = []
+                endpoint_counts: dict[str, int] = {}
+                for entry in manifest_entries:
+                    if not isinstance(entry, dict):
+                        continue
+
+                    for k in ts_fields:
+                        dt = _parse_iso_dt(entry.get(k))
+                        if dt is not None:
+                            observed_times.append(dt)
+
+                    endpoint = entry.get("endpoint") or entry.get("kind")
+                    if isinstance(endpoint, str) and endpoint.strip():
+                        key = endpoint.strip()
+                    else:
+                        url_val = entry.get("url") or entry.get("documentURL")
+                        u = str(url_val or "")
+                        parsed = urlparse(u)
+                        parts = [p for p in parsed.path.split("/") if p]
+                        prefix = parts[0] if parts else ""
+                        host = parsed.netloc or "unknown-host"
+                        key = f"{host}/{prefix}" if prefix else host
+                    endpoint_counts[key] = endpoint_counts.get(key, 0) + 1
+
+                observed_min = min(observed_times) if observed_times else None
+                observed_max = max(observed_times) if observed_times else None
+
+                bulk_artifacts: list[dict[str, Any]] = []
+                bulk_dir = provider_home / "bulk"
+                if bulk_dir.exists():
+                    for p in sorted(bulk_dir.rglob("*")):
+                        if not p.is_file():
+                            continue
+                        if p.suffix.lower() not in _ATTACHMENT_EXTS:
+                            continue
+                        try:
+                            stat = p.stat()
+                        except OSError:
+                            continue
+                        bulk_artifacts.append(
+                            {
+                                "path": p.relative_to(provider_home).as_posix(),
+                                "size_bytes": stat.st_size,
+                            }
+                        )
+
+                bulk_key = manifest_key_hasher.hexdigest()
+                bulk_stable_id = f"bulk:{bulk_key}"
+                bulk_url = "https://bulkdata.uspto.gov/"
+                bulk_data = {
+                    "url": bulk_url,
+                    "records_count": len(manifest_entries),
+                    "observed_date_min": (
+                        observed_min.isoformat() if observed_min else None
+                    ),
+                    "observed_date_max": (
+                        observed_max.isoformat() if observed_max else None
+                    ),
+                    "endpoint_counts": dict(
+                        sorted(endpoint_counts.items(), key=lambda kv: kv[0])
+                    ),
+                    "manifest_sources": manifest_sources,
+                    "bulk_artifacts": bulk_artifacts,
+                    "manifest_entries": manifest_entries,
+                }
+                bulk_sidecar_envelope = build_sidecar_envelope(
+                    provider="uspto",
+                    kind="bulk_manifest",
+                    stable_id=bulk_stable_id,
+                    exported_at=exported_at,
+                    data=bulk_data,
+                )
+                bulk_sha256, bulk_sidecar_path = write_sidecar_json(
+                    sidecars_dir=sidecars_dir,
+                    envelope=bulk_sidecar_envelope,
+                )
+                bulk_sidecar_filename = bulk_sidecar_path.name
+
+                # Use TY=DATA so EndNote imports this as a Dataset.
+                ris_lines.append("TY  - DATA")
+                bulk_title = f"USPTO Bulk Manifest ({len(manifest_entries)} records)"
+                ris_lines.append(f"TI  - {bulk_title}")
+                ris_lines.append(f"UR  - {bulk_url}")
+                ris_lines.append(f"AN  - uspto:{bulk_stable_id}")
+                if observed_min or observed_max:
+                    lo = observed_min.isoformat() if observed_min else ""
+                    hi = observed_max.isoformat() if observed_max else ""
+                    ris_lines.append(f"N1  - Observed range: {lo} .. {hi}")
+                for key, count in sorted(endpoint_counts.items()):
+                    ris_lines.append(f"KW  - endpoint:{key} count:{count}")
+                ris_lines.append(f"C8  - {bulk_sha256}")
+                ris_lines.append(f"L1  - sidecars/{bulk_sidecar_filename}")
+                ris_lines.append("ER  -")
+
+                for idx, (raw, norm, diag) in enumerate(
+                    zip(raw_records, normalized, diags)
+                ):
+                    canonical = norm.get("canonical", {})
+                    if not isinstance(canonical, dict):
+                        canonical = {}
+
+                    url_val = (
+                        canonical.get("document_url")
+                        or canonical.get("url")
+                        or raw.get("url")
+                    )
+                    url = str(url_val or "")
+                    stable_id = str(
+                        canonical.get("document_id")
+                        or canonical.get("trial_number")
+                        or canonical.get("owner_patent_number")
+                        or canonical.get("owner_application_number")
+                        or raw.get("id")
+                        or url
+                        or f"record-{idx + 1}"
+                    )
+
+                    record_data = {
+                        "raw": raw,
+                        "normalized": norm,
+                        "diagnostics": diag,
+                    }
+                    sidecar_envelope = build_sidecar_envelope(
+                        provider="uspto",
+                        kind="record",
+                        stable_id=stable_id,
+                        exported_at=exported_at,
+                        data=record_data,
+                    )
+                    sha256, sidecar_path = write_sidecar_json(
+                        sidecars_dir=sidecars_dir,
+                        envelope=sidecar_envelope,
+                    )
+                    sidecar_filename = sidecar_path.name
+
+                    title = str(
+                        canonical.get("document_id")
+                        or canonical.get("document_type")
+                        or canonical.get("download_url")
+                        or url
+                        or f"record-{idx + 1}"
+                    )
+
+                    # RIS: use custom tags C1..C8 to populate repurposed Custom
+                    # fields. EndNote typically maps AN -> Accession Number and
+                    # L1 -> File Attachments.
+                    ris_lines.append("TY  - DATA")
+                    ris_lines.append(f"TI  - {title}")
+                    if url:
+                        ris_lines.append(f"UR  - {url}")
+                    ris_lines.append(f"AN  - uspto:{stable_id}")
+                    c1 = str(
+                        canonical.get("owner_application_number")
+                        or canonical.get("application_number")
+                        or ""
+                    )
+                    c2 = str(canonical.get("trial_number") or "")
+                    c3 = str(canonical.get("document_id") or "")
+                    c4 = str(
+                        canonical.get("document_type") or canonical.get("type") or ""
+                    )
+                    c5 = str(canonical.get("status") or "")
+                    c6 = str(
+                        canonical.get("filing_date")
+                        or canonical.get("petition_filed_at")
+                        or ""
+                    )
+                    c7 = str(
+                        canonical.get("download_url") or canonical.get("file_url") or ""
+                    )
+                    ris_lines.append(f"C1  - {c1}")
+                    ris_lines.append(f"C2  - {c2}")
+                    ris_lines.append(f"C3  - {c3}")
+                    ris_lines.append(f"C4  - {c4}")
+                    ris_lines.append(f"C5  - {c5}")
+                    ris_lines.append(f"C6  - {c6}")
+                    ris_lines.append(f"C7  - {c7}")
+                    ris_lines.append(f"C8  - {sha256}")
+                    ris_lines.append(f"L1  - sidecars/{sidecar_filename}")
+                    ris_lines.append("ER  -")
+
+                if ris_lines:
+                    ris_path.write_text(
+                        "\n".join(ris_lines) + "\n",
+                        encoding="utf-8",
+                    )
+                    print(f"[uspto] EndNote RIS written to {ris_path}")
+                    print(f"[uspto] EndNote sidecars written to {sidecars_dir}")
+        except (OSError, RuntimeError, ValueError) as exc:  # pragma: no cover
+            print(f"[uspto] EndNote export skipped: {exc}")
 
         print(f"[uspto] EndNote reference type table written to {table_path}")
 
@@ -672,6 +959,85 @@ class USPTOProvider(ProviderPlugin):
             emit_csl_json=emit_csl_json,
             emit_bibtex=emit_bibtex,
         )
+
+    def _validate_api_samples_schema(
+        self,
+        *,
+        provider_home: Path,
+        schema_path: Path,
+    ) -> None:
+        samples_root = provider_home / "api_samples"
+        logs_dir = provider_home / "logs"
+        report_path = logs_dir / "reports" / "schema_validation_api_samples.json"
+
+        if not samples_root.exists():
+            write_report(
+                report_path,
+                {
+                    "schema_path": str(schema_path),
+                    "status": "skipped",
+                    "reason": "api_samples directory not found",
+                },
+            )
+            return
+
+        if not schema_path.exists():
+            write_report(
+                report_path,
+                {
+                    "schema_path": str(schema_path),
+                    "status": "error",
+                    "reason": "schema file not found",
+                },
+            )
+            raise SystemExit(2)
+
+        schema = load_json(schema_path)
+        if not isinstance(schema, dict):
+            write_report(
+                report_path,
+                {
+                    "schema_path": str(schema_path),
+                    "status": "error",
+                    "reason": "schema is not a JSON object",
+                },
+            )
+            raise SystemExit(2)
+
+        json_files = sorted(samples_root.glob("**/*.json"))
+        failures: list[dict[str, object]] = []
+        validated = 0
+
+        for json_path in json_files:
+            errors = validate_json_file(
+                json_path,
+                schema,
+                schema_root=schema,
+            )
+            validated += 1
+            if errors:
+                failures.append(
+                    {
+                        "file": str(json_path.relative_to(provider_home)).replace(
+                            "\\", "/"
+                        ),
+                        "errors": [
+                            {"path": err.path, "message": err.message} for err in errors
+                        ],
+                    }
+                )
+
+        report = {
+            "schema_path": str(schema_path),
+            "status": "ok" if not failures else "failed",
+            "validated_files": validated,
+            "failed_files": len(failures),
+            "failures": failures,
+        }
+        write_report(report_path, report)
+
+        if failures:
+            raise SystemExit(1)
 
     def _write_manifest(
         self,
@@ -2842,9 +3208,6 @@ class USPTOProvider(ProviderPlugin):
                 spec = resp.json()
             except ValueError:
                 continue
-
-            if isinstance(spec, dict):
-                spec["_source_url"] = url
 
             out_path = artifacts_dir / f"swagger_{name}.json"
             out_path.write_bytes(content)
