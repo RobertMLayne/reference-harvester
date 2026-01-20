@@ -16,6 +16,15 @@ class TemplateProvider(ProviderPlugin):
         - fetch_references: plan/download payloads, then emit canonical logs
         - export_endnote: produce EndNote-ready artifacts
             (RIS/CSL/BibTeX/attachments)
+
+        Sidecar guidance:
+        - When attaching JSON sidecars to EndNote (e.g., via RIS L1
+            attachments), wrap provider-specific payloads using the
+            provider-neutral, versioned envelope helpers in
+            `reference_harvester.sidecars`.
+        - Recommended pattern:
+            - `build_sidecar_envelope(..., data={...})`
+            - `write_sidecar_json(sidecars_dir=..., envelope=...)`
     """
 
     def __init__(
