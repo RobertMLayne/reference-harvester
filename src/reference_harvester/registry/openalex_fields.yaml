@@ -1,0 +1,35 @@
+canonical_provider: openalex
+
+# Minimal canonical field set for OpenAlex work records.
+# Raw keys use dot-paths as produced by canonicalizer._flatten_items(...).
+fields:
+  openalex_id:
+    raw_keys: ["openalex_id", "id"]
+    description: OpenAlex Work ID (W...)
+  url:
+    raw_keys: ["url", "primary_location.landing_page_url"]
+    description: Landing page URL
+  title:
+    raw_keys: ["title", "display_name"]
+    description: Work title
+  doi:
+    raw_keys: ["doi"]
+    description: DOI (may be URL form)
+  publication_date:
+    raw_keys: ["publication_date"]
+    description: Publication date (YYYY-MM-DD)
+  publication_year:
+    raw_keys: ["publication_year"]
+    type: int
+    description: Publication year
+  work_type:
+    raw_keys: ["type"]
+    description: OpenAlex work type
+  host_venue:
+    raw_keys:
+      ["host_venue.display_name", "primary_location.source.display_name"]
+    description: Host venue or source display name
+  cited_by_count:
+    raw_keys: ["cited_by_count"]
+    type: int
+    description: Citation count

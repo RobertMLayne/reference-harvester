@@ -1,26 +1,56 @@
 """Provider exports for Reference Harvester."""
 
-import importlib
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any
 
 from .base import ProviderContext, ProviderPlugin
-from .registry import ProviderRegistry, register_default_providers, registry
+from .registry import (
+    ProviderCapabilities,
+    ProviderEntry,
+    ProviderInfo,
+    ProviderRegistry,
+    register_default_providers,
+    registry,
+)
 
-USPTOProvider = cast(
-    Any,
-    importlib.import_module("reference_harvester.providers.uspto.provider"),
-).USPTOProvider
-TemplateProvider = cast(
-    Any,
-    importlib.import_module("reference_harvester.providers.template"),
-).TemplateProvider
+if TYPE_CHECKING:
+    from .openalex.provider import OpenAlexProvider
+    from .template import TemplateProvider
+    from .uspto.provider import USPTOProvider
+
+
+def __getattr__(name: str) -> Any:
+    if name == "USPTOProvider":
+        from .uspto.provider import USPTOProvider
+
+        return USPTOProvider
+    if name == "OpenAlexProvider":
+        from .openalex.provider import OpenAlexProvider
+
+        return OpenAlexProvider
+    if name == "TemplateProvider":
+        from .template import TemplateProvider
+
+        return TemplateProvider
+    raise AttributeError(name)
+
+
+def __dir__() -> list[str]:
+    return sorted(
+        list(globals().keys())
+        + ["OpenAlexProvider", "USPTOProvider", "TemplateProvider"]
+    )
+
 
 __all__ = [
     "ProviderContext",
     "ProviderPlugin",
     "ProviderRegistry",
+    "ProviderCapabilities",
+    "ProviderEntry",
+    "ProviderInfo",
     "register_default_providers",
     "registry",
+    "OpenAlexProvider",
     "USPTOProvider",
     "TemplateProvider",
 ]
