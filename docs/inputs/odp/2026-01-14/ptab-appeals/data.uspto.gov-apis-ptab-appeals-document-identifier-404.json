@@ -1,0 +1,31 @@
+HomeAPIsPTAB Appeals API - Search by Document Identifier
+Search by Document Identifier
+Was this page helpful?
+Use this endpoint when you want to retrieve Appeals data for a specific Appeal whose document identifier you know. A document Identifier is a unique ID for each document. To locate an Appeal document identifier please visit search by Appeal number API. You can test APIs right away in Swagger UI swagger icon.
+
+GET https://api.uspto.gov/api/v1/patent/appeals/decisions/{documentIdentifier}
+
+e.g. https://api.uspto.gov/api/v1/patent/interferences/decisions/bbc1cc8275574c3d41d022f2e2040550ccad434ae6fbf07294895a04
+
+Returns Appeals data for a document identifier.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Request Entity Too Large.
+
+The server is refusing to process a request because the request payload is larger than the server is willing or able to process. The server MAY close the connection to prevent the client from continuing the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/appeals/decisions/{documentIdentifier}
+JSON RESPONSE SAMPLE
+{
+  "code": 413,
+  "message": "Payload Too Large",
+  "detailedMessage": "Response payload exceeds allowed limit of 6MB, please refine your search criteria or reduce payload size by reducing page size",
+  "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}

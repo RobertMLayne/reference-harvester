@@ -1,0 +1,150 @@
+HomeAPIsPTAB Trials API - Search Documents
+Search Documents
+Was this page helpful?
+Conduct a search of publicly available Trial Documents. All public documents filed in PTAB Trial Documents (i.e., briefing filed by parties and decisions by PTAB) are available since September 2012.
+
+Other details for using the Search endpoint:
+
+If you do not specify which attributes you would like to see in the response, it returns all data attributes.
+
+All search syntaxes are applicable to this endpoint, meaning any number of combinations is possible. Some example requests are below, but for more information, view the Simplified Syntax documentation that is linked in the API Syntax Examples page. You can also test the API right away in Swagger UI swagger icon.
+
+You can download the JSON Schema file to parse the JSON responses returned by the APIs.
+
+GET https://api.uspto.gov/api/v1/patent/trials/documents/search
+
+Returns a list of all Trial Documents that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+POST See Swagger documentation
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Internal server error.
+
+An unexpected condition has occurred on the server, and the server was unable to fulfill the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/trials/documents/search
+JSON RESPONSE SAMPLE
+{
+  "count": 100,
+  "patentTrialDocumentDataBag": [
+    {
+      "trialDocumentCategory": "document",
+      "lastModifiedDateTime": "2025-07-01T15:20:30Z",
+      "trialNumber": "IPR2024-00001",
+      "trialTypeCode": "IPR",
+      "trialMetaData": {
+        "accordedFilingDate": "2024-02-15",
+        "institutionDecisionDate": "2024-08-20",
+        "latestDecisionDate": "2025-01-12",
+        "petitionFilingDate": "2024-01-30",
+        "terminationDate": "2025-05-05",
+        "trialLastModifiedDateTime": "2025-05-05T10:22:11Z",
+        "trialLastModifiedDate": "2025-05-05",
+        "trialStatusCategory": "Terminated",
+        "trialTypeCode": "102"
+      },
+      "patentOwnerData": {
+        "applicationNumberText": "14412875",
+        "counselName": "Jane Q. Attorney",
+        "grantDate": "2019-09-10",
+        "groupArtUnitNumber": "3689",
+        "inventorName": "Liam Johnson",
+        "realPartyInInterestName": "ABC Corp.",
+        "patentNumber": "US9876543B2",
+        "patentOwnerName": "XYZ Holdings LLC",
+        "technologyCenterNumber": "3600"
+      },
+      "regularPetitionerData": {
+        "applicationNumberText": "16123456",
+        "counselName": "John D. Counsel",
+        "realPartyInInterestName": "DEF Inc.",
+        "grantDate": "2020-03-22",
+        "groupArtUnitNumber": "1790",
+        "inventorName": "Emma Smith",
+        "patentNumber": "US10203040B2",
+        "patentOwnerName": "JKL Holdings",
+        "technologyCenterNumber": "1700"
+      },
+      "respondentData": {
+        "applicationNumberText": "16123456",
+        "counselName": "Mary R. Lawyer",
+        "grantDate": "2020-03-22",
+        "groupArtUnitNumber": "1790",
+        "inventorName": "Emma Smith",
+        "realPartyInInterestName": "GHI LLC",
+        "patentNumber": "US10203040B2",
+        "patentOwnerName": "JKL Holdings",
+        "technologyCenterNumber": "1700"
+      },
+      "derivationPetitionerData": {
+        "applicationNumberText": "13112233",
+        "counselName": "Alex M. Advocate",
+        "grantDate": "2018-11-05",
+        "groupArtUnitNumber": "2876",
+        "inventorName": "Noah Davis",
+        "realPartyInInterestName": "MNO Partners",
+        "patentNumber": "US9001002B1",
+        "technologyCenterNumber": "2800",
+        "patentOwnerName": "PQR Ventures"
+      },
+      "documentData": {
+        "documentCategory": "Petition",
+        "documentFilingDate": "2024-04-12",
+        "documentIdentifier": "100012345",
+        "documentName": "petition.pdf",
+        "documentNumber": 1,
+        "documentSizeQuantity": 123456,
+        "documentOCRText": "…",
+        "documentTitleText": "Petition",
+        "documentTypeDescriptionText": "Petition Type",
+        "fileDownloadURI": "https://ptab.uspto.gov/doc/100012345",
+        "filingPartyCategory": "Petitioner",
+        "mimeTypeIdentifier": "application/pdf",
+        "documentStatus": "public"
+      },
+      "decisionData": {
+        "statuteAndRuleBag": [
+          "37 CFR 42.100",
+          "37 CFR 43.100"
+        ],
+        "decisionIssueDate": "2025-01-15",
+        "decisionTypeCategory": "Final Written Decision",
+        "issueTypeBag": [
+          "Substantive",
+          "Procedural"
+        ],
+        "trialOutcomeCategory": "Denied",
+        "appealOutcomeCategory": "Denied"
+      }
+    }
+  ],
+  "facets": [
+    {
+      "trialTypeCategory": [
+        {
+          "name": "IPR",
+          "quantity": 16951
+        }
+      ],
+      "trialStatusCategory": [
+        {
+          "name": "IPR",
+          "quantity": 16951
+        }
+      ],
+      "statuteAndRuleBag": [
+        {
+          "name": "IPR",
+          "quantity": 16951
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+HomeAPIsPTAB Appeals API - Search Appeals
+Search Appeals
+Was this page helpful?
+Conduct a search of publicly available Appeals. All public Appeal decisions filed by PTAB are available since July 1997.
+
+Other details for using the Search endpoint:
+
+If you do not specify which data attributes you would like to see in the response, it returns all data attributes.
+
+All search syntaxes are applicable to this endpoint, meaning any number of combinations is possible. Some example requests are below, but for more information, view the Simplified Syntax documentation that is linked in the API Syntax Examples page. You can also test the API right away in Swagger UI swagger icon.
+
+You can download the JSON Schema file to parse the JSON responses returned by the APIs.
+
+GET https://api.uspto.gov/api/v1/patent/appeals/decisions/search
+
+Returns a list of all Appeals that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+POST See Swagger documentation
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Request Entity Too Large.
+
+The server is refusing to process a request because the request payload is larger than the server is willing or able to process. The server MAY close the connection to prevent the client from continuing the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/appeals/decisions/search
+JSON RESPONSE SAMPLE
+{
+  "code": 413,
+  "message": "Payload Too Large",
+  "detailedMessage": "Response payload exceeds allowed limit of 6MB, please refine your search criteria or reduce payload size by reducing page size",
+  "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}

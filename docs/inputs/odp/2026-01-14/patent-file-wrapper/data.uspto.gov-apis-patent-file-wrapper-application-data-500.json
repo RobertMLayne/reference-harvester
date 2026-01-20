@@ -1,0 +1,33 @@
+HomeAPIsPatent File Wrapper API - Application Data
+Application Data
+Was this page helpful?
+The Application Data section contains key bibliographic information found on the front page of granted patents and published patent applications. Use this endpoint when you want application data for a specific patent application whose application number you know. You can test APIs right away in Swagger UI swagger icon.
+
+This dataset includes published patent applications and issued patent data filed after January 1, 2001. This data is refreshed daily.
+
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/meta-data
+
+e.g. https://api.uspto.gov/api/v1/patent/applications/16330077/meta-data
+
+Returns application data for application number
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Not found error.
+
+The server was unable to find the requested resource or URL. This code is commonly returned when you try to access a page or resource that doesn't exist on the server.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/application-data
+JSON RESPONSE SAMPLE
+{
+  "code": 404,
+  "error": "Not Found",
+  "errorDetails": "No matching records found, refine your search criteria and try again",
+  "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}

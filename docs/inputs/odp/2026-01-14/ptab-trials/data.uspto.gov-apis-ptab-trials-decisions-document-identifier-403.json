@@ -1,0 +1,31 @@
+HomeAPIsPTAB Trials API - Search Decisions by Document Identifier
+Search Decisions by Document Identifier
+Was this page helpful?
+Use this endpoint when you want to retrieve Trial Decision data for a specific document whose document identifier you know. A document identifier is a unique ID for each document. To locate a Trial document identifier please visit search by Trial number API. You can also test the API right away in Swagger UI swagger icon.
+
+GET https://api.uspto.gov/api/v1/patent/trials/decisions/{documentidentifier}
+
+e.g. https://api.uspto.gov/api/v1/patent/trials/decisions/171170040
+
+Returns Trial Decision data for a document identifier. 
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Not found error.
+
+The server was unable to find the requested resource or URL. This code is commonly returned when you try to access a page or resource that doesn't exist on the server.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/trials/decisions/{documentIdentifier}
+JSON RESPONSE SAMPLE
+{
+  "code": 404,
+  "error": "Not Found",
+  "errorDetails": "No matching records found",
+  "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}

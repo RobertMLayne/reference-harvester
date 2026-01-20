@@ -1,0 +1,94 @@
+HomeAPIsPatent File Wrapper API - Continuity
+Continuity
+Was this page helpful?
+The Continuity section contains continuity details for the patent, including parent and/or child continuity data. Continuity Data includes Parent Continuity Data and Child Continuity Data. Use this endpoint when you want continuity data for a specific patent application whose application number you know. You can test the API right away in Swagger UI swagger icon.
+
+This dataset includes published patent applications and issued patent data filed after January 1, 2001. This data is refreshed daily.
+
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/continuity
+
+Returns a list of all patents and applications that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Successful request.
+
+Data Property	Description	Type
+parentContinuityBag	All continuity details related to the parent application.	N/A
+  parentApplicationStatusCode	This data element classifies the application by its status relative to the total application process.	Number
+  firstInventorToFileIndicator	First Inventor on file indicator.	Boolean
+  claimParentageTypeCode	Claim parentage type code.	String
+  claimParentageTypeCodeDescriptionText	Claim parentage type code description.	String
+  parentApplicationStatusDescriptionText	Status of the parent application, depending on which bag it falls under; values: new = new application, patented case, patent expired...	String
+  parentApplicationNumberText	Application number of the parent application, which is the unique value assigned by the USPTO to a patent application upon receipt.	String
+  parentApplicationFilingDate	Date on which a patent application was filed and received in the USPTO.	Date
+  parentPatentNumber	The number that uniquely identifies an issued patent. It is also the document number in the USTPO-published Redbook and the Official Gazette. This number can be for an originally-issued patent or a re-issued patent. It will not be for a Re-exam Certificate, a Correction Certificate, a SIR, or a notice of a request for a Re-exam or a Reissue. This number is equivalent to WIPO ST.9 as INID 11. 5012717.	String
+childContinuityBag	All continuity details related to the parent application	N/A
+  firstInventorToFileIndicator	First Inventor on file indicator.	Boolean
+  childApplicationStatusDescriptionText	Status of the child application, depending on which bag it falls under; values: new = new application, patented case, patent expired...	String
+  claimParentageTypeCode	Claim parentage type code.	String
+  childApplicationStatusCode	This data element classifies the application by its status relative to the total application process.	Number
+  claimParentageTypeCodeDescriptionText	Claim parentage type code description.	String
+  parentApplicationNumberText	Application number of the parent application, which is the unique value assigned by the USPTO to a patent application upon receipt.	String
+  childApplicationFilingDate	Date on which a patent application was filed and received in the USPTO.	Date
+  childApplicationNumberText	Application number of the child application, which is the unique value assigned by the USPTO to a patent application upon receipt.	String
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/continuity
+JSON RESPONSE SAMPLE
+{
+  "count": 1,
+  "patentFileWrapperDataBag": [
+    {
+      "applicationNumberText": "18045436",
+      "parentContinuityBag": [
+        {
+          "parentApplicationStatusCode": 150,
+          "firstInventorToFileIndicator": true,
+          "claimParentageTypeCode": "CON",
+          "claimParentageTypeCodeDescriptionText": "is a Continuation of",
+          "parentApplicationStatusDescriptionText": "Patented Case",
+          "parentApplicationNumberText": "17006669",
+          "parentApplicationFilingDate": "2020-08-28",
+          "childApplicationNumberText": "18045436",
+          "parentPatentNumber": "11466319"
+        },
+        {
+          "parentApplicationStatusCode": 150,
+          "firstInventorToFileIndicator": true,
+          "claimParentageTypeCode": "CON",
+          "claimParentageTypeCodeDescriptionText": "is a Continuation of",
+          "parentApplicationStatusDescriptionText": "Patented Case",
+          "parentApplicationNumberText": "15357966",
+          "parentApplicationFilingDate": "2016-11-21",
+          "childApplicationNumberText": "17006669",
+          "parentPatentNumber": "10781483"
+        },
+        {
+          "parentApplicationStatusCode": 159,
+          "claimParentageTypeCode": "PRO",
+          "claimParentageTypeCodeDescriptionText": "Claims priority from a provisional application",
+          "parentApplicationStatusDescriptionText": "Provisional Application Expired",
+          "parentApplicationNumberText": "62258416",
+          "parentApplicationFilingDate": "2015-11-20",
+          "childApplicationNumberText": "15357966"
+        }
+      ],
+      "childContinuityBag": [
+        {
+          "firstInventorToFileIndicator": true,
+          "childApplicationStatusDescriptionText": "Non Final Action Mailed",
+          "claimParentageTypeCode": "CON",
+          "childApplicationStatusCode": 41,
+          "claimParentageTypeCodeDescriptionText": "is a Continuation of",
+          "parentApplicationNumberText": "18045436",
+          "childApplicationFilingDate": "2024-05-28",
+          "childApplicationNumberText": "18675708"
+        }
+      ]
+    }
+  ],
+  "requestIdentifier": "7a4ca692-e9f3-497c-8440-59f8baed874c"
+}

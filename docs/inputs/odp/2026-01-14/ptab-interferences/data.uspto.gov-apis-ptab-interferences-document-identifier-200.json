@@ -1,0 +1,89 @@
+Search by Document Identifier
+Was this page helpful?
+Use this endpoint when you want to retrieve Interferences data for a specific Interference whose document identifier you know. A document Identifier is a unique ID for each document. To locate an Interferences document identifier please visit search by Interference number API. You can also test the API right away in Swagger UI swagger icon.
+
+GET https://api.uspto.gov/api/v1/patent/interferences/decisions/{documentIdentifier}
+
+e.g. https://api.uspto.gov/api/v1/patent/interferences/decisions/bbc1cc8275574c3d41d022f2e2040550ccad434ae6fbf07294895a04
+
+Returns Interferences data for a document identifier.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Internal server error.
+
+An unexpected condition has occurred on the server, and the server was unable to fulfill the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/interferences/decisions/{documentIdentifier}
+JSON RESPONSE SAMPLE
+{
+  "count": 1,
+  "requestIdentifier": "cff9c3ed-82ca-4d2c-a2e6-c43d5710c2ce",
+  "patentInterferenceDataBag": [
+    {
+      "interferenceNumber": "103751",
+      "lastModifiedDateTime": "2025-07-28T21:03:54",
+      "interferenceMetaData": {
+        "interferenceStyleName": "TANG"
+      },
+      "seniorPartyData": {
+        "applicationNumberText": "07996817",
+        "counselName": "SMITH, JANE",
+        "grantDate": "2003-09-02",
+        "groupArtUnitNumber": "1763",
+        "inventorName": "TANG",
+        "realPartyInInterestName": "TANG",
+        "patentNumber": "6614529",
+        "patentOwnerName": "TANG",
+        "technologyCenterNumber": "1700",
+        "publicationDate": "2002-01-15",
+        "publicationNumber": "US2002XXXXXXA1"
+      },
+      "juniorPartyData": {
+        "applicationNumberText": "07996817",
+        "counselName": "SMITH, JANE",
+        "grantDate": "2003-09-02",
+        "groupArtUnitNumber": "1763",
+        "inventorName": "TANG",
+        "realPartyInInterestName": "TANG",
+        "patentNumber": "6614529",
+        "patentOwnerName": "TANG",
+        "technologyCenterNumber": "1700",
+        "publicationDate": "2002-01-15",
+        "publicationNumber": "US2002XXXXXXA1"
+      },
+      "additionalPartyDataBag": [
+        {
+          "applicationNumberText": "07996817",
+          "inventorName": "DOE, JOHN",
+          "additionalPartyName": "ACME CORP",
+          "patentNumber": "6614529"
+        }
+      ],
+      "decisionDocumentData": {
+        "documentFilingDate": "2002-02-01",
+        "documentIdentifier": "a1adf3e98f9e07271420b607222b5ad0...",
+        "documentName": "jd103751",
+        "documentSizeQuantity": 45224,
+        "documentOCRText": "The opinion in support of the decision...",
+        "documentTitleText": "DECISION-103751",
+        "downloadURI": "https://example.org/path/to/document.pdf",
+        "statuteAndRuleBag": [
+          ""
+        ],
+        "decisionIssueDate": "2002-02-25",
+        "decisionTypeCategory": "Decision",
+        "issueTypeBag": [
+          ""
+        ],
+        "interferenceOutcomeCategory": "Interference"
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+HomeAPIsFinal Petition Decisions API - Petition Decision Data
+Petition Decision Data
+Was this page helpful?
+Conduct a search of all final petition decisions from the Commissioner for Patents and all relevant data fields. This data is refreshed daily.
+
+You can download the JSON Schema file to parse the JSON responses returned by the APIs.
+
+GET https://api.uspto.gov/api/v1/petition/decisions/{petitionDecisionRecordIdentifier}?includeDocuments=true
+
+Returns a list of all petition decisions that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+POST See Swagger documentation
+
+Returns a list of all petition decisions that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Internal server error.
+
+An unexpected condition has occurred on the server, and the server was unable to fulfill the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/petition/decisions/34044333-4b40-515f-a684-2515325c57c5?includeDocuments=true
+JSON RESPONSE SAMPLE
+{
+  "count": 1,
+  "requestIdentifier": "032e46d5-6003-4cfa-9f5f-60e8f6934520",
+  "petitionDecisionDataBag": [
+    {
+      "actionTakenByCourtName": "None",
+      "applicationNumberText": "13815942",
+      "businessEntityStatusCategory": "Micro",
+      "courtActionIndicator": false,
+      "customerNumber": 126010,
+      "decisionDate": "2025-03-19",
+      "decisionPetitionTypeCode": 529,
+      "decisionTypeCode": "C",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "firstInventorToFileIndicator": true,
+      "groupArtUnitNumber": "2447",
+      "inventionTitle": "Communication and/or Creation of Taste",
+      "inventorBag": [
+        "Sivatharan Natkunanathan"
+      ],
+      "lastIngestionDateTime": "2025-05-05T15:31:39",
+      "petitionDecisionRecordIdentifier": "34044333-4b40-515f-a684-2515325c57c5",
+      "petitionIssueConsideredTextBag": [
+        "Withdrawal of abandonment"
+      ],
+      "petitionMailDate": "2021-10-21",
+      "prosecutionStatusCode": "160",
+      "prosecutionStatusCodeDescriptionText": "Prior to examination",
+      "ruleBag": [
+        "37 CFR 1.181",
+        "37 CFR 1.135",
+        "37 CFR 1.136",
+        "37 CFR 1.137",
+        "37 CFR 1.183",
+        "37 CFR 1.53"
+      ],
+      "technologyCenter": "2400",
+      "documentBag": [
+        {
+          "applicationNumberText": "13815942",
+          "officialDate": "2025-03-20T11:41:54+00:00",
+          "documentIdentifier": "M98QOH0NWFYTX17",
+          "documentCode": "PETDEC",
+          "documentCodeDescriptionText": "Petition Decision",
+          "directionCategory": "OUTGOING",
+          "downloadOptionBag": [
+            {
+              "mimeTypeIdentifier": "PDF",
+              "downloadUrl": "https://api.test.uspto.gov/api/v1/download/applications/13815942/M98QOH0NWFYTX17.pdf",
+              "pageTotalQuantity": 10
+            },
+            {
+              "mimeTypeIdentifier": "MS_WORD",
+              "downloadUrl": "https://api.test.uspto.gov/api/v1/download/applications/13815942/M98QOH0NWFYTX17/files/O.P.%20Petition%20Decision.docx"
+            },
+            {
+              "mimeTypeIdentifier": "XML",
+              "downloadUrl": "https://api.test.uspto.gov/api/v1/download/applications/13815942/M98QOH0NWFYTX17/xmlarchive"
+            },
+            {
+              "mimeTypeIdentifier": "PNG",
+              "downloadUrl": "https://api.test.uspto.gov/api/v1/download/applications/13815942/M98QOH0NWFYTX17/files/media_image1.png"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+ 

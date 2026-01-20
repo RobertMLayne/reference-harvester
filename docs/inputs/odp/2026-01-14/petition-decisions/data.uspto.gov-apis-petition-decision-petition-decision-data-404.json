@@ -1,0 +1,35 @@
+HomeAPIsFinal Petition Decisions API - Petition Decision Data
+Petition Decision Data
+Was this page helpful?
+Conduct a search of all final petition decisions from the Commissioner for Patents and all relevant data fields. This data is refreshed daily.
+
+You can download the JSON Schema file to parse the JSON responses returned by the APIs.
+
+GET https://api.uspto.gov/api/v1/petition/decisions/{petitionDecisionRecordIdentifier}?includeDocuments=true
+
+Returns a list of all petition decisions that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+POST See Swagger documentation
+
+Returns a list of all petition decisions that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Access denied.
+
+Access to the requested patent or application is forbidden. There are many reasons this could be the case. For example, your API key has expired or is invalid.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/petition/decisions/d539240d-2640-415c-9aca-e0f09092bbb
+JSON RESPONSE SAMPLE
+{
+  "code": 403,
+  "error": "Forbidden"
+}

@@ -1,0 +1,29 @@
+HomeAPIsPTAB Appeals API - Search by Document Identifier
+Search by Document Identifier
+Was this page helpful?
+Use this endpoint when you want to retrieve Appeals data for a specific Appeal whose document identifier you know. A document Identifier is a unique ID for each document. To locate an Appeal document identifier please visit search by Appeal number API. You can test APIs right away in Swagger UI swagger icon.
+
+GET https://api.uspto.gov/api/v1/patent/appeals/decisions/{documentIdentifier}
+
+e.g. https://api.uspto.gov/api/v1/patent/interferences/decisions/bbc1cc8275574c3d41d022f2e2040550ccad434ae6fbf07294895a04
+
+Returns Appeals data for a document identifier.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Access denied.
+
+Access to the requested patent or application is forbidden. There are many reasons this could be the case. For example, your API key has expired or is invalid.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/appeals/decisions/{documentIdentifier}
+JSON RESPONSE SAMPLE
+{
+  "code": 403,
+  "error": "Forbidden"
+}

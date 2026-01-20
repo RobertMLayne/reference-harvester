@@ -1,0 +1,25 @@
+HomeAPIsTransition guide - Patent Examination Data System (PEDS)
+Transition guide - Patent Examination Data System (PEDS)
+Was this page helpful?
+info_icon
+Want to view the latest PEDS to Open Data Portal (ODP) PEDS API mapping? Download our PEDS API to ODP API mapping page.
+As of March 14, 2025, Patent Examination Data System (PEDS) is no longer available. To access publicly available records of USPTO patent applications or patent filing status, users can access Open Data Portal’s Patent File Wrapper feature.
+
+Use this transition guide to get you accustomed to the Patent File Wrapper interface and utilizing the Application Programming Interfaces (APIs).
+
+Here are some key points to consider as you are migrating your API from PEDS to ODP:
+
+PEDS supported data starting from 1900. ODP includes data from 2001 to present
+Data before 2001 does not include comprehensive data, and records need to be completed. This data does not provide easy dissemination to users and allows us to focus our efforts on enhancing ODP capabilities.
+To retrieve data prior to January 2001 that you previously found on PEDS, you can visit the Patent Center (for data similar to what is found in ODP) or find the static files in Bulk Data Directory’s Patent Examination Data System (Bulk Datasets) - XML and Patent Examination Data System (Bulk Datasets) - JSON
+PEDS had datasets in XML and JSON format for download. ODP only supports JSON format via API
+For any API calls using XML format, your program must be switched to retrieve JSON format only.
+PEDS did not require an API key, but ODP requires users to get their unique API key to access data
+Learn how to get your API Key on the Getting Started page.
+The link for your API Call will need to change
+PEDS API was "<https://ped.uspto.gov/api/>"
+ODP API link will be "<https://api.uspto.gov/>"
+Free form search is supported on ODP
+PEDS did not support free-form search where a value is searched against all searchable datasets.
+ODP provides more attributes
+ODP provides a more refined data structure and additional attributes that were not supported in PEDS. The attribute list and details can be found in the API Documentation page and the API Schema Document.

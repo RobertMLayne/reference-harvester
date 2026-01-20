@@ -1,0 +1,29 @@
+HomeAPIsPTAB Trials API - Search Decisions by Trial Number
+Search Decisions by Trial Number
+Was this page helpful?
+Search Decisions by Trial number. Use this endpoint when you want Decisions data for a specific trial whose Trial number you know. All public documents filed in PTAB Trial Decisions (i.e., briefing filed by parties and decisions by PTAB) are available since September 2012. You can also test the API right away in Swagger UI swagger icon.
+
+GET https://api.uspto.gov/api/v1/patent/trials/{trialNumber}/decisions
+
+e.g. https://api.uspto.gov/api/v1/patent/trials/IPR2025-01222/decisions
+
+Returns Trial Decisions data for a Trial number.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Access denied.
+
+Access to the requested patent or application is forbidden. There are many reasons this could be the case. For example, your API key has expired or is invalid.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/trials/{trialNumber}/decisions
+JSON RESPONSE SAMPLE
+{
+  "code": 403,
+  "error": "Forbidden"
+}

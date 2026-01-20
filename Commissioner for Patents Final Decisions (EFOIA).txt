@@ -1,0 +1,23 @@
+HomeAPIsTransition Guide – Patent Trial and Appeal Board (PTAB)
+Transition Guide – Patent Trial and Appeal Board (PTAB)
+Was this page helpful?
+info_icon
+Want to view the latest Developer Hub Patent Trial and Appeal Board (DH PTAB) API to Open Data Portal (ODP) PTAB API mapping? Download our DH PTAB API to ODP PTAB API mapping page.
+Here are some key points to consider as you are migrating your PTAB APIs from DH PTAB to ODP PTAB:​
+
+DH PTAB data is now in ODP
+Patent Trial and Appeal Board (uspto.gov) will remain available until the decommission date is announced and it will be fully replaced with Patent Trial and Appeal Board | Open Data Portal (uspto.gov)
+DH PTAB did not require an API key, but ODP requires users to get their unique API key to access data
+Learn how to get your API Key in the Getting Started page.
+The link for your API Call will need to change
+DH PTAB API was "https://developer.uspto.gov/ptab-api/"
+ODP API link is "https://api.uspto.gov/"
+Swagger page for ODP API is https://data.uspto.gov/swagger/index.html
+ODP provides more attributes
+ODP provides a more refined data structure and additional attributes that were not supported in DH PTAB. Attribute list and details can be found in the API Documentation page and see below for API Schema Documents.​
+PTAB Trial Proceedings​
+PTAB Trial Decisions Documents​
+PTAB Appeals ​​
+PTAB Interferences​
+Documentation can be found here for DH PTAB API to ODP API mapping.
+

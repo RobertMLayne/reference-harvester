@@ -1,0 +1,31 @@
+HomeAPIsPatent File Wrapper API - Transactions
+Transactions
+Was this page helpful?
+The transactions section contains additional information concerning the transaction activity that has occurred for each patent application. This includes details on the date of the transaction, code (Examiner’s Amendment Communication, Printer Rush, IDS Filed, Application is Now Complete, PTA 36 months), and transaction description. Use this endpoint when you want transaction data related to a specific patent application whose application number you know. You can test the API right away in Swagger UI swagger icon.
+
+This dataset includes published patent applications and issued patent data filed after January 1, 2001. This data is refreshed daily.
+
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/transactions
+
+Returns all transactions associated for supplied application.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Internal server error.
+
+An unexpected condition has occurred on the server, and the server was unable to fulfill the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/transactions
+JSON RESPONSE SAMPLE
+{
+  "code": 500,
+  "error": "Internal Server Error",
+  "errorDetails": "Internal Server Error. Please contact Help Desk.",
+  "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}

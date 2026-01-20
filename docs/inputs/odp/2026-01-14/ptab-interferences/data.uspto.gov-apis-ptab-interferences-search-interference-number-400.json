@@ -1,0 +1,28 @@
+Search by Interference Number
+Was this page helpful?
+Search Interferences by Interference number. Use this endpoint when you want Interferences data for a specific Interference whose Interference number you know. All public documents filed in PTAB Interferences (i.e., briefing filed by parties and decisions by PTAB) are available since 1997. You can also test the API right away in Swagger UI swagger icon.
+
+GET https://api.uspto.gov/api/v1/patent/interferences/{interferenceNumber}/decision
+
+e.g. https://api.uspto.gov/api/v1/patent/interferences/106039/decision
+
+Returns Interferences data for an Interference number.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Access denied.
+
+Access to the requested patent or application is forbidden. There are many reasons this could be the case. For example, your API key has expired or is invalid.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/interferences/{interferenceNumber}/decisions
+JSON RESPONSE SAMPLE
+{
+  "code": 403,
+  "error": "Forbidden"
+}

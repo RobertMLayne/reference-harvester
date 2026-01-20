@@ -1,0 +1,27 @@
+HomeAPIsPTAB Trials API - Download Proceedings Search Results
+Download Proceedings Search Results
+Was this page helpful?
+The Download API contains Trial Proceedings search records. Use this endpoint when you want to download Trial Proceedings' search results. You can download search results as CSV or JSON format. All public documents filed in PTAB Trial Proceedings (i.e., briefing filed by parties and decisions by PTAB) are available since September 2012.
+
+GET https://api.uspto.gov/api/v1/patent/trials/proceedings/search/download
+
+Returns a binary stream of data with the content of the requested file name.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Access denied.
+
+Access to the requested patent or application is forbidden. There are many reasons this could be the case. For example, your API key has expired or is invalid.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/trials/proceedings/search/download
+JSON RESPONSE SAMPLE
+{
+  "code": 403,
+  "error": "Forbidden"
+}

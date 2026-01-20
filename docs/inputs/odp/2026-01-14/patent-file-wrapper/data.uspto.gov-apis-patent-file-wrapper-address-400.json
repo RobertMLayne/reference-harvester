@@ -1,0 +1,226 @@
+HomeAPIsPatent File Wrapper API - Address and Attorney/Agent Information
+Address and Attorney/Agent Information
+Was this page helpful?
+The Address and Attorney/Agent Information section provides additional information concerning the attorney/agent related to a patent, including the associated attorney/agent's address. Use this endpoint when you want address and attorney/agent information related to a specific patent application whose application number you know. You can test APIs right away in Swagger UI swagger icon.
+
+This dataset includes published patent applications and issued patent data filed after January 1, 2001. This data is refreshed daily.
+
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/attorney
+
+Returns attorney/agent data for supplied application number.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Successful request.
+
+Data Property	Description	Type
+recordAttorney	Details of the attorney or agent associated with an application/patent.	N/A
+  customerNumberCorrespondenceData	Customer number	N/A
+  patronIdentifier	Patron identifier	Number
+  organizationStandardName	Organization standard name	String
+powerOfAttorneyAddressBag	Collection of power of attorney address	N/A
+  nameLineOneText	First line of name associated with attorney/agent correspondence address.	String
+  nameLineTwoText	Second line of name associated with attorney/agent correspondence address.	String
+  addressLineOneText	First line of address associated with attorney/agent correspondence address.	String
+  addressLineTwoText	Second line of address associated with attorney/agent correspondence address.	String
+  geographicRegionName	Geographic region name, e.g., state or province.	String
+  geographicRegionCode	Geographic region code.	String
+  postalCode	Postal code.	String
+  cityName	City name.	String
+  countryCode	Country code.	String
+  countryName	Country name.	String
+telecommunicationAddressBag	List of telecommunication addresses, such as the phone number(s) associated with the aforementioned attorney or agent.	N/A
+  telecommunicationNumber	Telecommunication number, such as the phone number associated with the aforementioned attorney or agent.	String
+  extensionNumber	Telecommunication extension	String
+  telecomTypeCode	Telecommunication type code e.g: PHONE, FAX	String
+powerOfAttorneyBag	Collection of power of attorney data	N/A
+  nameLineOneText	First line of name associated with attorney/agent correspondence address.	String
+  nameLineTwoText	Second line of name associated with attorney/agent correspondence address.	String
+powerOfAttorneyBag	Power of attorney address data	N/A
+  firstName	First name	String
+  middleName	Middle name	String
+  lastName	Last name	String
+  namePrefix	Name prefix	String
+  nameSuffix	Name suffix	String
+  preferredName	Preferred name	String
+  countryCode	Country code	String
+  registrationNumber	Registration number	String
+  activeIndicator	Active indicator	String
+  registeredPractitionerCategory	Practitioner category	String
+attorneyAddressBag	Attorney address bag	String
+  nameLineOneText	First line of name associated with attorney/agent correspondence address.	String
+  nameLineTwoText	Second line of name associated with attorney/agent correspondence address.	String
+  addressLineOneText	First line of address associated with attorney/agent correspondence address.	String
+  addressLineTwoText	Second line of address associated with attorney/agent correspondence address.	String
+  geographicRegionName	Geographic region name, e.g., state or province.	String
+  geographicRegionCode	Geographic region code.	String
+  postalCode	Postal code.	String
+  cityName	City name.	String
+  countryCode	Country code.	String
+  countryName	Country name.	String
+telecommunicationAddressBag	List of telecommunication addresses, such as the phone number(s) associated with the aforementioned attorney or agent.	N/A
+  telecommunicationNumber	Telecommunication number	String
+  extensionNumber	Telecommunication extension	String
+  telecomTypeCode	Telecommunication type code e.g: PHONE, FAX	String
+attorneyBag	Power of attorney address data	N/A
+  firstName	First name	String
+  middleName	Middle name	String
+  lastName	Last name	String
+  namePrefix	Name prefix	String
+  nameSuffix	Name suffix	String
+  registrationNumber	Registration number	String
+  activeIndicator	Active indicator	String
+  registeredPractitionerCategory	Practitioner category	String
+attorneyAddressBag	All the elements of the address that is on file for the attorney or agent associated with the application.	String
+  nameLineOneText	First line of name associated with attorney/agent correspondence address.	String
+  nameLineTwoText	Second line of name associated with attorney/agent correspondence address.	String
+  addressLineOneText	First line of address associated with attorney/agent correspondence address.	String
+  addressLineTwoText	Second line of address associated with attorney/agent correspondence address.	String
+  geographicRegionName	Geographic region name, e.g., state or province.	String
+  geographicRegionCode	Geographic region code.	String
+  postalCode	Postal code.	String
+  cityName	City name.	String
+  countryCode	Country code.	String
+  countryName	Country name.	String
+telecommunicationAddressBag	List of telecommunication addresses, such as the phone number(s) associated with the aforementioned attorney or agent.	N/A
+  telecommunicationNumber	Telecommunication number	String
+  extensionNumber	Telecommunication extension	String
+  telecomTypeCode	Telecommunication type code e.g: PHONE, FAX	String
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/attorney
+JSON RESPONSE SAMPLE
+{
+  "count": 1,
+  "patentFileWrapperDataBag": [
+    {
+      "applicationNumberText": "18045436",
+      "recordAttorney": {
+        "powerOfAttorneyBag": [
+          {
+            "activeIndicator": "ACTIVE",
+            "firstName": "DIANNE",
+            "lastName": "REED",
+            "registrationNumber": "31292",
+            "attorneyAddressBag": [
+              {
+                "cityName": "PORTOLA VALLEY",
+                "geographicRegionName": "CALIFORNIA",
+                "geographicRegionCode": "CA",
+                "countryCode": "US",
+                "postalCode": "94028",
+                "nameLineOneText": "VLP LAW GROUP LLP",
+                "countryName": "UNITED STATES",
+                "addressLineOneText": "4107 ALPINE ROAD"
+              }
+            ],
+            "telecommunicationAddressBag": [
+              {
+                "telecommunicationNumber": "650-446-3320",
+                "telecomTypeCode": "TEL"
+              }
+            ],
+            "registeredPractitionerCategory": "ATTNY"
+          },
+          {
+            "activeIndicator": "ACTIVE",
+            "firstName": "BENJAMIN",
+            "lastName": "CARROLL",
+            "registrationNumber": "76510",
+            "attorneyAddressBag": [
+              {
+                "cityName": "SALT LAKE CITY",
+                "geographicRegionName": "UTAH",
+                "geographicRegionCode": "UT",
+                "countryCode": "US",
+                "postalCode": "84111",
+                "nameLineOneText": "PATENT LAW WORKS",
+                "countryName": "UNITED STATES",
+                "addressLineOneText": "201 SOUTH MAIN STREET, SUITE 250"
+              }
+            ],
+            "telecommunicationAddressBag": [
+              {
+                "telecommunicationNumber": "801-258-9817",
+                "telecomTypeCode": "TEL"
+              }
+            ],
+            "registeredPractitionerCategory": "ATTNY"
+          }
+        ],
+        "attorneyBag": [
+          {
+            "activeIndicator": "ACTIVE",
+            "firstName": "MONICIA",
+            "lastName": "ELROD-ERICKSON",
+            "registrationNumber": "51651",
+            "attorneyAddressBag": [
+              {
+                "cityName": "MENLO PARK",
+                "geographicRegionName": "CALIFORNIA",
+                "geographicRegionCode": "CA",
+                "countryCode": "US",
+                "postalCode": "94025",
+                "nameLineOneText": "PACIFIC BIOSCIENCES OF CALIFORNIA, INC.",
+                "countryName": "UNITED STATES",
+                "addressLineOneText": "1380 WILLOW ROAD"
+              }
+            ],
+            "telecommunicationAddressBag": [
+              {
+                "telecommunicationNumber": "650-521-8124",
+                "telecomTypeCode": "TEL"
+              }
+            ],
+            "registeredPractitionerCategory": "AGENT"
+          },
+          {
+            "activeIndicator": "ACTIVE",
+            "firstName": "PATRICK",
+            "lastName": "MORRIS",
+            "registrationNumber": "53351",
+            "attorneyAddressBag": [
+              {
+                "cityName": "SAN FRANCISCO",
+                "geographicRegionName": "CALIFORNIA",
+                "geographicRegionCode": "CA",
+                "countryCode": "US",
+                "postalCode": "94105",
+                "nameLineOneText": "PERKINS COIE, LLP",
+                "countryName": "UNITED STATES",
+                "addressLineOneText": "505 HOWARD STREET",
+                "addressLineTwoText": "SUITE 1000"
+              }
+            ],
+            "telecommunicationAddressBag": [
+              {
+                "telecommunicationNumber": "415-344-7105",
+                "telecomTypeCode": "TEL"
+              }
+            ],
+            "registeredPractitionerCategory": "ATTNY"
+          }
+        ],
+        "customerNumberCorrespondenceData": {
+          "powerOfAttorneyAddressBag": [
+            {
+              "cityName": "Palo Alto",
+              "geographicRegionName": "CALIFORNIA",
+              "geographicRegionCode": "CA",
+              "countryCode": "US",
+              "postalCode": "94301",
+              "nameLineOneText": "VLP Law Group LLP",
+              "countryName": "UNITED STATES",
+              "addressLineOneText": "555 Bryant Street",
+              "addressLineTwoText": "Suite 820"
+            }
+          ],
+          "patronIdentifier": 86012
+        }
+      }
+    }
+  ],
+  "requestIdentifier": "5eedff35-af64-46ee-9134-a40517dd062b"
+}

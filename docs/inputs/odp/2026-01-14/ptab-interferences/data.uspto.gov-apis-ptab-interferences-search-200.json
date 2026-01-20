@@ -1,0 +1,103 @@
+Search Interferences
+Was this page helpful?
+Conduct a search of publicly available Interferences. All public Interference decisions filed by PTAB are available since July 1997.
+
+Other details for using the Search endpoint:
+
+If you do not specify which data attributes you would like to see in the response, it returns all data attributes.
+
+All search syntaxes are applicable to this endpoint, meaning any number of combinations is possible. Some example requests are below, but for more information, view the Simplified Syntax documentation that is linked in the API Syntax Examples page. You can also test the API right away in Swagger UI swagger icon.
+
+You can download the JSON Schema file to parse the JSON responses returned by the APIs.
+
+GET https://api.uspto.gov/api/v1/patent/interferences/decisions/search 
+
+Returns a list of all Interferences that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+POST See Swagger documentation
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Bad request.
+
+The server was unable to understand the request due to malformed syntax or invalid parameters. This code is typically returned when there is an error in your request, such as missing or incorrect data.
+
+Update your syntax or parameters and try again.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/interferences/decisions/search
+JSON RESPONSE SAMPLE
+{
+  "count": 100,
+  "requestIdentifier": "cff9c3ed-82ca-4d2c-a2e6-c43d5710c2ce",
+  "patentInterferenceDataBag": [
+    {
+      "interferenceNumber": "103751",
+      "lastModifiedDateTime": "2025-07-28T21:03:54",
+      "interferenceMetaData": {
+        "interferenceStyleName": "TANG",
+        "interferenceLastModifiedDate": "2025-05-05",
+        "fileDownloadURI": "/download"
+      },
+      "seniorPartyData": {
+        "applicationNumberText": "07996817",
+        "counselName": "SMITH, JANE",
+        "grantDate": "2003-09-02",
+        "groupArtUnitNumber": "1763",
+        "inventorName": "TANG",
+        "realPartyInInterestName": "TANG",
+        "patentNumber": "6614529",
+        "patentOwnerName": "TANG",
+        "technologyCenterNumber": "1700",
+        "publicationDate": "2002-01-15",
+        "publicationNumber": "US2002XXXXXXA1"
+      },
+      "juniorPartyData": {
+        "applicationNumberText": "07996817",
+        "counselName": "SMITH, JANE",
+        "grantDate": "2003-09-02",
+        "groupArtUnitNumber": "1763",
+        "inventorName": "TANG",
+        "realPartyInInterestName": "TANG",
+        "patentNumber": "6614529",
+        "patentOwnerName": "TANG",
+        "technologyCenterNumber": "1700",
+        "publicationDate": "2002-01-15",
+        "publicationNumber": "US2002XXXXXXA1"
+      },
+      "additionalPartyDataBag": [
+        {
+          "applicationNumberText": "07996817",
+          "inventorName": "DOE, JOHN",
+          "additionalPartyName": "ACME CORP",
+          "patentNumber": "6614529"
+        }
+      ],
+      "decisionDocumentData": {
+        "documentFilingDate": "2002-02-01",
+        "documentIdentifier": "a1adf3e98f9e07271420b607222b5ad0...",
+        "documentName": "jd103751",
+        "documentSizeQuantity": 45224,
+        "documentOCRText": "The opinion in support of the decision...",
+        "documentTitleText": "DECISION-103751",
+        "fileDownloadURI": "https://example.org/path/to/document.pdf",
+        "statuteAndRuleBag": [
+          "37 CFR 42.100",
+          "37 CFR 43.100"
+        ],
+        "decisionIssueDate": "2002-02-25",
+        "decisionTypeCategory": "Decision",
+        "issueTypeBag": [
+          "Substantive",
+          "Procedural"
+        ],
+        "interferenceOutcomeCategory": "Interference"
+      }
+    }
+  ]
+}

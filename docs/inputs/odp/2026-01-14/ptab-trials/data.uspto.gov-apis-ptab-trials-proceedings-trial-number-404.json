@@ -1,0 +1,31 @@
+HomeAPIsPTAB Trials API - Search Proceedings by Trial Number
+Search Proceedings by Trial Number
+Was this page helpful?
+Search Proceedings by Trial number. Use this endpoint when you want Proceedings data for a specific trial whose Trial number you know. All public documents filed in PTAB Trial Proceedings (i.e., briefing filed by parties and decisions by PTAB) are available since September 2012. You can also test the API right away in Swagger UI swagger icon.
+
+GET https://api.uspto.gov/api/v1/patent/trials/proceedings/{trialNumber}
+
+e.g., https://api.uspto.gov/api/v1/patent/trials/proceedings/IPR2025-01522
+
+Returns Trial Proceedings data for a Trial number.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Request Entity Too Large.
+
+The server is refusing to process a request because the request payload is larger than the server is willing or able to process. The server MAY close the connection to prevent the client from continuing the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/trials/proceedings/{trialNumber}
+JSON RESPONSE SAMPLE
+{
+  "code": 413,
+  "message": "Payload Too Large",
+  "detailedMessage": "Response payload exceeds allowed limit of 6MB, please refine your search criteria or reduce payload size by reducing page size",
+  "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}
