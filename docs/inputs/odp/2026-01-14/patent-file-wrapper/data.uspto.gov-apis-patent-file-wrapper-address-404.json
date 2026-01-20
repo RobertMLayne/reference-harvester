@@ -1,0 +1,29 @@
+HomeAPIsPatent File Wrapper API - Address and Attorney/Agent Information
+Address and Attorney/Agent Information
+Was this page helpful?
+The Address and Attorney/Agent Information section provides additional information concerning the attorney/agent related to a patent, including the associated attorney/agent's address. Use this endpoint when you want address and attorney/agent information related to a specific patent application whose application number you know. You can test APIs right away in Swagger UI swagger icon.
+
+This dataset includes published patent applications and issued patent data filed after January 1, 2001. This data is refreshed daily.
+
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/attorney
+
+Returns attorney/agent data for supplied application number.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Access denied.
+
+Access to the requested patent or application is forbidden. There are many reasons this could be the case. For example, your API key has expired or is invalid.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/attorney
+JSON RESPONSE SAMPLE
+{
+  "code": 403,
+  "error": "Forbidden"
+}

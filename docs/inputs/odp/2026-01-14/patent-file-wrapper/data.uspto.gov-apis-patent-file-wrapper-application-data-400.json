@@ -1,0 +1,230 @@
+HomeAPIsPatent File Wrapper API - Application Data
+Application Data
+Was this page helpful?
+The Application Data section contains key bibliographic information found on the front page of granted patents and published patent applications. Use this endpoint when you want application data for a specific patent application whose application number you know. You can test APIs right away in Swagger UI swagger icon.
+
+This dataset includes published patent applications and issued patent data filed after January 1, 2001. This data is refreshed daily.
+
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/meta-data
+
+e.g. https://api.uspto.gov/api/v1/patent/applications/16330077/meta-data
+
+Returns application data for application number
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Successful request.
+
+Data Property	Description	Type
+PatentFileWrapperDataBag	Patent File Wrapper data.	N/A
+  applicationNumberText	The unique number assigned by the USPTO to a patent application when it is filed.	String
+entityStatusData	Entity status data	Entity status
+  smallEntityStatusIndicator	Small entity status indicator	boolean
+  businessEntityStatusCategory	Status of business The large-or-small-entity payment status of the APPLICATION PATENT CASE at the time of the small entity status event and thereafter until the occurrence of a later small entity status event for the APPLICATION PATENT CASE. entity being established for the purpose of paying a fee such as a filing fee and a maintenance fee	String
+publicationDateBag	Publication dates	Array of dates
+publicationSequenceNumberBag	Publication sequence number	N/A
+publicationCategoryBag	One or more of the publication category	String
+  docketNumber	Docket number	String
+applicationMetaData	MetaData of the application.	N/A
+  firstInventorToFileIndicator	First inventor to file indicator	String
+  firstApplicantName	First applicant name	String
+  firstInventorName	First inventory name	String
+  applicationConfirmationNumber	The application's confirmation number	String
+  applicationStatusDate	The date of the application status	Date
+  applicationStatusDescriptionText	status of the application; values: new = new application	String
+  filingDate	Filing or 371(c) date on which a patent application was filed and received in the USPTO.	Date
+  effectiveFilingDate	The date according to USPTO criteria that the patent case qualified as having been 'filed'. The effective filing date is the same or later than the filingDate. The effectiveFilingDate is not the date of any priority or benefit claim to a prior filed application. For most applications the effectiveFilingDate is the date they filed electronically, or the date the USPTO received the mail in the USPTO mailroom.	Date
+  grantDate	The date a patent was granted.	String
+  groupArtUnitNumber	A working unit responsible for a cluster of related patent art. Generally, staffed by one supervisory patent examiner (SPE) and a number o patent examiners who determine patentability on applications for a patent. Group Art Units are currently identified by a four digit number, i.e., 1644.	String
+  applicationTypeCode	The specific value that indicates if the received patent application is considered a domestic application at the National Stage or is submitted as a Patent Cooperative Treaty (PCT) application.	String
+  applicationTypeLabelName	The label for the application type.	String
+  applicationTypeCategory	The category of the application	String
+  inventionTitle	Title of invention/application: The clear and concise technical description of the invention as provided by the patent applicant.	String
+  patentNumber	The number that uniquely identifies an issued patent. It is also the document number in USTPO published Redbook and the Official Gazette. This number can be for an originally-issued patent or a re-issued patent. It will not be for a Re-exam Certificate, a Correction Certificate, a SIR, or a notice of a request for a Re-exam or a Reissue. This number is equivalent to WIPO ST.9 as INID 11. 5012717	String
+  applicationStatusCode	Application status code	Number
+  earliestPublicationNumber	Earliest publication number	String
+  earliestPublicationDate	The first publication date	Date
+  pctPublicationNumber	PCT publication number	String
+  pctPublicationDate	PCT publication date	String
+  internationalRegistrationPublicationDate	The date of publication by the International Bureau of an international registration of an industrial design	String
+  internationalRegistrationNumber	The number assigned by the International Bureau to an international registration upon registering the industrial design in the International Register	String
+  examinerNameText	Examiner's name	String
+  class	Class	String
+  subclass	Subclass	String
+  uspcSymbolText	uspcSymbolText	String
+  customerNumber	A unique number created by the USPTO and is used in lieu of a physical address	Number
+  nationalStageIndicator	National Stage indicator.	Boolean
+cpcClassificationBag	CPC classification data collection	N/A
+applicantBag	List of applicants	N/A
+  applicantNameText	Applicant name	String
+  firstName	First name of applicant	String
+  middleName	Middle name of applicant	String
+  lastName	Last name of application	String
+  preferredName	Preferred name of applicant	String
+  namePrefix	Name prefix	String
+  nameSuffix	Name suffix	String
+  countryCode	Country code	String
+correspondenceAddressBag	Correspondence address data	N/A
+  nameLineOneText	Name first line	String
+  nameLineTwoText	Name second line	String
+  geographicRegionName	Geographic region name	String
+  geographicRegionCode	Geographic region code	String
+  cityName	City name	String
+  countryCode	Country code	String
+  countryName	Country Name	String
+  postalAddressCategory	Postal category such as 'Residential' or 'Commercial'	String
+inventorBag	All the inventors associated to application.	N/A
+  firstName	First name of inventor	String
+  middleName	Middle name of inventor	String
+  lastName	Last name of inventor	String
+  namePrefix	Name prefix	String
+  nameSuffix	Name suffix	String
+  preferredName	Preferred name of inventor	String
+  countryCode	Country code	String
+  inventorNameText	Inventor full name	String
+correspondenceAddressBag	Correspondence address data	N/A
+  nameLineOneText	Name line one	String
+  nameLineTwoText	Name line two	String
+  geographicRegionName	Geographic region name	String
+  geographicRegionCode	Geographic region code	String
+  cityName	City name	String
+  countryCode	Country code	String
+  countryName	Country name	String
+  postalAddressCategory	Postal category such as 'Residential' or 'Commercial'	String
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/meta-data
+JSON RESPONSE SAMPLE
+{
+  "count": 1,
+  "patentFileWrapperDataBag": [
+    {
+      "applicationNumberText": "18045436",
+      "applicationMetaData": {
+        "firstInventorToFileIndicator": "Y",
+        "applicationStatusCode": 150,
+        "applicationTypeCode": "UTL",
+        "entityStatusData": {
+          "smallEntityStatusIndicator": false,
+          "businessEntityStatusCategory": "Regular Undiscounted"
+        },
+        "filingDate": "2022-10-10",
+        "uspcSymbolText": "530/358",
+        "nationalStageIndicator": false,
+        "firstInventorName": "Lubomir SEBO",
+        "cpcClassificationBag": [
+          "C07H19/207",
+          "C12Q2563/107",
+          "C07K19/00",
+          "C12Q1/6869",
+          "C12Q2525/113",
+          "C09B69/105",
+          "C07H19/10"
+        ],
+        "effectiveFilingDate": "2022-10-10",
+        "publicationDateBag": [
+          "2023-11-16"
+        ],
+        "publicationSequenceNumberBag": [
+          "0366018"
+        ],
+        "earliestPublicationDate": "2023-11-16",
+        "applicationTypeLabelName": "Utility",
+        "applicationStatusDate": "2024-05-15",
+        "class": "530",
+        "applicationTypeCategory": "REGULAR",
+        "inventorBag": [
+          {
+            "firstName": "Lubomir",
+            "lastName": "SEBO",
+            "countryCode": "US",
+            "inventorNameText": "Lubomir SEBO",
+            "correspondenceAddressBag": [
+              {
+                "cityName": "Redwood City",
+                "geographicRegionName": "CALIFORNIA",
+                "geographicRegionCode": "CA",
+                "countryCode": "US",
+                "nameLineOneText": "SEBO, Lubomir",
+                "countryName": "UNITED STATES",
+                "postalAddressCategory": "residence"
+              },
+              {
+                "cityName": "Redwood City",
+                "geographicRegionName": "CALIFORNIA",
+                "geographicRegionCode": "CA",
+                "countryCode": "US",
+                "postalCode": "94061",
+                "nameLineOneText": "Lubomir  SEBO",
+                "countryName": "UNITED STATES",
+                "postalAddressCategory": "postal"
+              }
+            ]
+          },
+          {
+            "firstName": "Gene",
+            "lastName": "SHEN",
+            "countryCode": "US",
+            "inventorNameText": "Gene SHEN",
+            "correspondenceAddressBag": [
+              {
+                "cityName": "Santa Clara",
+                "geographicRegionName": "CALIFORNIA",
+                "geographicRegionCode": "CA",
+                "countryCode": "US",
+                "nameLineOneText": "SHEN, Gene",
+                "countryName": "UNITED STATES",
+                "postalAddressCategory": "residence"
+              },
+              {
+                "cityName": "Santa Clara",
+                "geographicRegionName": "CALIFORNIA",
+                "geographicRegionCode": "CA",
+                "countryCode": "US",
+                "postalCode": "95051",
+                "nameLineOneText": "Gene  SHEN",
+                "countryName": "UNITED STATES",
+                "postalAddressCategory": "postal"
+              }
+            ]
+          }
+        ],
+        "applicationStatusDescriptionText": "Patented Case",
+        "patentNumber": "12000000",
+        "grantDate": "2024-06-04",
+        "applicantBag": [
+          {
+            "applicantNameText": "Pacific Biosciences of California, Inc.",
+            "correspondenceAddressBag": [
+              {
+                "cityName": "Menlo Park",
+                "geographicRegionName": "CALIFORNIA",
+                "geographicRegionCode": "CA",
+                "countryCode": "US",
+                "postalCode": "94025",
+                "countryName": "UNITED STATES",
+                "postalAddressCategory": "postal"
+              }
+            ]
+          }
+        ],
+        "firstApplicantName": "Pacific Biosciences of California, Inc.",
+        "customerNumber": 57770,
+        "groupArtUnitNumber": "1637",
+        "earliestPublicationNumber": "US20230366018A1",
+        "inventionTitle": "LABELED NUCLEOTIDE ANALOGS, REACTION MIXTURES, AND METHODS AND SYSTEMS FOR SEQUENCING",
+        "applicationConfirmationNumber": 2251,
+        "examinerNameText": "RILEY, JEZIA",
+        "subclass": "358",
+        "publicationCategoryBag": [
+          "Granted/Issued",
+          "Pre-Grant Publications - PGPub"
+        ],
+        "docketNumber": "1407-00-014U03"
+      }
+    }
+  ],
+  "requestIdentifier": "ebdd573b-52c4-4316-8709-140d58d3dd2d"
+}

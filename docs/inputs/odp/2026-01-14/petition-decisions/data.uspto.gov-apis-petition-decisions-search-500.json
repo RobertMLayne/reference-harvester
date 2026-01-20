@@ -1,0 +1,39 @@
+HomeAPIsPTAB Trials API - Search Proceedings
+Search Proceedings
+Was this page helpful?
+Conduct a search of publicly available Trial Proceedings. All public PTAB Trial proceedings (i.e., briefing filed by parties and decisions by PTAB) are available since September 2012.
+
+Other details for using the Search endpoint:
+
+If you do not specify which data attributes you would like to see in the response, it returns all data attributes.
+
+All search syntaxes are applicable to this endpoint, meaning any number of combinations is possible. Some example requests are below, but for more information, view the Simplified Syntax documentation that is linked in the API Syntax Examples page. You can also test the API right away in Swagger UI swagger icon.
+
+You can download the JSON Schema file to parse the JSON responses returned by the APIs.
+
+GET https: //api.uspto.gov/api/v1/patent/trials/proceedings/search
+
+Returns a list of all Trial Proceedings that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+POST See Swagger documentation
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Internal server error.
+
+An unexpected condition has occurred on the server, and the server was unable to fulfill the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https: //api.uspto.gov/api/v1/patent/trials/proceedings/search
+JSON RESPONSE SAMPLE
+{
+    "code": 500,
+    "error": "Internal Server Error",
+    "errorDetails": "Internal Server Error. Please contact Help Desk.",
+    "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}

@@ -1,0 +1,355 @@
+HomeAPIsFinal Petition Decisions API - Download
+Download
+Was this page helpful?
+The Download API contains petition decision search records. Use this endpoint when you want to download petition decisions data records in publicly available patents and patent applications filed in 2001 or later. You can download data records as CSV or JSON format.
+
+GET https://api.uspto.gov/api/v1/petition/decisions/search/download?format=json
+
+Returns a binary stream of data with the content of the requested file name.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/petition/decisions/search/download?format=json
+JSON RESPONSE SAMPLE
+{
+  "petitionDecisionData": [
+    {
+      "petitionDecisionRecordIdentifier": "9f1a4a2b-eee1-58ec-a3aa-167c4075aed4",
+      "petitionMailDate": "2024-11-12",
+      "technologyCenter": "1700",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "SHANGSHUI SMARTECH LTD.",
+      "decisionDate": "2025-01-23"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "c0d7886f-f12d-5806-a011-dafbb0d49478",
+      "petitionMailDate": "2022-01-26",
+      "technologyCenter": "1700",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "DUK SAN NEOLUX CO., LTD.",
+      "decisionDate": "2022-02-01"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "901cead9-4b8a-5e8a-874f-6771a54e803d",
+      "petitionMailDate": "2021-12-28",
+      "technologyCenter": "1700",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "DUK SAN NEOLUX CO., LTD.",
+      "decisionDate": "2022-01-21"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "8a590b4f-be7a-5ef0-9304-8402fa62ab0d",
+      "petitionMailDate": "2022-09-26",
+      "technologyCenter": "3600",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Hitachi Energy Ltd",
+      "decisionDate": "2022-11-18"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "0b4dc98c-f53d-51fa-9cd7-e3e6cd67ebbc",
+      "petitionMailDate": "2022-08-28",
+      "technologyCenter": "2800",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "12271105",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Corephotonics Ltd.",
+      "decisionDate": "2022-10-03"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "5156821d-e001-50bc-a10f-9c5afc765da1",
+      "petitionMailDate": "2022-10-09",
+      "technologyCenter": "2800",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "12271105",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Corephotonics Ltd.",
+      "decisionDate": "2022-10-17"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "16a0a714-18d2-5181-97ff-a85564cbbf2c",
+      "petitionMailDate": "2024-09-13",
+      "technologyCenter": "2600",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "NEC Corporation",
+      "decisionDate": "2024-09-30"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "6b00ba75-df35-5b17-9202-e46519939803",
+      "petitionMailDate": "2022-10-21",
+      "technologyCenter": "1700",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Evonik Operations GmbH",
+      "decisionDate": "2022-11-23"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "5b4dd95e-afdc-5b94-ba3a-88c763d3f38c",
+      "petitionMailDate": "2021-11-29",
+      "technologyCenter": "1700",
+      "finalDecidingOfficeName": "INTERNATIONAL DIVISION",
+      "decisionPetitionTypeCode": 225,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Search Collaboration Pilot"
+      ],
+      "patentNumber": "12269767",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Shin-Etsu Chemical Co., Ltd.",
+      "decisionDate": "2022-06-24"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "a50db12d-7525-5764-b90e-79ed11d6ba0c",
+      "petitionMailDate": "2024-09-11",
+      "technologyCenter": "2600",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 421,
+      "petitionIssueConsideredTextBag": [
+        "Retroactive foreign filing license: 37 CFR 5.25"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Zoom Video Communications, Inc.",
+      "decisionDate": "2025-02-18"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "1d2627e3-1378-5d63-87ff-f452422ec061",
+      "petitionMailDate": "2023-09-15",
+      "technologyCenter": "1700",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "11996307",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Applied Materials, Inc.",
+      "decisionDate": "2023-10-12"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "e20e65ce-c666-5abd-8bdf-91667cf21c18",
+      "petitionMailDate": "2022-03-22",
+      "technologyCenter": "3600",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "11486143",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "decisionDate": "2022-05-06"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "3c362e8e-b789-50c9-8c9d-4495a0d74f00",
+      "petitionMailDate": "2024-08-01",
+      "technologyCenter": "2800",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Southwest Petroleum University",
+      "decisionDate": "2024-09-17"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "0403d697-e997-58b8-869b-d849430a1c9b",
+      "petitionMailDate": "2024-01-18",
+      "technologyCenter": "3700",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Hollister Incorporated",
+      "decisionDate": "2024-02-28"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "0bebe67e-7373-5967-8c57-ad25e9cb69c1",
+      "petitionMailDate": "2024-02-13",
+      "technologyCenter": "2800",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "12007660",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "eLstar Dynamics Patents B.V.",
+      "decisionDate": "2024-02-22"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "a87e6f44-a498-5c10-8321-b17380b39de8",
+      "petitionMailDate": "2023-10-05",
+      "technologyCenter": "2800",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "11983590",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "CPI CARD GROUP - COLORADO, INC.",
+      "decisionDate": "2023-11-07"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "aea57383-42be-5cd2-b55b-ffa99e6881c9",
+      "petitionMailDate": "2022-07-30",
+      "technologyCenter": "2800",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "11619864",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Corephotonics Ltd.",
+      "decisionDate": "2022-08-24"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "bbf9e174-df8e-55ac-a768-d57fd352ce9c",
+      "petitionMailDate": "2022-03-07",
+      "technologyCenter": "1600",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "INSTITUTE OF MEDICINAL BIOTECHNOLOGY, CHINES ACADEMY OF MEDICAL SCIENCES AND PEKING UNION MEDICAL",
+      "decisionDate": "2022-04-01"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "e08ef419-a669-5ce1-9bb2-2b8eb9f55fb2",
+      "petitionMailDate": "2024-03-27",
+      "technologyCenter": "3600",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Quanyun SU",
+      "decisionDate": "2024-04-18"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "dba04b1c-77fa-5095-a6c5-fdfe27f38d83",
+      "petitionMailDate": "2023-07-06",
+      "technologyCenter": "2600",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "11968002",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "SAGEMCOM ENERGY & TELECOM SAS",
+      "decisionDate": "2023-08-17"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "8987d436-5ab4-5941-8b7b-d00c60a7385a",
+      "petitionMailDate": "2022-06-23",
+      "technologyCenter": "2800",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "11876477",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Technelec Ltd",
+      "decisionDate": "2022-07-22"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "ced8dcac-ed8c-5b54-8beb-87536ee54c7e",
+      "petitionMailDate": "2023-12-01",
+      "technologyCenter": "1700",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "Contemporary Amperex Technology Co., Limited",
+      "decisionDate": "2024-01-16"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "4bace036-a0e0-5467-89bb-f19379e70aae",
+      "petitionMailDate": "2022-10-03",
+      "technologyCenter": "2800",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "11500121",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "ROCK VISUALIZATION TECHNOLOGY, LLC",
+      "decisionDate": "2022-10-17"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "33221732-f924-5777-8936-f83f4bd49774",
+      "petitionMailDate": "2023-04-13",
+      "technologyCenter": "2600",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "patentNumber": "12079427",
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "firstApplicantName": "HiDeep Inc.",
+      "decisionDate": "2023-05-26"
+    },
+    {
+      "petitionDecisionRecordIdentifier": "64ac49a0-366a-5293-bb4c-ae5f9e736163",
+      "petitionMailDate": "2023-02-13",
+      "technologyCenter": "3600",
+      "finalDecidingOfficeName": "OFFICE OF PETITIONS",
+      "decisionPetitionTypeCode": 652,
+      "petitionIssueConsideredTextBag": [
+        "Make special: Patent Prosecution Highway"
+      ],
+      "decisionTypeCodeDescriptionText": "DENIED",
+      "decisionDate": "2023-03-16"
+    }
+  ]
+} 

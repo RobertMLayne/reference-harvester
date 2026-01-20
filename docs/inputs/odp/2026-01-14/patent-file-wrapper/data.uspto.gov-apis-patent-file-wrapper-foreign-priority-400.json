@@ -1,0 +1,47 @@
+HomeAPIsPatent File Wrapper API - Foreign Priority
+Foreign Priority
+Was this page helpful?
+The Foreign Priority section provides additional information concerning the foreign priority related to each patent. Use this endpoint when you want foreign priority information related to a specific patent application whose application number you know. You can test APIs right away in Swagger UI swagger icon.
+
+This dataset includes published patent applications and issued patent data filed after January 1, 2001. This data is refreshed daily.
+
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/foreign-priority
+
+Returns foreign priority data for supplied application number.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Successful request.
+
+Data Property	Description	Type
+foreignPriorityBag	Contains information about relevant foreign priority.	N/A
+  filingDate	The date on which a priority claim was filed.	Date
+  applicationNumberText	Free format of application number.	String
+  ipOfficeName	Names of states, other entities and intergovernmental organizations the legislation of which provides for the protection of IP rights or which organizations are acting in the framework of a treaty in the field of IP	String
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/foreign-priority
+JSON RESPONSE SAMPLE
+{
+  "count": 1,
+  "patentFileWrapperDataBag": [
+    {
+      "applicationNumberText": "16791270",
+      "foreignPriorityBag": [
+        {
+          "filingDate": "2019-03-21",
+          "applicationNumberText": "201910215976.3",
+          "ipOfficeName": "CHINA"
+        },
+        {
+          "filingDate": "2019-03-21",
+          "applicationNumberText": "201910215970.6",
+          "ipOfficeName": "CHINA"
+        }
+      ]
+    }
+  ],
+  "requestIdentifier": "65dc9ea7-8e0a-4ef3-aad7-a19251459cdb"
+}

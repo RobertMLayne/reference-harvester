@@ -1,0 +1,37 @@
+HomeAPIsFinal Petition Decisions API - Petition Decision Data
+Petition Decision Data
+Was this page helpful?
+Conduct a search of all final petition decisions from the Commissioner for Patents and all relevant data fields. This data is refreshed daily.
+
+You can download the JSON Schema file to parse the JSON responses returned by the APIs.
+
+GET https://api.uspto.gov/api/v1/petition/decisions/{petitionDecisionRecordIdentifier}?includeDocuments=true
+
+Returns a list of all petition decisions that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+POST See Swagger documentation
+
+Returns a list of all petition decisions that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Not found error.
+
+The server was unable to find the requested resource or URL. This code is commonly returned when you try to access a page or resource that doesn't exist on the server.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/petition/decisions/d539240d-2640-415c-9aca-e0f09092bbb
+JSON RESPONSE SAMPLE
+{
+  "code": 404,
+  "error": "Not Found",
+  "errorDetails": "No matching records found, refine your search criteria and try again",
+  "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}

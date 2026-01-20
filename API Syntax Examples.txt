@@ -1,0 +1,66 @@
+HomeAPIsGetting started
+Getting started
+Was this page helpful?
+What is the ODP API?
+The Open Data Portal (ODP) API allows you to access USPTO data at no cost – with several ways to do it.
+
+The ODP API uses HTTP, GET, and POST requests to return responses in JSON format. ODP also provides REST APIs, which provide rich search capabilities and allow users to retrieve patent application data, continuity data, documents, patent term adjustment data, and much more. You must get an API Key to use the ODP API.
+
+Note: The data products on our website allow users to download data without the need for an API key. Using ODP APIs will require an API key.
+
+Resources for APIs:
+The API Syntax Examples section is helpful for a “quick start” and may be used by more casual users to flexibily search the same data available on the Patent File Wrapper.
+The Swagger UI swagger icon has examples, schemes, and more to test out ODP APIs for Patent File Wrapper and Bulk Data Directory. Note that you will need your ODP API key to use the Swagger UI.
+The Open Data Portal Simplified Query Syntax Documentation includes defined keywords, POST and GET search request guides, field dictionary, and FAQs.
+The Field Dictionary is a schema document that shows data fields and dataset JSON structures that ODP uses.
+The Patent File Wrapper APIs and Bulk Data Directory APIs document all available endpoints with their respective JSON Response examples and data property information for each return response.
+The API Transition Guidance will help you transition from using the Patent Examination Data System (PEDS) and Bulk Data Storage System (BDSS) to the Open Data Portal (ODP).
+The PEDS-to-ODP API Mapping and BDSS-to-ODP API Mapping will be helpful for API endpoint transition.
+How do I get an ODP API key?
+To use the ODP API, you must have a registered USPTO.gov account and a validated and linked ID.me account to request an API Key. This API Key will allow the USPTO to manage and track data threshold limits, providing sustainable access to USPTO data for all customers. Follow the steps below to obtain your API Key.
+
+Note: If you have any questions that can’t be answered in the FAQs, please contact us.
+
+1. Create your USPTO.gov account
+If you do not already have a USPTO.gov account, create a USPTO.gov account by following these steps:
+
+Access the MyODP sign-in page to get started.
+Choose the "I don't have a USPTO.gov account and need to create one." Option on the right panel to be redirected to the USPTO.gov account creation page.
+Complete the required fields and accept the USPTO terms of use and privacy policy, which apply to the Open Data Portal APIs. You are required to adhere to these terms of use.
+Check your email for an activation code. Note that this code expires in 48 hours.
+Activate your account using the link in your email.
+2. Create your ID.me account
+In MyODP, under API Key Information, click on "Verify USPTO.gov account with ID.me" to be redirected to the ID.me account creation page.
+Complete the required fields and submit the required documents to start your verification process with ID.me. You can verify using self-service, which is a guided process, or with a live agent during a video call.
+Note for international users:
+If you live outside the United States, you’ll need to verify your identity on a video call. Learn more from ID.me’s Video Call article.
+You will also need to submit an English-translated version of your documents if not already in English. Troubleshoot document upload issues with ID.me’s fix rejected documents article.
+3. Link your USPTO.gov account and obtain your API Key
+Back on the MyODP sign-in page, choose the "I need to link my ID.me account" button, which will prompt you to sign in to your USPTO.gov account.
+Sign in to your MyUSPTO and choose "Verify USPTO.gov account with ID.me," which will prompt you to sign in to your ID.me account. This will automatically link your ID.me account to your USPTO.gov account, which is a one-time registration.
+Once you are logged in, MyODP will display your unique API key.
+Notes:
+This will be the same API Key you always use to access Open Data Portal APIs.
+There can only be one API Key per account. Do not share it with others. It is an identifier unique to you.
+Your Key shouldn't expire if it is used at least one time per year. If your API Key expires, you will be provided instructions on how to renew it.
+Your API Key will always display on the MyODP page, so you can view it at any time (when logged in to your USPTO.gov account).
+You do not have to be logged in to your USPTO.gov account to use the API Key. You just need to be logged in to view it.
+4. Start using your API Key to request patent data
+Once you have obtained your API key, you can start using the Open Data Portal APIs via the Open Data Portal API Syntax Examples page.
+Find resources and documentation depending on how you want to use the APIs:
+Simple use cases
+
+See the API Syntax Examples section for simplified syntax examples and a link to additional documentation.
+Advanced use cases
+
+See advanced syntax examples and documentation in Swagger UI swagger icon.
+Note that there are additional examples for each API endpoint under the ODP Patent Data section (such as Application Data, Continuity, etc.).
+Here is a sample format of where you should add your API key in the HTTP header:
+x-api-key as “x-api-key: < api-key >”
+
+-H 'X-API-KEY: <YOUR_API_KEY>'
+For example:
+curl -X 'GET' \  'https://api.uspto.gov/api/v1/patent/applications/search' \  
+-H 'accept: application/ json' \   -H 'X-API-KEY: <YOUR_API_KEY>'
+If you have any questions or errors, please visit the FAQs page for assistance.
+

@@ -1,0 +1,31 @@
+HomeAPIsPatent File Wrapper API - Patent Term Extension
+Patent Term Extension
+Was this page helpful?
+The Patent Term Extension section provides additional information concerning the patent term extension that has occurred for each patent. Use this endpoint when you want patent term extension data related to a specific patent application whose application number you know. You can test APIs right away in Swagger UI swagger icon.
+
+This dataset includes published patent applications and issued patent data filed after January 1, 2001. This data is refreshed daily.
+
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/extension
+
+Returns adjustmextensionent data for supplied application number.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Internal server error.
+
+An unexpected condition has occurred on the server, and the server was unable to fulfill the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/extension
+JSON RESPONSE SAMPLE
+{
+  "code": 500,
+  "error": "Internal Server Error",
+  "errorDetails": "Internal Server Error. Please contact Help Desk.",
+  "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}

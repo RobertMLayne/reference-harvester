@@ -1,0 +1,71 @@
+HomeAPIsPTAB Appeals API - Search by Appeal Number
+Search by Appeal Number
+Was this page helpful?
+Search Appeals by Appeal number. Use this endpoint when you want appeals data for a specific Appeal whose Appeal number you know. All public documents filed in PTAB Appeals (i.e., briefing filed by parties and decisions by PTAB) are available since 1997. You can also test the API right away in Swagger UI swagger icon.
+
+GET https://api.uspto.gov/api/v1/patent/appeals/{appealNumber}/decisions
+
+e.g. https://api.uspto.gov/api/v1/patent/appeals/2025000420/decisions
+
+Returns Appeals data for an Appeal number
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Internal server error.
+
+An unexpected condition has occurred on the server, and the server was unable to fulfill the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/appeals/{appealNumber}/decisions
+JSON RESPONSE SAMPLE
+{
+  "count": 1,
+  "patentAppealDataBag": [
+    {
+      "appealNumber": "2024518758",
+      "lastModifiedDateTime": "2024-05-05T00:00:00Z",
+      "appealDocumentCategory": "decision document",
+      "decisionData": {
+        "appealOutcomeCategory": "Affirmed-in-Part",
+        "statuteAndRuleBag": [
+          "35 USC 134"
+        ],
+        "decisionIssueDate": "2025-02-26",
+        "decisionTypeCategory": "Rehearing",
+        "issueTypeBag": [
+          "102",
+          "113"
+        ]
+      },
+      "appelantData": {
+        "applicationNumberText": "8357487",
+        "counselName": "TARROLL, SUMDHEIM",
+        "groupArtUnitNumber": "STIC",
+        "inventorName": "Sultan, Tarik et al",
+        "realPartyName": "Unicorn Pharmaceuticals",
+        "patentNumber": "4678439",
+        "patentOwnerName": "Unicorn Pharmaceuticals",
+        "publicationDate": "2022-05-27",
+        "publicationNumber": "20210628467A1",
+        "techCenterNumber": "RD00"
+      },
+      "requestorData": {
+        "thirdPartyName": null
+      },
+      "documentData": {
+        "documentFilingDate": "2022-02-26",
+        "documentIdentifier": "PTAB/e010a6e7-b2df-4f72-b800-e232b89585ab",
+        "documentName": "Final Decision Document",
+        "documentSizeQuantity": 102113,
+        "documentOCRText": "Some OCR content",
+        "documentTypeCategory": "Rehearing",
+        "downloadURI": "https://ptab.uspto.gov/appeal/document/download"
+      }
+    }
+  ]
+}

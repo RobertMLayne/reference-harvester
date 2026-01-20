@@ -1,0 +1,29 @@
+HomeAPIsPTAB Trials API - Download Decisions Search Results
+Download Decisions Search Results
+Was this page helpful?
+The Download API contains Trial Decisions search records. Use this endpoint when you want to download Trial Decisions' search results. You can download search results as CSV or JSON format. All public documents filed in PTAB Trial Decisions (i.e., briefing filed by parties and decisions by PTAB) are available since September 2012.
+
+GET https://api.uspto.gov/api/v1/patent/trials/decisions/search/download
+
+Returns a binary stream of data with the content of the requested file name.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Internal server error.
+
+An unexpected condition has occurred on the server, and the server was unable to fulfill the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/trials/decisions/search/download
+JSON RESPONSE SAMPLE
+{
+  "code": 500,
+  "error": "Internal Server Error",
+  "errorDetails": "Internal Server Error. Please contact Help Desk.",
+  "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}

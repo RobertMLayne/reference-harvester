@@ -1,0 +1,79 @@
+HomeAPIsPTAB Trials API - Download Proceedings Search Results
+Download Proceedings Search Results
+Was this page helpful?
+The Download API contains Trial Proceedings search records. Use this endpoint when you want to download Trial Proceedings' search results. You can download search results as CSV or JSON format. All public documents filed in PTAB Trial Proceedings (i.e., briefing filed by parties and decisions by PTAB) are available since September 2012.
+
+GET https://api.uspto.gov/api/v1/patent/trials/proceedings/search/download
+
+Returns a binary stream of data with the content of the requested file name.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Internal server error.
+
+An unexpected condition has occurred on the server, and the server was unable to fulfill the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/trials/proceedings/search/download
+JSON RESPONSE SAMPLE
+{
+  "count": 1,
+  "requestIdentifier": "501eacc7-c785-4d85-96ac-a39f3f5533aa",
+  "patentTrialProceedingDataBag": [
+    {
+      "trialNumber": "IPR2024-00001",
+      "lastModifiedDateTime": "2025-07-17T20:24:01",
+      "trialMetaData": {
+        "accordedFilingDate": "2024-02-15",
+        "institutionDecisionDate": "2024-08-20",
+        "latestDecisionDate": "2025-01-12",
+        "petitionFilingDate": "2024-01-30",
+        "terminationDate": "2025-05-05",
+        "trialLastModifiedDateTime": "2025-05-05T10:22:11Z",
+        "trialStatusCategory": "Terminated"
+      },
+      "patentOwnerData": {
+        "applicationNumberText": "14412875",
+        "counselName": "Jane Q. Attorney",
+        "grantDate": "2019-09-10",
+        "groupArtUnitNumber": "3689",
+        "inventorName": "Liam Johnson",
+        "realPartyInInterestName": "ABC Corp.",
+        "patentNumber": "US9876543B2",
+        "patentOwnerName": "XYZ Holdings LLC",
+        "technologyCenterNumber": "3600"
+      },
+      "regularPetitionerData": {
+        "counselName": "John D. Counsel",
+        "realPartyInInterestName": "DEF Inc."
+      },
+      "respondentData": {
+        "applicationNumberText": "16123456",
+        "counselName": "Mary R. Lawyer",
+        "grantDate": "2020-03-22",
+        "groupArtUnitNumber": "1790",
+        "inventorName": "Emma Smith",
+        "realPartyInInterestName": "GHI LLC",
+        "patentNumber": "US10203040B2",
+        "patentOwnerName": "JKL Holdings",
+        "technologyCenterNumber": "1700"
+      },
+      "derivationPetitionerData": {
+        "applicationNumberText": "13112233",
+        "counselName": "Alex M. Advocate",
+        "grantDate": "2018-11-05",
+        "groupArtUnitNumber": "2876",
+        "inventorName": "Noah Davis",
+        "realPartyInInterestName": "MNO Partners",
+        "patentNumber": "US9001002B1",
+        "technologyCenterNumber": "2800",
+        "patentOwnerName": "PQR Ventures"
+      }
+    }
+  ]
+}

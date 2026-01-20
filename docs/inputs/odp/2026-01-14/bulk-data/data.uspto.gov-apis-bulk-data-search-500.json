@@ -1,0 +1,88 @@
+HomeAPIsBulk Datasets API - Product Data
+Product Data
+Was this page helpful?
+The Product Data section contains published, publicly available patent and trademark data in bulk form. Use this endpoint when you want data from a specific Bulk Dataset. You can test APIs right away in SwaggerUI.
+
+All search syntaxes are applicable to this endpoint, meaning any number of combinations are possible. Some example requests are below, but for more information, view the Simplified Syntax documentation that is linked in the API Syntax Examples page. You can also test the API right away in Swagger UI swagger icon.
+
+You can download the JSON Scheme file to parse the JSON Responses returned by the APIs.
+
+GET https://api.uspto.gov/api/v1/datasets/products/{productIdentifier}
+
+Returns a specific product that matches a productIdentifier
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Internal server error.
+
+An unexpected condition has occurred on the server, and the server was unable to fulfill the request.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/datasets/products/{productIdentifier}
+JSON RESPONSE SAMPLE
+{
+  "count": 1,
+  "bulkDataProductBag": [
+    {
+      "productIdentifier": "PTFWPRE",
+      "productDescriptionText": "Patent File Wrapper Entire Dataset",
+      "productTitleText": "Patent File Wrapper Entire Dataset",
+      "productFrequencyText": "WEEKLY",
+      "daysOfWeekText": "SUNDAY",
+      "productLabelArrayText": [
+        "PATENT"
+      ],
+      "productFromDate": "2001-01-01",
+      "productToDate": "2024-05-13",
+      "productTotalFileSize": 28866492413,
+      "productFileTotalQuantity": 3,
+      "lastModifiedDateTime": "2024-05-13 02:29:00",
+      "mimeTypeIdentifierArrayText": [
+        "JSON"
+      ],
+      "productFileBag": {
+        "count": 3,
+        "fileDataBag": [
+          {
+            "fileName": "2001-2010-patent-filewrapper-full-json.zip",
+            "fileSize": 9981249979,
+            "fileDataFromDate": "2001-01-01",
+            "fileDataToDate": "2010-12-31",
+            "fileTypeText": "Data",
+            "fileDownloadURI": "https://api.uspto.gov/api/v1/datasets/products/files/PTFWPRE/2001-2010-patent-filewrapper-full-json.zip",
+            "fileReleaseDate": "2024-05-12 21:58:00",
+            "fileDate": "2024-12-02 07:18:00",
+            "fileLastModifiedDateTime": "2024-12-17 19:49:00"
+          },
+          {
+            "fileName": "2011-2020-patent-filewrapper-full-json.zip",
+            "fileSize": 15506284270,
+            "fileDataFromDate": "2011-01-01",
+            "fileDataToDate": "2020-12-31",
+            "fileTypeText": "Data",
+            "fileDownloadURI": "https://api.uspto.gov/api/v1/datasets/products/files/PTFWPRE/2011-2020-patent-filewrapper-full-json.zip",
+            "fileReleaseDate": "2024-05-13 01:33:00",
+            "fileDate": "2024-12-02 07:18:00",
+            "fileLastModifiedDateTime": "2024-12-17 19:49:00"
+          },
+          {
+            "fileName": "2021-2024-patent-filewrapper-full-json.zip",
+            "fileSize": 3378958164,
+            "fileDataFromDate": "2021-01-01",
+            "fileDataToDate": "2024-05-07",
+            "fileTypeText": "Data",
+            "fileDownloadURI": "https://api.uspto.gov/api/v1/datasets/products/files/PTFWPRE/2021-2024-patent-filewrapper-full-json.zip",
+            "fileReleaseDate": "2024-05-13 02:29:00",
+            "fileDate": "2024-12-02 07:18:00",
+            "fileLastModifiedDateTime": "2024-12-17 19:49:00"
+          }
+        ]
+      }
+    }
+  ]
+}

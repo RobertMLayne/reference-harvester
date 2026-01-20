@@ -1,0 +1,39 @@
+HomeAPIsBulk Datasets API - Search
+Search
+Was this page helpful?
+Conduct a search of the repository of raw public bulk data. It contains research data from the Office of the Chief Economist. The files are updated on a regular or ongoing basis.
+
+Use this endpoint if you are interested in searching across multiple patents or applications. For example, you want to return all Patent or Trademark products use productTitle and specify the products you are looking for Patent File Wrapper, for example.
+
+Note: The other endpoint (Product Data) should be used when you're looking for a specific bulk dataset to find targeted information within the dataset. For example, you want to return all the relevant release dates for the Patent assignment XML bulk dataset.
+
+Other details for using the Search endpoint:
+
+If you don’t specify which attributes you would like to see in the response related to the search term(s), it returns all data attributes.
+
+All search syntaxes are applicable to this endpoint, meaning any number of combinations is possible. Some example requests are below, but for more information, view the Simplified Syntax documentation that is linked in the API Syntax Examples page. You can also test the API right away in Swagger UI swagger icon.
+
+You can download the JSON Schema file to parse the JSON responses returned by the APIs.
+
+GET https://api.uspto.gov/api/v1/datasets/products/search
+
+Returns a list of all products that match your search term.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Access denied.
+
+Access to the requested patent or application is forbidden. There are many reasons this could be the case. For example, your API key has expired or is invalid.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/datasets/products/search
+JSON RESPONSE SAMPLE
+{
+  "code": 403,
+  "error": "Forbidden"
+}

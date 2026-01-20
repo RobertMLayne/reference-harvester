@@ -1,0 +1,17 @@
+HomeAPIsTransition Guide - Commissioner for Patents final petition decisions
+Transition Guide - Commissioner for Patents final petition decisions
+Was this page helpful?
+Use this transition guide to get you accustomed to the Final Petition Decisions interface and utilizing the Application Programming Interfaces (APIs):
+
+Here are some key points to consider as you transition from using the Final Decisions – Commissioner for Patents webpage to ODP:
+
+The Final Petition Decisions feature will have the same datasets as the Final Decisions - Commissioner for Patents, but with improved attributes and better functionality.
+Users will be able to easily search final agency petition decisions, filter by petition considerations, and download decisions in one place instead of searching multiple pages.
+The petition categories on the webpage can now be found as petition consideration filters in Final Petition Decisions.
+Data can also be extracted using ODP’s API Calls.
+Some products in the Final Decisions - Commissioner for Patents webpage will not be available in ODP.
+Final agency petition decisions in patents and published patent applications filed prior to 2001 that are currently listed on the webpage will not be available in ODP’s Final Petition Decisions feature. Decisions that are currently found on the webpage will continue to be hosted on the webpage.
+Note: Final petition decisions in patents and published patent applications filed in 2001 or later are incrementally added to ODP’s Final Petition Decisions feature. Check out our release notes page for what is currently available.
+
+To make API calls, ODP requires users to get their unique API key to access data.
+Learn how to get your API Key on the Getting Started page.

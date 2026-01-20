@@ -1,0 +1,33 @@
+HomeAPIsBulk Datasets API - Product Data
+Product Data
+Was this page helpful?
+The Product Data section contains published, publicly available patent and trademark data in bulk form. Use this endpoint when you want data from a specific Bulk Dataset. You can test APIs right away in SwaggerUI.
+
+All search syntaxes are applicable to this endpoint, meaning any number of combinations are possible. Some example requests are below, but for more information, view the Simplified Syntax documentation that is linked in the API Syntax Examples page. You can also test the API right away in Swagger UI swagger icon.
+
+You can download the JSON Scheme file to parse the JSON Responses returned by the APIs.
+
+GET https://api.uspto.gov/api/v1/datasets/products/{productIdentifier}
+
+Returns a specific product that matches a productIdentifier
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Not found error.
+
+The server was unable to find the requested resource or URL. This code is commonly returned when you try to access a page or resource that doesn't exist on the server.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/datasets/products/{productIdentifier}
+JSON RESPONSE SAMPLE
+{
+  "code": 404,
+  "error": "Not Found",
+  "errorDetails": "No matching records found, refine your search criteria and try again",
+  "requestIdentifier": "07c5c24d-bf8e-458c-9427-a038500d6e98"
+}

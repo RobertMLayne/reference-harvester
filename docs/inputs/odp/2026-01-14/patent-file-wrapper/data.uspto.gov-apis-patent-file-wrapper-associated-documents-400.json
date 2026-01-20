@@ -1,0 +1,31 @@
+HomeAPIsPatent File Wrapper API - Associated Documents
+Associated Documents
+Was this page helpful?
+The Associated Documents section contains the PGPUB XML extracted from the bulk data product "Patent Application Full-Text Data (No Images)" zip file. It also includes the Patent Grant XML extracted from the bulk data product "Patent Grant Full-Text Data (No Images) - XML" zip file if the corresponding application has PGPUB/Patent Grant data available. You can test the API right away in Swagger UI swagger icon.
+
+These XML datasets are only available for published patent applications and issued patent data filed after January 1, 2001. This data is refreshed daily.
+
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/associated-documents
+
+e.g. https://api.uspto.gov/api/v1/patent/applications/16330077/associated-documents
+
+Returns Associated Documents for supplied application number.
+
+Note: API Key is required. Obtain an API key.
+
+If you have any questions or errors, please visit the Support page for assistance.
+
+Response
+Access denied.
+
+Access to the requested patent or application is forbidden. There are many reasons this could be the case. For example, your API key has expired or is invalid.
+
+If you have any questions or additional errors, please visit the Support section for assistance.
+
+ENDPOINT
+https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/application-data
+JSON RESPONSE SAMPLE
+{
+  "code": 403,
+  "error": "Forbidden"
+}
