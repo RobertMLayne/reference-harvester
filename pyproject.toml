@@ -9,7 +9,9 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
+"reference_harvester" = ["py.typed"]
 "reference_harvester.providers.uspto" = ["resources/*.yaml"]
+"reference_harvester.registry" = ["*.yaml"]
 
 [project]
 name = "reference-harvester"
