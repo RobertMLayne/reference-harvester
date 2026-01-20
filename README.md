@@ -8,6 +8,8 @@ Spec-driven, multi-provider harvesting and reference export. Goals:
 - Provide a spec-driven GUI that adapts to each provider’s endpoints/query terms.
 - Track all outputs under `out/`, using Git LFS for binaries while keeping diffable text artifacts in Git.
 
+EndNote reference type table constraints and the project’s no-loss mapping approach are documented in [docs/endnote_mapping.md](docs/endnote_mapping.md).
+
 ## Layout
 
 - `src/reference_harvester/` — core package (CLI, providers, registry, logging/helpers).
@@ -15,9 +17,21 @@ Spec-driven, multi-provider harvesting and reference export. Goals:
 - `out/` — run outputs (mirrors, manifests, logs, derived exports).
 - `tests/` — unit/integration tests.
 
+## Providers
+
+- `uspto` — USPTO Open Data (swagger + bulk assets)
+- `openalex` — OpenAlex works search + light docs mirroring (no API key; supports polite `mailto`)
+
+Example (OpenAlex):
+
+- Inventory: `reference-harvester inventory openalex`
+- Harvest docs seeds: `reference-harvester harvest openalex --email you@example.com --max-pages 4`
+  - Or set `OPENALEX_EMAIL` in your environment.
+- Fetch: `reference-harvester fetch openalex --query "ptab" --per-page 25 --max-pages 1 --email you@example.com`
+- Export EndNote: `reference-harvester endnote openalex`
+
 ## Next actions
 
-1. Flesh out provider plugin interface and copy/refactor USPTO provider pieces (mirror, inventory, download, export).
-2. Add canonical field registry generation and JSONL logging at ingestion boundaries.
-3. Stub the GUI (NiceGUI primary, Streamlit alt) wired to inventories/spec bundles.
-4. Port EndNote export (RIS + attachments) and Scrape→Reference pipeline.
+1. Document provider-specific inventories/mirroring and their seed lists.
+2. Expand the GUI scaffolding (NiceGUI primary, Streamlit alt) wired to inventories.
+3. Add additional providers and/or richer citation exports.
