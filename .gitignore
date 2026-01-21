@@ -23,3 +23,6 @@ logs/
 *.pyd
 .idea/
 .vscode/
+
+out/
+raw/harvester/
