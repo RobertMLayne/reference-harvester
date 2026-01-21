@@ -24,15 +24,24 @@ def _default_template_path() -> Path:
     """
 
     candidates = [
+        # Preferred: template shipped with this repo (stable, versioned).
+        Path(__file__).resolve().parent / "endnote_reference_type_table.xml",
+        # Convenience: allow callers to run from a working dir containing a
+        # template.
         Path.cwd() / "endnote_reference_type_table.xml",
-        Path(__file__).resolve().parents[2] / "endnote_reference_type_table.xml",
+        # Back-compat: historical location at the project root.
+        (
+            Path(__file__).resolve().parents[2]
+            / "endnote_reference_type_table.xml"
+        ),
     ]
     for candidate in candidates:
         if candidate.exists():
             return candidate
     raise EndNoteRefTypesError(
         "EndNote RefTypes template not found. Provide template_path=... or "
-        "place endnote_reference_type_table.xml in the project root."
+        "place endnote_reference_type_table.xml in the current working "
+        "directory."
     )
 
 
