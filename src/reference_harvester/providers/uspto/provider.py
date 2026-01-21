@@ -3209,6 +3209,9 @@ class USPTOProvider(ProviderPlugin):
             except ValueError:
                 continue
 
+            if isinstance(spec, dict):
+                spec["_source_url"] = url
+
             out_path = artifacts_dir / f"swagger_{name}.json"
             out_path.write_bytes(content)
             results.append((name, out_path, cast(dict[str, Any], spec)))
