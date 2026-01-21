@@ -177,7 +177,7 @@ def test_fetch_swagger_specs_success_writes_meta(monkeypatch, tmp_path: Path):
 
     assert len(results) == 1
     name, out_path, spec = results[0]
-    assert spec == {}
+    assert spec == {"_source_url": url}
     assert out_path.exists()
 
     meta_path = tmp_path / f"swagger_{name}.meta.json"
