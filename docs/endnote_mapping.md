@@ -145,7 +145,9 @@ For bulk-manifest sidecars, `data` contains snapshot/provenance fields (URL, cou
 
 ### Reference Types Table generation
 
-This repo patches a real exported EndNote Reference Types Table XML template (see `endnote_reference_type_table.xml`) and repurposes an `Unused N` slot.
+This repo patches a real exported EndNote Reference Types Table XML template
+(see `src/reference_harvester/endnote_reference_type_table.xml`) and repurposes
+an `Unused N` slot.
 
 To avoid breaking on localized templates or user-renamed fields, relabel overrides should match by **field id** whenever possible.
 

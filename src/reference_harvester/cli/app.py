@@ -543,7 +543,8 @@ def endnote_xml(
         help=(
             "Path to an exported EndNote Reference Types Table XML "
             "(RefTypeTable export). If omitted, the tool looks for "
-            "endnote_reference_type_table.xml."
+            "endnote_reference_type_table.xml (preferred: "
+            "src/reference_harvester/endnote_reference_type_table.xml)."
         ),
     ),
     out_path: Path = typer.Option(
