@@ -18,6 +18,7 @@ Target architecture (planned, not yet implemented) is run-scoped under `out/<pro
 ## Derived artifacts (may be re-generated)
 
 - `artifacts/` — OpenAPI bundles, endpoint inventories, coverage, diffs.
+  - OpenAlex adds `robots_inventory.{json,jsonl}` and `robots/*.txt` snapshots.
 - `api_samples/` — downloaded API sample payloads plus per-sample manifest.
 - `endnote/` — RefTypes XML and RIS exports, plus per-record sidecar attachments.
   - `endnote/uspto.ris` (provider-specific RIS)
@@ -32,5 +33,7 @@ Target architecture (planned, not yet implemented) is run-scoped under `out/<pro
 - `raw/harvester/<provider-id>/assets/` — crawled non-HTML assets.
 - `raw/harvester/<provider-id>/api_samples/` — API sample payloads.
 - `raw/harvester/<provider-id>/logs/` — JSONL exports and citation artifacts.
+  - OpenAlex `harvest` also writes `mirror_manifest.{json,jsonl}` under `logs/`.
 
-Keep `out/` tracked in Git with LFS applied to binaries; keep JSON/CSV/Markdown diffable.
+`out/` and `raw/harvester/` are generated outputs and are ignored by default in Git.
+Commit only curated, human-maintained docs under `docs/` (and optionally small, stable example artifacts).

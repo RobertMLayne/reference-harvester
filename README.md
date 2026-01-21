@@ -6,7 +6,7 @@ Spec-driven, multi-provider harvesting and reference export. Goals:
 - Plan and fetch references/metadata, log full raw payloads, and normalize into a canonical USPTO-shaped snake_case schema with reversible mappings.
 - Scrape pages/documents and emit EndNote-importable artifacts (RIS + attachments).
 - Provide a spec-driven GUI that adapts to each provider’s endpoints/query terms.
-- Track all outputs under `out/`, using Git LFS for binaries while keeping diffable text artifacts in Git.
+- Write all run outputs under `out/` (generated; ignored by default in Git).
 
 EndNote reference type table constraints and the project’s no-loss mapping approach are documented in [docs/endnote_mapping.md](docs/endnote_mapping.md).
 
@@ -14,7 +14,7 @@ EndNote reference type table constraints and the project’s no-loss mapping app
 
 - `src/reference_harvester/` — core package (CLI, providers, registry, logging/helpers).
 - `docs/` — architecture notes, output contracts.
-- `out/` — run outputs (mirrors, manifests, logs, derived exports).
+- `out/` — run outputs (mirrors, manifests, logs, derived exports); not committed.
 - `tests/` — unit/integration tests.
 
 ## Providers
@@ -29,6 +29,8 @@ Example (OpenAlex):
   - Or set `OPENALEX_EMAIL` in your environment.
 - Fetch: `reference-harvester fetch openalex --query "ptab" --per-page 25 --max-pages 1 --email you@example.com`
 - Export EndNote: `reference-harvester endnote openalex`
+
+See [docs/openalex.md](docs/openalex.md) for inventory/harvest outputs and options.
 
 ## Next actions
 
