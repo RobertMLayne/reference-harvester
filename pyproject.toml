@@ -9,7 +9,7 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
-"reference_harvester" = ["py.typed"]
+"reference_harvester" = ["py.typed", "endnote_reference_type_table.xml"]
 "reference_harvester.providers.uspto" = ["resources/*.yaml"]
 "reference_harvester.registry" = ["*.yaml"]
 
@@ -33,6 +33,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+    "build>=1.0",
+    "setuptools>=65",
+    "wheel",
+]
 gui = [
     "nicegui>=2.5.0",
     "streamlit>=1.31.0",
